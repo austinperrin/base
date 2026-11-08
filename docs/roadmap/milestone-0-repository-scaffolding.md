@@ -14,8 +14,8 @@ and plan subsequent project work from Milestone 1.
 ## Current Position
 
 The `chore/scaffold-repository` branch has completed Phases 1 and 2, with the
-completion commits recorded below. The next development group is **Phase 3: Repository Policies
-and Contribution Practices**.
+completion commits recorded below. **Phase 3: Repository Policies and Contribution
+Practices** is in progress, with the Git workflow standard established.
 
 | Branch | Committed state |
 | :--- | :--- |
@@ -61,7 +61,7 @@ branch table above separately identifies what has reached `main`.
 | **0. Initialize the repository** | Complete on `main` | Establish the repository, initial README, and license. |
 | **1. Establish file hygiene** | Complete on scaffolding branch | Review editor defaults, Git attributes, and ignore rules; commit the three configuration files together. |
 | **2. Establish documentation and decision conventions** | Complete on scaffolding branch | Define the project purpose, documentation navigation and conventions, ADR standards and template, and the initial decision records. |
-| **3. Establish repository policies and contribution practices** | Next | Define Git and dependency policies; review security reporting and community expectations; add contributor guidance, agent instructions, and contribution templates aligned with those policies. |
+| **3. Establish repository policies and contribution practices** | In progress; Git workflow established | Define Git and dependency policies; review security reporting and community expectations; add contributor guidance, agent instructions, and contribution templates aligned with those policies. |
 | **4. Document pending project decisions** | Pending; secrets comparison available | Review the proposed secrets record and identify other decisions the project maintainers must make. Add useful comparisons where needed, with outcomes explicitly open rather than defaulting to a technology or provider. |
 | **5. Add local developer tooling** | Pending | Implement and document helpers for established practices. Introduce their verification alongside them. Setup must respect unresolved choices, including secrets storage. |
 | **6. Add automated enforcement** | Pending | Implement checks and regression coverage, then connect them to CI. Review Vale rules and blocking levels, dependency updates, and required repository settings. Document only the enforcement actually introduced. |
@@ -71,13 +71,15 @@ branch table above separately identifies what has reached `main`.
 
 ## Next Review Group
 
-Begin Phase 3 with the **Git workflow and commit conventions**. These define the
-practices that contributor instructions and later enforcement will follow.
+Review the dependency management policy next, using the reference branch's
+`docs/standards/dependencies.md` as a starting point. Adapt its requirements to the
+current repository and leave automated updates, auditing, and maintenance procedures
+explicitly pending until introduced.
 
-Use the reference branch's `docs/standards/git-workflow.md` as a starting point.
-Adapt it to the current repository: future hooks, CI, contribution templates,
-and setup instructions must remain explicitly pending until introduced.
-Update the standards index and navigation with the new standard in the same group.
+The [Git workflow and commit conventions](../standards/git-workflow.md) are established;
+local hooks, automated checks, and contribution templates remain pending.
+Other Phase 3 groups cover security reporting, community expectations, contributor
+guidance, agent instructions, and contribution templates.
 
 ## Review and Commit Process
 

@@ -152,6 +152,60 @@ verifies a valid script and an unquoted-expansion failure when ShellCheck is on
 `PATH`; otherwise that integration test is explicitly skipped. Verify the wrapper
 against the real pinned tool before accepting an update.
 
+## actionlint
+
+Run the separate [workflow check](../../scripts/ci/check-workflows.sh) with its
+pinned actionlint version installed:
+
+```bash
+./scripts/ci/check-workflows.sh
+```
+
+The wrapper's `required_version` pins actionlint to `1.7.12`. Select the matching
+OS/architecture archive from the
+[fixed upstream release](https://github.com/rhysd/actionlint/releases/tag/v1.7.12),
+verify it against the release's published checksums and follow the upstream
+recommendation to verify its artifact attestation, extract it outside the checkout, and put the executable on `PATH`. See the
+[versioned installation guide](https://github.com/rhysd/actionlint/blob/v1.7.12/docs/install.md)
+for supported installation methods. Confirm the version with `actionlint -version`;
+package-manager installations must provide the required version. CI installation
+will be introduced with the workflows.
+
+The wrapper checks `.github/workflows/*.yml` and `*.yaml` with explicit file
+arguments, including paths with spaces. When no workflows exist, it reports that
+validation is not applicable instead of claiming workflows passed.
+
+This entry point checks workflow structure, expressions, and action usage. Its
+ShellCheck and pyflakes integrations are explicitly off so results do not depend
+on which optional run-block linters happen to be installed. The separate shell
+check covers repository shell files, not embedded workflow scripts; run-block
+linting must be reviewed with the actual workflows. See
+[actionlint usage](https://github.com/rhysd/actionlint/blob/v1.7.12/docs/usage.md)
+for those boundaries. Static validation does not verify live permissions, remote
+action provenance, or repository settings, and does not execute a workflow.
+
+### Dependency Evaluation
+
+The project-specific action-reference check only covers literal SHA pinning;
+actionlint adds workflow syntax and expression validation without requiring an
+application runtime or package manager. The upstream provides release binaries,
+checksums, installation documentation, and versioned check descriptions. Its
+[MIT license](https://github.com/rhysd/actionlint/blob/v1.7.12/LICENSE.txt) is retained
+upstream; no binary is bundled here.
+
+The selected release's notes were reviewed for supported runner labels and workflow
+syntax. Its built-in data can lag GitHub changes, so updates require representative
+valid and invalid workflow fixtures under the
+[dependency standard](../standards/dependencies.md). A standalone binary avoids a
+Go compiler dependency for contributors but adds version and platform maintenance.
+Review upstream security notices and installation provenance with updates; static
+linting does not establish that workflow execution is safe.
+
+Regression tests cover prerequisites, both filename extensions, argument handling,
+nonzero exit propagation, and the no-workflow case. When the pinned tool is on
+`PATH`, an integration test checks a valid workflow and rejects an unknown
+expression context; otherwise that test is explicitly skipped.
+
 ## Enforcement Status
 
 | Area | State |
@@ -160,7 +214,8 @@ against the real pinned tool before accepting an update.
 | Developer helpers | Regression tests included in the local suite; individual usage in the [script reference](../../scripts/README.md) |
 | Credential filenames and repository configuration | Local scripts and regression tests; content/history scanning remains pending |
 | ShellCheck | Separate pinned local check and regression tests; CI installation pending |
-| actionlint, Vale, and Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
+| actionlint | Separate pinned local check and regression tests; no workflows introduced yet |
+| Vale and Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
 | CI workflows and dependency updates | Pending implementation |
 | Required status checks and review/merge settings | Pending configuration and verification in the target repository |
 

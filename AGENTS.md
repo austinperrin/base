@@ -84,6 +84,7 @@ documents rather than repeating phase details here.
 | Topic | Canonical source |
 | :--- | :--- |
 | Contribution and review | [Contributing](CONTRIBUTING.md) |
+| Repository platforms and configuration | [External platform guidance](docs/standards/README.md#external-platform-guidance) |
 | Branches, commits, and pull requests | [Git workflow](docs/standards/git-workflow.md) |
 | Dependency evaluation and updates | [Dependency management](docs/standards/dependencies.md) |
 | Documentation and navigation | [Documentation standards](docs/standards/documentation.md) |

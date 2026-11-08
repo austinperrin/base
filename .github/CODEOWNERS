@@ -1,0 +1,14 @@
+# Repository review ownership
+# Follow docs/standards/ownership.md for responsibilities and activation.
+# Pending: replace the example accounts with this project's users or teams,
+# confirm their write access, and uncomment the applicable mappings.
+# All entries below are examples; this file currently assigns no owners.
+
+# Default owner for all repository content:
+# * @your-maintainer
+
+# Optional area owners; later matching entries take precedence:
+# /docs/ @your-org/documentation-maintainers
+
+# Ownership of this file:
+# /.github/CODEOWNERS @your-maintainer

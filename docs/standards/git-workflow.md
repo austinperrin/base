@@ -118,11 +118,15 @@ flowchart LR
    what was checked; do not describe absent checks as passing.
 4. **Review**: Resolve feedback and obtain the approval required for the change.
    Keep the review focused on the files actually included in the pull request.
+   Use the [ownership standard](ownership.md) to identify review responsibilities.
 5. **Squash and merge**: Use the reviewed pull request title as the squash commit
    title. GitHub settings that enforce this workflow are separate from the written
    policy and must be configured and verified when introduced.
 
 ## Enforcement Status
+
+Follow the [external platform guidance](README.md#external-platform-guidance)
+when introducing platform configuration or repository settings.
 
 These conventions define the intended workflow. Writing them does not install
 hooks, create workflows, or configure GitHub branch protection.

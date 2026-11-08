@@ -24,7 +24,10 @@ instructions into new guides.
 
 | Topic | Canonical source |
 | :--- | :--- |
+| Repository platforms, recognized files, and settings | [External platform guidance](docs/standards/README.md#external-platform-guidance) |
 | Branching, commit messages, pull requests, and merging | [Git workflow and commit conventions](docs/standards/git-workflow.md) |
+| Maintainer responsibilities and review ownership | [Repository ownership](docs/standards/ownership.md) |
+| Issue assessment and labels | [Issue triage](docs/standards/issue-triage.md) |
 | Dependency evaluation and updates | [Dependency management](docs/standards/dependencies.md) |
 | Documentation style, formatting, and navigation | [Documentation standards](docs/standards/documentation.md) |
 | Proposing and recording significant decisions | [Architecture Decision Record (ADR) standards](docs/standards/architecture-decisions.md) |

@@ -89,7 +89,9 @@ remain separate from local hook activation.
 
 The local suite entry point is [`scripts/ci/test.sh`](ci/test.sh). It runs the
 available documentation, credential-filename, and repository-configuration checks,
-Bash syntax and permission checks, and both regression suites. Use the
+Bash syntax and permission checks, and both regression suites. The separate
+[ShellCheck entry point](ci/check-shell.sh) adds static shell analysis when its
+pinned tool is installed. Use the
 [repository checks and CI reference](../docs/architecture/ci-cd.md) for their
 commands, prerequisites, regression tests, and supported syntax. CI workflows
 remain pending.

@@ -105,6 +105,53 @@ breadcrumb and related-link checks, but must remain registered and reachable.
 Manual review remains responsible for the full
 [documentation standard](../standards/documentation.md).
 
+## ShellCheck
+
+Run the separate [shell check](../../scripts/ci/check-shell.sh) after installing
+the version it requires:
+
+```bash
+./scripts/ci/check-shell.sh
+```
+
+The wrapper pins ShellCheck to `0.11.0`, as recorded in its `required_version`.
+Obtain the matching OS/architecture archive from the
+[fixed upstream release](https://github.com/koalaman/shellcheck/releases/tag/v0.11.0),
+extract it outside the checkout, and put the executable on `PATH`. Follow the
+[upstream installation instructions](https://github.com/koalaman/shellcheck#installing)
+for supported distributions or building that release from source. Verify with
+`shellcheck --version`; a package manager installation is suitable only if it
+provides the pinned version. No automatic installer is included. CI installation
+and artifact-integrity verification remain part of the workflow review group.
+
+The check covers `scripts/*/*.sh` and `.githooks/commit-msg`. It reports enabled
+diagnostics at style severity and above, uses `--norc`, and clears
+`SHELLCHECK_OPTS` for a consistent baseline. It does not execute scripts or repair
+files. The core local suite remains independent of an external linter installation.
+
+### Dependency Evaluation
+
+ShellCheck adds semantic shell analysis beyond `bash -n`, without introducing an
+application package manager. Its published release and upstream diagnostic wiki
+provide versioned tooling and explanations. The
+[upstream project](https://github.com/koalaman/shellcheck) identifies its license as
+GPLv3; the tool remains an external development dependency and is not bundled in
+this repository. Review any future redistribution separately.
+
+The reviewed release notes describe the selected version's changes. The upstream
+[security page](https://github.com/koalaman/shellcheck/security) is a reporting and
+review reference, not evidence that the tool has no vulnerabilities. Installation
+provenance and future updates remain maintainer responsibilities under the
+[dependency standard](../standards/dependencies.md). Using a release binary avoids
+a Haskell build dependency for contributors, at the cost of maintaining an external
+executable for each supported platform.
+
+Regression tests cover missing and incorrect versions, consistent invocation,
+argument handling, and nonzero status propagation. A real-tool integration test
+verifies a valid script and an unquoted-expansion failure when ShellCheck is on
+`PATH`; otherwise that integration test is explicitly skipped. Verify the wrapper
+against the real pinned tool before accepting an update.
+
 ## Enforcement Status
 
 | Area | State |
@@ -112,7 +159,8 @@ Manual review remains responsible for the full
 | Documentation links and structure | Local scripts and focused regression tests |
 | Developer helpers | Regression tests included in the local suite; individual usage in the [script reference](../../scripts/README.md) |
 | Credential filenames and repository configuration | Local scripts and regression tests; content/history scanning remains pending |
-| ShellCheck, actionlint, Vale, and Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
+| ShellCheck | Separate pinned local check and regression tests; CI installation pending |
+| actionlint, Vale, and Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
 | CI workflows and dependency updates | Pending implementation |
 | Required status checks and review/merge settings | Pending configuration and verification in the target repository |
 

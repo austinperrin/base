@@ -85,6 +85,13 @@ The tests exercise setup, real Git commits, ADR generation, and cleanup in tempo
 not change the current checkout's Git configuration. Review and CI enforcement
 remain separate from local hook activation.
 
+## Repository Checks
+
+Documentation check entry points are available under `scripts/ci/`. Use the
+[repository checks and CI reference](../docs/architecture/ci-cd.md) for their
+commands, prerequisites, regression tests, and supported syntax. CI workflows
+remain pending.
+
 ## Related Documents
 
 - [Contributing](../CONTRIBUTING.md) - Preparing and reviewing changes.

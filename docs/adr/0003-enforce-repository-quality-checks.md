@@ -82,9 +82,9 @@ leaves repository-specific rules dependent on manual review.
 
 ## 6. Implementation and Verification
 
-Implementation is pending. Introduce it in reviewable groups after approving the
-approach; document exact behavior and commands in the canonical CI architecture
-when that document is introduced.
+Implementation is tracked in the [repository checks and CI reference](../architecture/ci-cd.md).
+Introduce each group with regression coverage and document its exact behavior and
+commands there; decision approval does not establish enforcement.
 
 | Group | Required evidence before claiming enforcement |
 | :--- | :--- |

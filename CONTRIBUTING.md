@@ -32,6 +32,16 @@ instructions into new guides.
 | Instructions for AI-assisted work | [AI agent guidelines](AGENTS.md) |
 | Project status, priorities, and progress | [Project roadmap](docs/roadmap/README.md) |
 
+## Report a Bug or Suggest an Improvement
+
+Search open and closed issues for an existing report or related discussion before
+submitting. Add relevant details to an existing issue when it covers the same need.
+
+Use the [bug report](.github/ISSUE_TEMPLATE/bug_report.yml) or
+[feature request](.github/ISSUE_TEMPLATE/feature_request.yml) form when opening an
+issue on GitHub. Blank issues remain available for other requests. Report
+vulnerabilities through the [security policy](SECURITY.md).
+
 ## Prepare a Contribution
 
 Work in a checkout of this repository or a fork when you do not have write access.
@@ -46,6 +56,8 @@ of the change being reviewed.
 
 ## Pull Request Checklist
 
+Use the [pull request template](.github/PULL_REQUEST_TEMPLATE.md) to describe your
+change and record verification results, including checks not run and the reason.
 Before submitting, confirm that you have:
 
 - Met the [Git workflow's pull request requirements](docs/standards/git-workflow.md#pr-requirements),

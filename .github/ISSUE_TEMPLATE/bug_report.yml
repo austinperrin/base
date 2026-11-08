@@ -1,0 +1,53 @@
+name: "Bug Report"
+description: "Report a defect in this project's files, documentation, or behavior."
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem and how to reproduce it.
+        For vulnerabilities, follow the [security policy](https://github.com/austinperrin/base/security/policy) instead of opening a public issue.
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: What happened, and which files or behavior are affected?
+      placeholder: Describe the problem...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Include the commands, files, or navigation needed to reproduce the problem.
+      placeholder: |
+        1. Start from...
+        2. Open or run...
+        3. Observe...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include the branch, commit, or version and any relevant operating system or tool versions.
+      placeholder: |
+        - Branch / Commit / Version:
+        - Operating system:
+        - Relevant tools and versions:
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context / Logs
+      description: Include relevant logs, screenshots, or links. Remove credentials and private information before submitting.
+    validations:
+      required: false

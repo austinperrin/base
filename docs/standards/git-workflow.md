@@ -110,7 +110,8 @@ flowchart LR
 1. **Semantic title**: Use the Conventional Commits format, such as
    `docs: establish repository standards`.
 2. **Clear description**: Explain the problem, resulting behavior, and verification.
-   Link related issues or decisions when applicable. A pull request template is pending.
+   Link related issues or decisions when applicable. Use the
+   [pull request template](../../.github/PULL_REQUEST_TEMPLATE.md) to record these details.
 3. **Verification**: Review the proposed commit contents and run checks applicable
    to the change. All configured required checks must pass before merging. Until
    automation is introduced, verify the applicable standards manually and record
@@ -130,7 +131,7 @@ hooks, create workflows, or configure GitHub branch protection.
 | :--- | :--- | :--- |
 | Commit-message format | Manual review | Local validation hook in Phase 5 |
 | Pull request title | Manual review | Automated validation in Phase 6 |
-| Pull request description | Written guidance above | Contribution template later in Phase 3 |
+| Pull request description | Pull request template and manual review | Review template prompts when the contribution process changes |
 | Repository checks | Manual review of applicable standards | Automated checks in Phase 6 |
 | Merge and review settings | Not yet documented or verified by this scaffolding work | Document and verify repository settings with the corresponding automation and setup work |
 

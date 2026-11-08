@@ -18,7 +18,8 @@ completion commits recorded below. **Phase 3: Repository Policies and Contributi
 Practices** is in progress. The Git workflow standard is committed at `99053d0`;
 the dependency management policy is committed at `4e00771`. Security reporting
 and community expectations are committed at `fc08ce4`. Contributor guidance and
-related-document navigation conventions are established; agent instructions are next.
+related-document navigation conventions are committed at `245a543`; agent
+instructions are established. Contribution templates are the next review group.
 
 | Branch | Committed state |
 | :--- | :--- |
@@ -69,7 +70,7 @@ existing files or planned deliverables; future paths are not links to implemente
 | **0. Initialize the repository** | Complete on `main` | Establish repository identity and license. | Initial `README.md` and `LICENSE`. |
 | **1. Establish file hygiene** | Complete on scaffolding branch | Set editor defaults, Git file handling, and exclusions. | `.editorconfig`, `.gitattributes`, `.gitignore`. |
 | **2. Establish the documentation and decision framework** | Complete on scaffolding branch | Define the repository's purpose; establish documentation ownership and navigation; define how decisions are proposed and recorded. | Narrowed `README.md`, `docs/README.md`, `docs/standards/documentation.md`, standards index, ADR index and template, and `docs/standards/architecture-decisions.md`. ADR-0001 records the approved Google documentation style decision. The roadmap records the scaffolding plan. |
-| **3. Establish repository policies and contribution practices** | In progress; contributor guidance established | Review Git conventions, dependency standards, community expectations, security reporting, contributor guidance, and agent instructions. Add issue and PR templates alongside the practices they support. | `docs/standards/git-workflow.md`, `docs/standards/dependencies.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `AGENTS.md`, `docs/AGENTS.md`, `.github/ISSUE_TEMPLATE/`, and `.github/PULL_REQUEST_TEMPLATE.md`. |
+| **3. Establish repository policies and contribution practices** | In progress; agent instructions established | Review Git conventions, dependency standards, community expectations, security reporting, contributor guidance, and agent instructions. Add issue and PR templates alongside the practices they support. | `docs/standards/git-workflow.md`, `docs/standards/dependencies.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `AGENTS.md`, `docs/AGENTS.md`, `.github/ISSUE_TEMPLATE/`, and `.github/PULL_REQUEST_TEMPLATE.md`. |
 | **4. Record project-specific decisions** | Pending; proposed secrets comparison already available | Introduce proposed ADRs containing requirements, options, use cases, trade-offs, and open outcomes. Separate mandatory hygiene from implementation choices. Begin with secrets and review any other decisions the project must own. | Proposed records in `docs/adr/`, starting with ADR-0002. Hold `.env.example` outside the intended baseline unless explicitly approved; a proposed comparison does not select an implementation. |
 | **5. Add local developer tooling** | Pending | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
 | **6. Add automated enforcement** | Pending | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
@@ -92,13 +93,14 @@ existing files or planned deliverables; future paths are not links to implemente
 
 ## Next Review Group
 
-Review agent instructions next, using the reference branch's `AGENTS.md` and
-`docs/AGENTS.md` as starting points. Link to established canonical standards and
-keep pending tooling and unresolved project decisions explicit.
+Prepare issue forms and a pull request template using the reference branch's
+`.github/ISSUE_TEMPLATE/` and `.github/PULL_REQUEST_TEMPLATE.md`. Align prompts
+with the established contribution, Git, and security policies; avoid advertising
+unconfigured contact channels or checks.
 
-The [contribution guide](../../CONTRIBUTING.md) directs contributors to the
-established policies and the roadmap for project status. Contribution templates
-remain another Phase 3 review group.
+The [repository-wide agent guidelines](../../AGENTS.md) and
+[documentation agent guidelines](../AGENTS.md) are established. Contribution
+templates are the remaining Phase 3 review group.
 
 ## Review and Commit Process
 

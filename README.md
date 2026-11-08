@@ -14,6 +14,7 @@ dependency order, and the next review group.
 | [Editor configuration](.editorconfig) | Consistent whitespace, encoding, and line endings |
 | [Git attributes](.gitattributes) | Text normalization and binary file handling |
 | [Git ignore rules](.gitignore) | Exclude local credentials, temporary files, and generated output |
+| [AI agent guidelines](AGENTS.md) | Hierarchical instructions linked to repository standards |
 | [Documentation](docs/README.md) | Canonical standards and repository documentation |
 | [Architecture Decision Records (ADRs)](docs/adr/README.md) | Context, options, and rationale for decisions |
 

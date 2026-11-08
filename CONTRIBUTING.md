@@ -29,6 +29,7 @@ instructions into new guides.
 | Documentation style, formatting, and navigation | [Documentation standards](docs/standards/documentation.md) |
 | Proposing and recording significant decisions | [Architecture Decision Record (ADR) standards](docs/standards/architecture-decisions.md) |
 | Existing decisions and their status | [Architecture Decision Records (ADRs) index](docs/adr/README.md) |
+| Instructions for AI-assisted work | [AI agent guidelines](AGENTS.md) |
 | Project status, priorities, and progress | [Project roadmap](docs/roadmap/README.md) |
 
 ## Prepare a Contribution

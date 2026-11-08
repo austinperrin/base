@@ -100,4 +100,5 @@ Track any remaining implementation work explicitly.
 
 - [Architecture Decision Records (ADRs) index](README.md) - Decision history.
 - [Architecture Decision Record (ADR) standards](../standards/architecture-decisions.md) - Decision structure and status lifecycle.
+- [Security policy](../../SECURITY.md) - Private reporting and immediate guidance for exposed credentials.
 - [Git ignore rules](../../.gitignore) - Version-control exclusions for local credential files.

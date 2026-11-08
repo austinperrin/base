@@ -71,3 +71,8 @@ The project's storage and delivery approach remains open in
 Detailed rotation and repository-cleanup procedures remain pending the repository
 maintenance group, and automated security checks remain pending the enforcement
 group in the [scaffolding roadmap](docs/roadmap/milestone-0-repository-scaffolding.md).
+
+## Related Documents
+
+- [ADR-0002: Secret Management](docs/adr/0002-secret-management.md) - Options for storing and delivering secrets.
+- [Project roadmap](docs/roadmap/README.md) - Planned security tooling and maintenance work.

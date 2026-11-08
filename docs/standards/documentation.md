@@ -41,12 +41,34 @@ This repository adopts the **[Google Developer Documentation Style Guide](https:
 
 ### 2. Hub-and-Spoke Navigation
 All documentation files must fit cleanly into our navigation hierarchy:
-* **Breadcrumbs**: Every leaf document must start with a breadcrumb trail linking back to the documentation hub:
+* **Breadcrumbs**: Every leaf document inside `docs/` must start with a breadcrumb trail linking back to the documentation hub:
   ```markdown
   [Docs](../README.md) > [Category](README.md) > Document Name
   ```
 * **Directory Index (`README.md`)**: Every directory inside `docs/` must contain a `README.md` listing and summarizing every document in that folder.
-* **Related Documents**: Every leaf document must end with a `## Related Documents` section providing at least one related link; prefer 2–4 relevant cross-domain links.
+* **Related Documents**: Every leaf document must end with a `## Related Documents` section providing at least one useful companion link; prefer 2–4 relevant links. Select documents that help readers continue or understand the topic.
+
+Related Documents is a curated reading list, not an inventory of every reference.
+Keep supporting links near the content they explain. The section does not need to
+repeat breadcrumbs, links used only in examples, a category's index entries, or an
+existing canonical-reference table. A particularly useful companion document may
+appear in both the body and the related section.
+
+### 3. Root-Level Documents and Indexes
+
+Standalone root-level guides and policies, including `CONTRIBUTING.md`, `SECURITY.md`,
+and `CODE_OF_CONDUCT.md`, use a breadcrumb below their title:
+
+```markdown
+[Repository Home](README.md) > Document Name
+```
+
+These documents also end with a curated Related Documents section. Keep navigation
+outside preserved license, covenant, or attribution text rather than rewriting that text.
+
+The root README and category indexes provide their own navigation and do not
+require a separate Related Documents section, though they may include one.
+License files retain their original format and notices.
 
 ---
 
@@ -130,4 +152,4 @@ architectural decision, follow the
 * [Standards Index](README.md) - Category index for repository standards.
 * [Architecture Decision Record (ADR) standards](architecture-decisions.md) - Decision structure and lifecycle.
 * [Architecture Decision Records (ADRs) index](../adr/README.md) - Decisions and their review status.
-* [Architecture Decision Record (ADR) template](../adr/template.md) - Structure for comparing options and recording outcomes.
+* [ADR-0001: Google Developer Documentation Style](../adr/0001-adopt-google-documentation-style.md) - Rationale for the adopted editorial standard.

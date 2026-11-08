@@ -5,11 +5,12 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tool_support import pinned_tool
 
 
 ROOT = Path(__file__).resolve().parents[3]
 BASH = shutil.which('bash')
-REAL_VALE = shutil.which('vale')
+REAL_VALE = pinned_tool('vale', ['--version'], 'vale version 3.26.0')
 RULES = ROOT / '.github/styles/Google'
 
 
@@ -88,7 +89,7 @@ exit 6
     self.assertNotEqual(self.run_check('--unknown').returncode, 0)
 
   @unittest.skipUnless(REAL_VALE and (RULES / 'Spacing.yml').exists(),
-                       'Vale or Google rules missing; real-rule integration is checked separately')
+                       'Pinned Vale or Google rules missing; real-rule integration is checked separately')
   def test_real_rules_reject_exclamations_and_ignore_fenced_examples(self):
     self.env['PATH'] = str(Path(REAL_VALE).parent) + os.pathsep + os.environ['PATH']
     shutil.rmtree(self.rules)

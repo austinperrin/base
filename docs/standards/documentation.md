@@ -138,7 +138,7 @@ implemented and verified.
 
 ## Automated Structure Checks
 
-**Status: Local checks available; CI integration pending.** The
+**Status: Local checks available; core CI defined, with live verification pending.** The
 [repository checks and CI reference](../architecture/ci-cd.md) documents commands,
 coverage, and parsing limits for heading structure, fenced blocks, registration,
 navigation, and local link integrity.

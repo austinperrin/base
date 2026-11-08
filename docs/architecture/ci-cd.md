@@ -5,8 +5,8 @@
 This document owns the commands, coverage, and limitations of repository-wide
 validation. [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) records the
 accepted approach. The current implementation contains local documentation, credential-filename,
-and repository-configuration checks. CI workflows and required GitHub checks
-remain pending.
+and repository-configuration checks. The core CI workflow is defined; live-run
+verification, external-linter jobs, and required GitHub checks remain pending.
 
 ## Commands and Prerequisites
 
@@ -329,6 +329,57 @@ history, scan arguments, shallow-checkout rejection, and failure propagation.
 Real-scanner integration tests require the pinned executable on `PATH`; otherwise
 they are explicitly skipped. The core suite does not require external scanners.
 
+## Core CI Workflow
+
+The [Repository Checks workflow](../../.github/workflows/repo-lint.yml) runs the
+same core suite on `ubuntu-24.04` and `macos-15`. It runs for pull requests against
+any base branch, pushes to `main`, and manual dispatch where GitHub permits it.
+Unfiltered pull request bases support the planned phase branches without adding
+scaffolding-specific branch names. There are no path filters that could leave a
+required check waiting after an unrelated file change.
+
+Each job has a 15-minute timeout and runs on a fresh hosted runner. The workflow
+uses `contents: read` permissions and a pinned checkout action with persisted
+credentials disabled. Pull request code runs under `pull_request`, without project
+secrets or a privileged `pull_request_target` checkout. It does not publish,
+deploy, modify repository settings, or upload artifacts. A final step rejects
+tracked changes or ordinary untracked files left by the suite.
+
+The core suite relies on runner-provided Bash, Git, and Python and checks its
+prerequisites. Optional real-tool integration tests run only when the exact pinned
+version is available; mismatched runner tools cause explicit skips rather than
+making the core suite depend on ambient versions. External-linter jobs must install
+the required versions and run those integration tests before claiming full coverage.
+
+### Checkout Dependency Evaluation
+
+The workflow pins `actions/checkout` to the upstream commit for `v7.0.1`, verified
+against that repository's release tag. Its
+[release documentation](https://github.com/actions/checkout/blob/v7.0.1/README.md)
+describes security and dependency updates and the hosted-runner requirements. The
+[MIT-licensed action](https://github.com/actions/checkout/blob/v7.0.1/LICENSE)
+provides the checkout without adding an application dependency; it brings its own
+Node runtime and packaged dependencies, which still require update review.
+
+Supported runner labels were checked against the
+[runner image list](https://github.com/actions/runner-images#available-images).
+OS labels limit major image changes but do not freeze installed software. Review
+image retirements and action updates under the
+[dependency standard](../standards/dependencies.md). A local actionlint pass checks
+the workflow definition; it does not verify a live run or repository permissions.
+
+### Activation and Verification
+
+This workflow has not yet been exercised on GitHub as part of this review group.
+After it is committed and a supported event occurs, inspect both matrix jobs for
+the intended commit, their test results and skips, and the clean-checkout step.
+Fork pull requests may require maintainer approval under GitHub settings. Manual
+dispatch availability depends on the workflow being on the default branch.
+
+The emitted job names are `Repository checks (ubuntu-24.04)` and
+`Repository checks (macos-15)`. Required-check settings remain a later review group;
+a YAML definition alone does not make these checks mandatory.
+
 ## Enforcement Status
 
 | Area | State |
@@ -340,7 +391,8 @@ they are explicitly skipped. The core suite does not require external scanners.
 | actionlint | Separate pinned local check and regression tests; no workflows introduced yet |
 | Vale | Pinned local prose check, Google rules, vocabulary, and regression tests; CI installation pending |
 | Gitleaks | Separate pinned staged-content and current-branch history check with redacted output; CI integration pending |
-| CI workflows and dependency updates | Pending implementation |
+| Core CI workflow | Defined and locally validated; live runs pending verification |
+| External-linter workflows and dependency updates | Pending implementation |
 | Required status checks and review/merge settings | Pending configuration and verification in the target repository |
 
 Local checks do not configure merge protection. Introduce workflows and required

@@ -17,6 +17,10 @@ This ADR provides options for that decision. No storage mechanism, provider,
 configuration file format, or application integration is selected by the template.
 Keep this record Proposed until the project records and approves its choice.
 
+A project that does not yet need secrets can leave this decision open. Revisit it
+before introducing a workload or integration that requires credentials; adopting
+the repository alone does not require creating a secret store or configuration file.
+
 The repository's [ignore rules](../../.gitignore) exclude common local credential
 files. They do not determine how the project must store or deliver secrets.
 Security reporting follows the [security policy](../../SECURITY.md). Detailed
@@ -77,6 +81,11 @@ Complete these after selecting an approach:
 - **Conditions that would trigger reconsideration**: Pending.
 
 ## 6. Implementation and Verification
+
+Repository setup must not create `.env` files, install a secret loader, or require
+a provider solely because this Proposed record exists. Introduce configuration
+examples and integrations only when the project has selected an approach and has
+a concrete need for them.
 
 Record the work needed to implement and verify the decision. This is a decision
 checklist; put operational commands in the project's canonical guides or runbooks

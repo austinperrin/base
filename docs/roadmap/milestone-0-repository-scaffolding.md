@@ -22,7 +22,8 @@ related-document navigation conventions are committed at `245a543`; agent
 instructions are committed at `408c846`. Issue forms and a pull request template
 are committed at `596e243`. Ownership and issue triage standards, a commented
 CODEOWNERS scaffold, and external platform guidance in the standards index are
-established with this change. Phase 4 is the next review group.
+committed at `fb545fa`. Phase 4 is complete with this change; ADR-0002 remains Proposed for adopters.
+Phase 5 local developer tooling is next.
 
 | Branch | Committed state |
 | :--- | :--- |
@@ -74,7 +75,7 @@ existing files or planned deliverables; future paths are not links to implemente
 | **1. Establish file hygiene** | Complete on scaffolding branch | Set editor defaults, Git file handling, and exclusions. | `.editorconfig`, `.gitattributes`, `.gitignore`. |
 | **2. Establish the documentation and decision framework** | Complete on scaffolding branch | Define the repository's purpose; establish documentation ownership and navigation; define how decisions are proposed and recorded. | Narrowed `README.md`, `docs/README.md`, `docs/standards/documentation.md`, standards index, ADR index and template, and `docs/standards/architecture-decisions.md`. ADR-0001 records the approved Google documentation style decision. The roadmap records the scaffolding plan. |
 | **3. Establish repository policies and contribution practices** | Complete on scaffolding branch | Review Git conventions, dependency standards, community expectations, security reporting, contributor guidance, and agent instructions. Add issue and PR templates alongside the practices they support. Define maintainer ownership, CODEOWNERS adoption guidance, and basic issue triage and label conventions. | `docs/standards/git-workflow.md`, `docs/standards/dependencies.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `AGENTS.md`, `docs/AGENTS.md`, `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`, `docs/standards/ownership.md`, `docs/standards/issue-triage.md`, and `.github/CODEOWNERS`. |
-| **4. Record project-specific decisions** | Pending; proposed secrets comparison already available | Introduce proposed ADRs containing requirements, options, use cases, trade-offs, and open outcomes. Separate mandatory hygiene from implementation choices. Begin with secrets and review any other decisions the project must own. | Proposed records in `docs/adr/`, starting with ADR-0002. Hold `.env.example` outside the intended baseline unless explicitly approved; a proposed comparison does not select an implementation. |
+| **4. Record project-specific decisions** | Complete on scaffolding branch; secrets outcome remains Proposed | Introduce proposed ADRs containing requirements, options, use cases, trade-offs, and open outcomes. Separate mandatory hygiene from implementation choices. Begin with secrets and review any other decisions the project must own. | Proposed records in `docs/adr/`, starting with ADR-0002. Hold `.env.example` outside the intended baseline unless explicitly approved; a proposed comparison does not select an implementation. |
 | **5. Add local developer tooling** | Pending | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
 | **6. Add automated enforcement** | Pending | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings, including a repository settings checklist for review requirements, required status checks, merge behavior, and force-push protections. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
 | **7. Add repository maintenance procedures** | Pending | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
@@ -96,11 +97,26 @@ existing files or planned deliverables; future paths are not links to implemente
 
 ## Next Review Group
 
-Review Phase 4's project-specific decision set, beginning with
-[ADR-0002](../adr/0002-secret-management.md). Confirm that it provides useful
-options while leaving its outcome open for the adopting project. Check that the
-baseline and planned tooling do not force an unresolved implementation choice.
-Introduce other proposed ADRs only where a concrete decision needs evaluation.
+Introduce local developer helpers incrementally, beginning with the commit-message
+hook and repository setup. Include prerequisites, usage, and focused regression
+coverage with each helper. Keep setup independent of the open secrets decision.
+
+### Phase 4 Decision Review
+
+- **Secrets**: ADR-0002 provides requirements, three options with use cases and
+  trade-offs, an open outcome, and implementation evidence to complete. Its
+  decision owner and selected approach remain pending for the adopting project.
+- **Baseline independence**: The committed baseline at `fb545fa` includes ignore
+  rules for common credential files but no `.env.example`, secret loader, or
+  provider integration. Ignore rules do not select an implementation.
+- **Application technology and web design**: No application or interface exists
+  yet to provide meaningful decision drivers. Defer these ADRs until an adopting
+  project has concrete requirements instead of inventing choices now.
+- **Quality tooling**: Record the planned quality-checking decision with its
+  implementation in Phase 6, where the checks and their consequences can be reviewed.
+
+The Phase 4 review is complete. It confirms the decision framework and open
+comparison, without accepting a secrets implementation for adopters.
 
 The contribution templates become available through GitHub after they reach the
 default branch; verify their rendered behavior during the assembled-repository

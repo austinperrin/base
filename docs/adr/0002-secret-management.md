@@ -19,8 +19,8 @@ Keep this record Proposed until the project records and approves its choice.
 
 The repository's [ignore rules](../../.gitignore) exclude common local credential
 files. They do not determine how the project must store or deliver secrets.
-Security reporting and exposure-response procedures are pending later scaffolding
-groups; no policy or runbook is introduced by this draft.
+Security reporting follows the [security policy](../../SECURITY.md). Detailed
+rotation and recovery procedures remain pending the repository maintenance group.
 
 ## 2. Decision Drivers
 

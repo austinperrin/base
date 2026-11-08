@@ -23,6 +23,12 @@ Standards define shared practices. Architecture decision records explain the
 choices behind them and can present unresolved options for the adopting project.
 See the [Architecture Decision Records (ADRs) index](docs/adr/README.md) for each decision's status.
 
+## Community and Security
+
+See the [Code of Conduct](CODE_OF_CONDUCT.md) for community expectations and
+conduct reporting. Follow the [Security Policy](SECURITY.md) to report a
+vulnerability privately.
+
 ## License
 
 Distributed under the [MIT License](LICENSE).

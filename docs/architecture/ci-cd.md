@@ -206,6 +206,70 @@ nonzero exit propagation, and the no-workflow case. When the pinned tool is on
 `PATH`, an integration test checks a valid workflow and rejects an unknown
 expression context; otherwise that test is explicitly skipped.
 
+## Vale
+
+Use the separate [prose check](../../scripts/ci/check-prose.sh) with the pinned
+Vale engine and installed style package:
+
+```bash
+vale sync --config=.vale.ini
+./scripts/ci/check-prose.sh
+```
+
+Install Vale `3.26.0`, as pinned by the wrapper's `required_version`, from the
+[fixed upstream release](https://github.com/vale-cli/vale/releases/tag/v3.26.0).
+Choose the artifact for your OS and architecture, verify its published integrity
+information, and install it outside the checkout on `PATH`. Confirm the result
+with `vale --version` before syncing styles.
+
+[`.vale.ini`](../../.vale.ini) pins the Google style package by release URL and
+defines the enabled styles and default alert level. `vale sync` downloads that
+package into ignored `.github/styles/` paths; it is a separate preparation step
+that requires network access. The check itself does not sync or repair files and
+fails with setup instructions when the package is missing. Verify installation
+provenance when introducing automated downloads in CI.
+
+The wrapper uses the explicit project configuration and `--no-global` to exclude
+personal configuration. It checks `docs/`, the root README, CONTRIBUTING, SECURITY,
+AGENTS, the script reference, and local-hook documentation. Contributor Covenant
+text and contribution templates are outside this entry point's scope. Code spans,
+fenced examples, and configured Mermaid content are excluded from prose analysis.
+
+Enabled errors block the check. Warnings and suggestions remain available for
+editorial review by running the pinned engine without the wrapper's error-level
+override:
+
+```bash
+vale --no-global --config=.vale.ini docs README.md CONTRIBUTING.md
+```
+
+The [project vocabulary](../../.github/styles/config/vocabularies/Base/accept.txt)
+contains reviewed technical terms that would otherwise produce spelling or term
+alerts. Add terms with context and review; avoid blanket exclusions for prose that
+should be corrected. Any rule changes belong in the configuration with an explained
+reason. The [documentation standard](../standards/documentation.md) remains the
+canonical editorial policy; these enabled rules cover only its mechanical subset.
+
+### Dependency Evaluation
+
+Vale supplies configurable prose analysis without selecting an application stack.
+Its [upstream project](https://github.com/vale-cli/vale) and the
+[Google rule package](https://github.com/vale-cli/Google) publish MIT-licensed
+sources. The rule package is maintained separately from Google and does not
+establish complete compliance with Google's guide.
+
+The selected engine and rule releases were reviewed together using the current
+repository and a fixture that rejects an exclamation in prose while allowing the
+same text inside a fenced example. A release executable avoids a Go build toolchain
+for contributors. Maintenance includes reviewing both engine and rule updates,
+false positives, vocabulary, and upstream security information under the
+[dependency standard](../standards/dependencies.md).
+
+Wrapper tests verify prerequisites, configuration isolation, error severity, and
+failure propagation without downloading packages. The real-rule integration test
+runs when the pinned engine and downloaded Google rules are available, and is
+explicitly skipped otherwise. CI must install those prerequisites to exercise it.
+
 ## Enforcement Status
 
 | Area | State |
@@ -215,7 +279,8 @@ expression context; otherwise that test is explicitly skipped.
 | Credential filenames and repository configuration | Local scripts and regression tests; content/history scanning remains pending |
 | ShellCheck | Separate pinned local check and regression tests; CI installation pending |
 | actionlint | Separate pinned local check and regression tests; no workflows introduced yet |
-| Vale and Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
+| Vale | Pinned local prose check, Google rules, vocabulary, and regression tests; CI installation pending |
+| Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
 | CI workflows and dependency updates | Pending implementation |
 | Required status checks and review/merge settings | Pending configuration and verification in the target repository |
 

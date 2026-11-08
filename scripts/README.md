@@ -93,7 +93,9 @@ Bash syntax and permission checks, and both regression suites. The separate
 [ShellCheck entry point](ci/check-shell.sh) adds static shell analysis when its
 pinned tool is installed. The separate
 [workflow check](ci/check-workflows.sh) validates workflow files with pinned
-actionlint; it reports when there are no workflows to validate. Use the
+actionlint; it reports when there are no workflows to validate. The separate
+[prose check](ci/check-prose.sh) applies pinned Vale and Google rules after style
+installation. Use the
 [repository checks and CI reference](../docs/architecture/ci-cd.md) for their
 commands, prerequisites, regression tests, and supported syntax. CI workflows
 remain pending.

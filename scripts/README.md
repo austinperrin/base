@@ -87,7 +87,8 @@ remain separate from local hook activation.
 
 ## Repository Checks
 
-Documentation check entry points are available under `scripts/ci/`. Use the
+Documentation, credential-filename, and repository-configuration check entry
+points are available under `scripts/ci/`. Use the
 [repository checks and CI reference](../docs/architecture/ci-cd.md) for their
 commands, prerequisites, regression tests, and supported syntax. CI workflows
 remain pending.

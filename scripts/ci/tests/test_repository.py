@@ -140,6 +140,87 @@ class RepositoryTests(unittest.TestCase):
     self.assertNotEqual(result.returncode, 0)
     self.assertIn('absent.md', result.stderr)
 
+  def test_secret_filenames_and_examples(self):
+    self.copy('.gitignore')
+    private = ['.env', '.env.production', 'service/prod.env', 'id_rsa',
+               'id_ed25519', 'keys/private.key', 'keys/private.pem', 'keys/private.p12']
+    examples = ['.env.example', '.env.production.example', 'service/prod.env.example']
+    for name in private:
+      with self.subTest(name=name):
+        self.assertTrue(checks.secret_path(name))
+        self.assertEqual(self.run_command('git', 'check-ignore', name, check=False).returncode, 0)
+    for name in examples:
+      with self.subTest(name=name):
+        self.assertFalse(checks.secret_path(name))
+        self.assertEqual(self.run_command('git', 'check-ignore', name, check=False).returncode, 1)
+
+  def test_secret_check_uses_index_and_never_prints_contents(self):
+    self.write('service/.env.test', 'fixture value must not appear in output\n')
+    self.write('.env.example', 'PUBLIC_SETTING=placeholder\n')
+    self.run_command('git', 'add', 'service/.env.test', '.env.example')
+    errors = checks.check_secrets(self.root)
+    self.assertEqual(len(errors), 1, errors)
+    self.assertIn('service/.env.test', errors[0])
+    self.assertNotIn('fixture value', errors[0])
+    self.run_command('git', 'rm', '--cached', 'service/.env.test')
+    self.assertEqual(checks.check_secrets(self.root), [])
+
+  def foundation(self):
+    for name in checks.REQUIRED_FILES:
+      self.copy(name)
+    self.copy('.githooks/commit-msg')
+    self.copy('scripts/dev/setup.sh')
+
+  def test_repository_baseline_does_not_require_secret_or_ci_implementation(self):
+    self.foundation()
+    self.assertFalse((self.root / '.env.example').exists())
+    self.assertFalse((self.root / '.github/workflows').exists())
+    self.assertEqual(checks.check_repository(self.root), [])
+    (self.root / 'LICENSE').unlink()
+    self.assertIn('Missing foundation file: LICENSE', checks.check_repository(self.root))
+
+  def test_permissions_are_reported_without_repair(self):
+    self.foundation()
+    path = self.root / 'scripts/dev/setup.sh'
+    path.chmod(0o644)
+    errors = checks.check_repository(self.root)
+    self.assertTrue(any('must be executable' in error for error in errors), errors)
+    self.assertEqual(path.stat().st_mode & 0o111, 0)
+
+  def test_workflow_refs_require_full_sha_in_both_extensions(self):
+    self.foundation()
+    for extension in ['yml', 'yaml']:
+      path = self.write(f'.github/workflows/check.{extension}',
+                        "steps:\n  - uses: 'actions/checkout@v4'\n")
+      self.assertTrue(any('full commit SHA' in error for error in checks.check_repository(self.root)))
+      path.write_text('steps:\n  - uses: actions/checkout@' + 'a' * 40 + '\n  - uses: ./local-action\n')
+      self.assertEqual(checks.check_repository(self.root), [])
+
+  def test_reusable_workflow_refs_are_checked(self):
+    self.foundation()
+    path = self.write('.github/workflows/reuse.yml',
+                      'jobs:\n  check:\n    uses: owner/project/.github/workflows/check.yml@main\n')
+    self.assertTrue(any('full commit SHA' in error for error in checks.check_repository(self.root)))
+    path.write_text('jobs:\n  check:\n    uses: owner/project/.github/workflows/check.yml@' + 'b' * 40 + '\n')
+    self.assertEqual(checks.check_repository(self.root), [])
+
+  def test_new_entry_points_report_cli_failures(self):
+    for name in ['scripts/ci/repo_checks.py', 'scripts/ci/check-secrets.sh', 'scripts/ci/check-repository.sh']:
+      self.copy(name)
+    self.foundation()
+    for name in ['check-secrets.sh', 'check-repository.sh']:
+      result = self.run_command('bash', f'scripts/ci/{name}')
+      self.assertEqual(result.returncode, 0, result.stderr)
+    self.write('.env', 'fixture only\n')
+    self.run_command('git', 'add', '-f', '.env')
+    result = self.run_command('bash', 'scripts/ci/check-secrets.sh', check=False)
+    self.assertNotEqual(result.returncode, 0)
+    self.assertNotIn('fixture only', result.stderr)
+    (self.root / 'README.md').unlink()
+    result = self.run_command('bash', 'scripts/ci/check-repository.sh', check=False)
+    self.assertNotEqual(result.returncode, 0)
+    self.assertIn('README.md', result.stderr)
+
 
 if __name__ == '__main__':
   unittest.main()

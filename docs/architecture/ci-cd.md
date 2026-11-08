@@ -4,17 +4,20 @@
 
 This document owns the commands, coverage, and limitations of repository-wide
 validation. [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) records the
-accepted approach. The current implementation contains local documentation
-checks; CI workflows and required GitHub checks remain pending.
+accepted approach. The current implementation contains local documentation, credential-filename,
+and repository-configuration checks. CI workflows and required GitHub checks
+remain pending.
 
 ## Commands and Prerequisites
 
-Use Bash 3.2 or newer and Python 3.9 or newer with its standard library. The
+Use Bash 3.2 or newer and Python 3.9 or newer with its standard library. Credential-filename checks and the
 regression tests also use Git. Run these commands from the repository root:
 
 ```bash
 ./scripts/ci/check-links.sh
 ./scripts/ci/check-docs.sh
+./scripts/ci/check-secrets.sh
+./scripts/ci/check-repository.sh
 python3 -B -m unittest discover -s scripts/ci/tests -v
 ```
 
@@ -36,6 +39,37 @@ scans Markdown files in the working checkout, including untracked drafts. It ski
 symbolic links and generated, dependency, cache, and disposable directories named
 in its `EXCLUDED` set, plus downloaded `.github/styles/` content. CI must run these
 same commands against its checkout when workflows are introduced.
+
+## Credential and Configuration Coverage
+
+The [credential-filename check](../../scripts/ci/check-secrets.sh) inspects the Git
+index, including newly staged paths. It reports filenames without reading or
+printing their contents. It flags environment-file names and common key/container
+names defined by `secret_path` in the shared checker. Paths ending in `.example`
+are allowed as configuration examples; examples must still contain no credentials.
+Untracked local configuration is outside this check's scope.
+
+This is filename hygiene, not content or history scanning. It can flag harmless
+files with credential-like names and miss credentials stored under ordinary names.
+Resolve reports by reviewing the file's purpose and the canonical policy; do not
+assume renaming a real secret makes it safe. Content/history scanning remains
+pending the Gitleaks implementation, and credential handling follows the
+[security policy](../../SECURITY.md).
+
+The [repository-configuration check](../../scripts/ci/check-repository.sh) verifies
+foundation files listed in `REQUIRED_FILES`, executable shell entry points under
+`scripts/*/*.sh`, and the commit-message hook. It reports missing permissions
+without changing them. The baseline requires neither `.env.example` nor workflows
+that have not been introduced.
+
+When `.github/workflows/` contains `.yml` or `.yaml` files, the configuration check
+also examines literal `uses:` entries on their own lines. Local `./` references
+are allowed; external action and reusable-workflow references must use a full
+40-character commit SHA according to the
+[dependency standard](../standards/dependencies.md). This narrow text check does
+not parse all YAML forms, verify that commits belong to the intended upstream,
+or validate workflow semantics; actionlint integration and manual review remain
+necessary. Container-action digest support is outside the current check's scope.
 
 ## Supported Syntax and Limits
 
@@ -64,7 +98,7 @@ Manual review remains responsible for the full
 | :--- | :--- |
 | Documentation links and structure | Local scripts and focused regression tests |
 | Developer helpers | Existing tests documented in the [script reference](../../scripts/README.md) |
-| Credential filenames and repository configuration | Pending implementation |
+| Credential filenames and repository configuration | Local scripts and regression tests; content/history scanning remains pending |
 | ShellCheck, actionlint, Vale, and Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
 | CI workflows and dependency updates | Pending implementation |
 | Required status checks and review/merge settings | Pending configuration and verification in the target repository |

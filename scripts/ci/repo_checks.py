@@ -1,9 +1,11 @@
 """Repository checks shared by the shell entry points; Python standard library only."""
 
 import argparse
+import fnmatch
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
 
@@ -192,16 +194,66 @@ def check_docs(root):
 
 
 
+
+def secret_path(name):
+  """Identify credential filenames, allowing explicitly named example files."""
+  base = Path(name).name
+  if base.endswith('.example'):
+    return False
+  return (base == '.env' or base.startswith('.env.') or base.endswith('.env')
+          or base in {'id_rsa', 'id_ed25519'}
+          or any(fnmatch.fnmatchcase(base, pattern) for pattern in
+                 ('*.pem', '*.key', '*.pfx', '*.p12', '*.id_rsa', '*.id_ed25519', '*.keystore')))
+
+
+def check_secrets(root):
+  tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=root)
+  return [f'Credential filename is tracked: {os.fsdecode(name)!r}'
+          for name in tracked.split(b'\0') if name and secret_path(os.fsdecode(name))]
+
+
+REQUIRED_FILES = (
+  'README.md', 'LICENSE', 'SECURITY.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md',
+  'AGENTS.md', '.editorconfig', '.gitattributes', '.gitignore', 'docs/README.md',
+)
+
+
+def check_repository(root):
+  errors = [f'Missing foundation file: {name}' for name in REQUIRED_FILES
+            if not (root / name).is_file()]
+  # Check repository shell entry points without changing their permissions.
+  scripts = sorted((root / 'scripts').glob('*/*.sh'))
+  scripts.append(root / '.githooks/commit-msg')
+  for script in scripts:
+    name = script.relative_to(root)
+    if not script.is_file() or script.is_symlink():
+      errors.append(f'{name}: shell entry point must be a regular file')
+    elif not script.stat().st_mode & 0o111:
+      errors.append(f'{name}: shell entry point must be executable')
+
+  # This is a narrow literal-reference check, not a YAML or workflow validator.
+  workflows = root / '.github/workflows'
+  for workflow in sorted(list(workflows.glob('*.yml')) + list(workflows.glob('*.yaml'))):
+    for number, line in enumerate(workflow.read_text(encoding='utf-8').splitlines(), 1):
+      match = re.match(r"^\s*(?:-\s*)?uses:\s*['\"]?([^\s#'\"]+)", line)
+      if match:
+        action = match[1]
+        if not action.startswith('./') and not re.fullmatch(r'[^@]+@[0-9a-fA-F]{40}', action):
+          errors.append(f'{workflow.relative_to(root)}:{number}: external action or workflow must use a full commit SHA')
+  return errors
+
+
 def main():
   parser = argparse.ArgumentParser(description=__doc__)
-  parser.add_argument('check', choices=['links', 'docs'])
+  parser.add_argument('check', choices=['links', 'docs', 'secrets', 'repository'])
   args = parser.parse_args()
   if sys.version_info < (3, 9):
     parser.error('Python 3.9 or newer is required')
   root = Path(__file__).resolve().parents[2]
   try:
-    errors = {'links': check_links, 'docs': check_docs}[args.check](root)
-  except (OSError, UnicodeError, ValueError) as error:
+    errors = {'links': check_links, 'docs': check_docs,
+              'secrets': check_secrets, 'repository': check_repository}[args.check](root)
+  except (OSError, UnicodeError, ValueError, subprocess.CalledProcessError) as error:
     print(f'Check failed: {error}', file=sys.stderr)
     return 1
   for error in errors:

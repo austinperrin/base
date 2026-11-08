@@ -16,7 +16,8 @@ and plan subsequent project work from Milestone 1.
 The `chore/scaffold-repository` branch has completed Phases 1 and 2, with the
 completion commits recorded below. **Phase 3: Repository Policies and Contribution
 Practices** is in progress. The Git workflow standard is committed at `99053d0`;
-the dependency management policy is drafted for review.
+the dependency management policy is established. Security reporting and community
+expectations are the next review group.
 
 | Branch | Committed state |
 | :--- | :--- |
@@ -67,7 +68,7 @@ existing files or planned deliverables; future paths are not links to implemente
 | **0. Initialize the repository** | Complete on `main` | Establish repository identity and license. | Initial `README.md` and `LICENSE`. |
 | **1. Establish file hygiene** | Complete on scaffolding branch | Set editor defaults, Git file handling, and exclusions. | `.editorconfig`, `.gitattributes`, `.gitignore`. |
 | **2. Establish the documentation and decision framework** | Complete on scaffolding branch | Define the repository's purpose; establish documentation ownership and navigation; define how decisions are proposed and recorded. | Narrowed `README.md`, `docs/README.md`, `docs/standards/documentation.md`, standards index, ADR index and template, and `docs/standards/architecture-decisions.md`. ADR-0001 records the approved Google documentation style decision. The roadmap records the scaffolding plan. |
-| **3. Establish repository policies and contribution practices** | In progress; Git workflow committed, dependency policy in review | Review Git conventions, dependency standards, community expectations, security reporting, contributor guidance, and agent instructions. Add issue and PR templates alongside the practices they support. | `docs/standards/git-workflow.md`, `docs/standards/dependencies.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `AGENTS.md`, `docs/AGENTS.md`, `.github/ISSUE_TEMPLATE/`, and `.github/PULL_REQUEST_TEMPLATE.md`. |
+| **3. Establish repository policies and contribution practices** | In progress; Git and dependency policies established | Review Git conventions, dependency standards, community expectations, security reporting, contributor guidance, and agent instructions. Add issue and PR templates alongside the practices they support. | `docs/standards/git-workflow.md`, `docs/standards/dependencies.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `AGENTS.md`, `docs/AGENTS.md`, `.github/ISSUE_TEMPLATE/`, and `.github/PULL_REQUEST_TEMPLATE.md`. |
 | **4. Record project-specific decisions** | Pending; proposed secrets comparison already available | Introduce proposed ADRs containing requirements, options, use cases, trade-offs, and open outcomes. Separate mandatory hygiene from implementation choices. Begin with secrets and review any other decisions the project must own. | Proposed records in `docs/adr/`, starting with ADR-0002. Hold `.env.example` outside the intended baseline unless explicitly approved; a proposed comparison does not select an implementation. |
 | **5. Add local developer tooling** | Pending | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
 | **6. Add automated enforcement** | Pending | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
@@ -88,18 +89,17 @@ existing files or planned deliverables; future paths are not links to implemente
 - Phase 8 is the implementation and extension guidance group. Application tutorial
   material remains subject to review there; the roadmap does not require adopting it.
 
-## Current Review Group
+## Next Review Group
 
-Review the dependency management policy drafted at `docs/standards/dependencies.md`.
-That standard is awaiting approval and is not yet committed. It covers dependency
-evaluation, version resolution, integrity metadata,
-and update review. Package managers, automated monitoring, and maintenance
-procedures remain unimplemented or pending project selection as appropriate.
+Review security reporting and community expectations next, using the reference
+branch's `SECURITY.md` and `CODE_OF_CONDUCT.md` as starting points. Keep reporting
+contacts accurate and distinguish current policy from future release support,
+repository configuration, and incident-response tooling.
 
-The [Git workflow and commit conventions](../standards/git-workflow.md) are established;
-local hooks, automated checks, and contribution templates remain pending.
-Other Phase 3 groups cover security reporting, community expectations, contributor
-guidance, agent instructions, and contribution templates.
+The [Git workflow](../standards/git-workflow.md) and
+[dependency management policy](../standards/dependencies.md) are established.
+Remaining Phase 3 groups include contributor guidance, agent instructions, and
+contribution templates.
 
 ## Review and Commit Process
 

@@ -10,6 +10,7 @@ Add standards to this index when they are introduced.
 | Standard | Scope |
 | :--- | :--- |
 | [Git workflow and commit conventions](git-workflow.md) | Branching, commit messages, pull requests, and merge policy |
+| [Dependency management](dependencies.md) | Dependency evaluation, version resolution, and update review |
 | [Documentation](documentation.md) | Ownership, navigation, writing, and formatting |
 | [Architecture Decision Records (ADRs)](architecture-decisions.md) | Record structure, numbering, review, and status lifecycle |
 

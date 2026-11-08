@@ -7,8 +7,8 @@ This index documents the helpers currently available in the repository.
 ## Prerequisites
 
 The setup script and hook require Bash 3.2 or newer, Git, and standard command-line
-utilities. On Windows, run them in Git Bash or a compatible environment. The ADR generator and regression tests additionally require Python 3.9 or newer
-with its standard library.
+utilities. On Windows, run them in Git Bash or a compatible environment. The ADR generator, cleanup helper, and regression tests additionally require
+Python 3.9 or newer with its standard library.
 
 ## Developer Tools
 
@@ -16,6 +16,7 @@ with its standard library.
 | :--- | :--- | :--- |
 | [setup.sh](dev/setup.sh) | Configures the local commit-message hook after checking for conflicts | `./scripts/dev/setup.sh` |
 | [new-adr.sh](dev/new-adr.sh) | Creates the next numbered Proposed ADR from the current template | `./scripts/dev/new-adr.sh "Choose storage"` |
+| [clean.sh](dev/clean.sh) | Previews disposable ignored files; deletes only with `--apply` | `./scripts/dev/clean.sh --dry-run` |
 
 Setup resolves the repository from its own location, so it can also be invoked by
 path from another working directory. It sets this checkout's local
@@ -52,6 +53,26 @@ Parallel branches can still choose the same identifier; resolve numbering confli
 before merging. The generator stops when numbering exceeds `9999` or the required
 template structure no longer matches.
 
+## Disposable-File Cleanup
+
+Run `./scripts/dev/clean.sh` or `./scripts/dev/clean.sh --dry-run` to preview files.
+Review that list, then use `./scripts/dev/clean.sh --apply` to remove the currently
+eligible files. Each invocation computes a fresh list; stop processes that write
+to these directories before previewing and applying cleanup.
+
+Cleanup is limited to ignored, untracked regular files within the repository's
+root `tmp/`, `.tmp/`, `temp/`, `scratch/`, and `.cache/` directories. Selection uses
+Git's effective ignore rules through
+[`git ls-files`](https://git-scm.com/docs/git-ls-files). Do not use these directories
+for work you need to keep; deleted untracked files cannot be recovered from Git.
+
+The helper leaves tracked files, unignored files, symbolic links and their targets,
+nested repositories and worktrees identified by `.git` markers, and files outside
+the listed directories in place. It leaves empty directories in place and does not
+remove root environment files, editor state, or build output elsewhere. It can be
+invoked by path from another working directory and stops if its location is not
+the root of a Git working tree.
+
 ## Verification
 
 From the repository root, run:
@@ -60,7 +81,7 @@ From the repository root, run:
 python3 -m unittest discover -s scripts/dev/tests -v
 ```
 
-The tests exercise setup, real Git commits, and ADR generation in temporary repositories. They do
+The tests exercise setup, real Git commits, ADR generation, and cleanup in temporary repositories. They do
 not change the current checkout's Git configuration. Review and CI enforcement
 remain separate from local hook activation.
 

@@ -24,8 +24,9 @@ are committed at `596e243`. Ownership and issue triage standards, a commented
 CODEOWNERS scaffold, and external platform guidance in the standards index are
 committed at `fb545fa`. Phase 4 is committed at `30d34fd`; ADR-0002 remains Proposed for adopters.
 Phase 5 setup and commit-hook tooling are committed at `2690212`. The ADR
-generator, its documentation, and regression tests are established with this change.
-The cleanup helper is the next review group.
+generator is committed at `a6aa791`. The cleanup helper, documentation, and
+regression tests are established with this change. Phase 5 is complete on the
+scaffolding branch; Phase 6 is next.
 
 | Branch | Committed state |
 | :--- | :--- |
@@ -78,7 +79,7 @@ existing files or planned deliverables; future paths are not links to implemente
 | **2. Establish the documentation and decision framework** | Complete on scaffolding branch | Define the repository's purpose; establish documentation ownership and navigation; define how decisions are proposed and recorded. | Narrowed `README.md`, `docs/README.md`, `docs/standards/documentation.md`, standards index, ADR index and template, and `docs/standards/architecture-decisions.md`. ADR-0001 records the approved Google documentation style decision. The roadmap records the scaffolding plan. |
 | **3. Establish repository policies and contribution practices** | Complete on scaffolding branch | Review Git conventions, dependency standards, community expectations, security reporting, contributor guidance, and agent instructions. Add issue and PR templates alongside the practices they support. Define maintainer ownership, CODEOWNERS adoption guidance, and basic issue triage and label conventions. | `docs/standards/git-workflow.md`, `docs/standards/dependencies.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `AGENTS.md`, `docs/AGENTS.md`, `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`, `docs/standards/ownership.md`, `docs/standards/issue-triage.md`, and `.github/CODEOWNERS`. |
 | **4. Record project-specific decisions** | Complete on scaffolding branch; secrets outcome remains Proposed | Introduce proposed ADRs containing requirements, options, use cases, trade-offs, and open outcomes. Separate mandatory hygiene from implementation choices. Begin with secrets and review any other decisions the project must own. | Proposed records in `docs/adr/`, starting with ADR-0002. Hold `.env.example` outside the intended baseline unless explicitly approved; a proposed comparison does not select an implementation. |
-| **5. Add local developer tooling** | In progress; ADR generator established | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
+| **5. Add local developer tooling** | Complete on scaffolding branch | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
 | **6. Add automated enforcement** | Pending | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings, including a repository settings checklist for review requirements, required status checks, merge behavior, and force-push protections. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
 | **7. Add repository maintenance procedures** | Pending | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
 | **8. Complete project setup and extension guidance** | Pending | Explain how to implement the repository foundation, replace its identity, and handle scaffolding-specific material. Include replacing repository-specific URLs in issue forms, issue chooser contacts, and the pull request template so links and reports target the adopting project. Assign project owners and configure CODEOWNERS with the adopting project's people or teams; verify the repository settings checklist. Provide reference guidance for extending standards as the project grows. Reconsider the application tutorial when reviewing this group. | Getting Started, scaling guidance, troubleshooting, `docs/guides/README.md`, and the completed root README. The reference `docs/guides/building-your-project.md` is material to reconsider, not a committed deliverable. |
@@ -99,10 +100,11 @@ existing files or planned deliverables; future paths are not links to implemente
 
 ## Next Review Group
 
-Introduce the disposable-file cleanup helper with explicit deletion boundaries,
-a preview mode, regression tests, and usage in the
-[script reference](../../scripts/README.md). Preserve tracked files, ordinary
-untracked source files, symbolic links, and nested repositories.
+Begin Phase 6 with the quality-checking decision. Review the intended check
+boundaries and implementation approach before adding repository checks, external
+linters, CI workflows, and required repository settings in focused groups.
+Introduce regression tests with each new check and keep enforcement claims tied
+to verified implementation.
 
 ### Phase 4 Decision Review
 

@@ -69,8 +69,8 @@ The editorial guidance is defined in the [documentation standard](../standards/d
 Review documentation changes against that standard and the linked Google guide.
 
 The [Vale implementation reference](../architecture/ci-cd.md#vale) documents local
-configuration, selected versions, blocking severity, and verification. CI
-integration remains pending.
+configuration, selected versions, blocking severity, and verification. A CI job is defined; live
+verification remains pending.
 Vale cannot guarantee full compliance with Google's guide; editorial review is
 still required for guidance that cannot be checked mechanically.
 

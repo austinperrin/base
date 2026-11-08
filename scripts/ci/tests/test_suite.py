@@ -28,8 +28,9 @@ class SuiteTests(unittest.TestCase):
       target = self.root / name
       target.parent.mkdir(parents=True, exist_ok=True)
       shutil.copy2(ROOT / name, target)
-    for script in (ROOT / 'scripts/ci').glob('*.sh'):
-      shutil.copy2(script, self.root / 'scripts/ci' / script.name)
+    for script in (ROOT / 'scripts/ci').iterdir():
+      if script.is_file() and script.suffix in {'.sh', '.py', '.json'}:
+        shutil.copy2(script, self.root / 'scripts/ci' / script.name)
     for workflow in (ROOT / '.github/workflows').glob('*'):
       if workflow.is_file():
         target = self.root / '.github/workflows' / workflow.name

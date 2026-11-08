@@ -117,7 +117,7 @@ We use **Mermaid.js** for all diagrams so that architecture and workflows remain
 
 ## Automated Style Linting (Vale)
 
-**Status: Local check available; CI integration pending.** [Vale](https://docs.vale.sh/) is a prose linter
+**Status: Local check and CI job defined; live verification pending.** [Vale](https://docs.vale.sh/) is a prose linter
 that checks enabled style rules. The [Google style package](https://github.com/vale-cli/Google)
 implements machine-checkable parts of Google's guide; it is maintained separately
 and is not maintained or endorsed by Google.

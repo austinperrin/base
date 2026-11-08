@@ -87,8 +87,9 @@ remain separate from local hook activation.
 
 ## Repository Checks
 
-Documentation, credential-filename, and repository-configuration check entry
-points are available under `scripts/ci/`. Use the
+The local suite entry point is [`scripts/ci/test.sh`](ci/test.sh). It runs the
+available documentation, credential-filename, and repository-configuration checks,
+Bash syntax and permission checks, and both regression suites. Use the
 [repository checks and CI reference](../docs/architecture/ci-cd.md) for their
 commands, prerequisites, regression tests, and supported syntax. CI workflows
 remain pending.

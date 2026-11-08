@@ -11,7 +11,20 @@ remain pending.
 ## Commands and Prerequisites
 
 Use Bash 3.2 or newer and Python 3.9 or newer with its standard library. Credential-filename checks and the
-regression tests also use Git. Run these commands from the repository root:
+regression tests also use Git. Run the local suite from the repository root:
+
+```bash
+./scripts/ci/test.sh
+```
+
+The suite checks executable shell entry points and Bash syntax, runs the four
+repository checks, and then runs the developer and repository regression tests.
+It stops at the first failed command. It does not run setup, cleanup, external
+linters, or change hook activation or Git settings. Source verification does not
+repair files; regression fixtures and Git configuration changes stay in temporary
+repositories.
+
+For individual checks or repository regression tests, run:
 
 ```bash
 ./scripts/ci/check-links.sh
@@ -97,7 +110,7 @@ Manual review remains responsible for the full
 | Area | State |
 | :--- | :--- |
 | Documentation links and structure | Local scripts and focused regression tests |
-| Developer helpers | Existing tests documented in the [script reference](../../scripts/README.md) |
+| Developer helpers | Regression tests included in the local suite; individual usage in the [script reference](../../scripts/README.md) |
 | Credential filenames and repository configuration | Local scripts and regression tests; content/history scanning remains pending |
 | ShellCheck, actionlint, Vale, and Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
 | CI workflows and dependency updates | Pending implementation |

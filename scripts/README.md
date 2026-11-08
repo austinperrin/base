@@ -95,8 +95,9 @@ pinned tool is installed. The separate
 [workflow check](ci/check-workflows.sh) validates workflow files with pinned
 actionlint; it reports when there are no workflows to validate. The separate
 [prose check](ci/check-prose.sh) applies pinned Vale and Google rules after style
-installation. Use the
-[repository checks and CI reference](../docs/architecture/ci-cd.md) for their
+installation. The separate [credential content check](ci/check-credentials.sh)
+scans current-branch history and staged changes with redacted Gitleaks output.
+Use the [repository checks and CI reference](../docs/architecture/ci-cd.md) for their
 commands, prerequisites, regression tests, and supported syntax. CI workflows
 remain pending.
 

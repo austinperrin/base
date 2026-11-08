@@ -65,8 +65,8 @@ Untracked local configuration is outside this check's scope.
 This is filename hygiene, not content or history scanning. It can flag harmless
 files with credential-like names and miss credentials stored under ordinary names.
 Resolve reports by reviewing the file's purpose and the canonical policy; do not
-assume renaming a real secret makes it safe. Content/history scanning remains
-pending the Gitleaks implementation, and credential handling follows the
+assume renaming a real secret makes it safe. The separate [Gitleaks check](#gitleaks)
+covers staged content and current-branch history; credential handling follows the
 [security policy](../../SECURITY.md).
 
 The [repository-configuration check](../../scripts/ci/check-repository.sh) verifies
@@ -270,17 +270,76 @@ failure propagation without downloading packages. The real-rule integration test
 runs when the pinned engine and downloaded Google rules are available, and is
 explicitly skipped otherwise. CI must install those prerequisites to exercise it.
 
+## Gitleaks
+
+Run the separate [credential content check](../../scripts/ci/check-credentials.sh)
+after installing its pinned Gitleaks version:
+
+```bash
+./scripts/ci/check-credentials.sh
+```
+
+The wrapper's `required_version` pins Gitleaks to `8.30.1`. Obtain the matching
+OS/architecture binary from the
+[fixed upstream release](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1),
+verify it against the published release checksums, and install it outside the
+checkout on `PATH`. Confirm the version with `gitleaks version`. CI installation
+will be reviewed with the workflows; no binary is bundled here.
+
+### Scan Scope and Output
+
+The wrapper scans commits reachable from the checkout's `HEAD`, then staged
+changes, using the explicit [project configuration](../../.gitleaks.toml). That
+configuration extends the pinned engine's default rules and upstream allowlists;
+it adds no project exclusions. Inline `gitleaks:allow` comments do not suppress
+findings through this wrapper. Any future exception configuration must be reviewed
+with its rationale instead of being used to dismiss a real exposure.
+
+The command requires an existing commit and complete current-branch history. A
+shallow checkout fails with instructions to fetch history; CI must provide that
+history. It does not scan unrelated branches, unreachable commits, untracked files,
+or unstaged edits. It does not create a report artifact or modify Git history.
+Output uses full redaction and no verbose findings. Filenames and scan metadata
+can still appear in diagnostic messages; do not publish sensitive context casually.
+
+The first failed scan stops the command. Detection is pattern-based and incomplete;
+a pass is not proof that credentials are absent. Use the
+[security policy](../../SECURITY.md) for reporting and revoking exposed credentials.
+Neither this check nor filename hygiene selects how the adopting project stores
+or delivers secrets.
+
+### Dependency Evaluation
+
+Gitleaks provides content and history detection beyond filename matching. Its
+[upstream project](https://github.com/gitleaks/gitleaks) publishes MIT-licensed
+sources, release binaries, configuration documentation, and rule definitions.
+The reviewed release includes security-relevant report-template changes; pinned
+rules and representative fixtures allow updates to be assessed together.
+
+A standalone executable avoids a Go compiler dependency for contributors while
+adding tool updates and scan-scope maintenance. Default allowlists and detection
+patterns can miss exposures or report harmless values. Review changes and upstream
+security information under the [dependency standard](../standards/dependencies.md).
+See the [upstream usage and configuration](https://github.com/gitleaks/gitleaks/tree/v8.30.1)
+for the scanner's behavior and limitations.
+
+Tests use temporary repositories and synthetic, unusable token-shaped values.
+They verify redaction, staged detection, detection after a value is removed from
+history, scan arguments, shallow-checkout rejection, and failure propagation.
+Real-scanner integration tests require the pinned executable on `PATH`; otherwise
+they are explicitly skipped. The core suite does not require external scanners.
+
 ## Enforcement Status
 
 | Area | State |
 | :--- | :--- |
 | Documentation links and structure | Local scripts and focused regression tests |
 | Developer helpers | Regression tests included in the local suite; individual usage in the [script reference](../../scripts/README.md) |
-| Credential filenames and repository configuration | Local scripts and regression tests; content/history scanning remains pending |
+| Credential filenames and repository configuration | Local scripts and regression tests |
 | ShellCheck | Separate pinned local check and regression tests; CI installation pending |
 | actionlint | Separate pinned local check and regression tests; no workflows introduced yet |
 | Vale | Pinned local prose check, Google rules, vocabulary, and regression tests; CI installation pending |
-| Gitleaks integration | Pending configuration, dependency evaluation, and reproducible commands |
+| Gitleaks | Separate pinned staged-content and current-branch history check with redacted output; CI integration pending |
 | CI workflows and dependency updates | Pending implementation |
 | Required status checks and review/merge settings | Pending configuration and verification in the target repository |
 

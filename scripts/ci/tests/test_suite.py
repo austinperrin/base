@@ -30,7 +30,7 @@ class SuiteTests(unittest.TestCase):
       shutil.copy2(ROOT / name, target)
     for script in (ROOT / 'scripts/ci').glob('*.sh'):
       shutil.copy2(script, self.root / 'scripts/ci' / script.name)
-    for name in ['.vale.ini', '.github/styles/config/vocabularies/Base/accept.txt']:
+    for name in ['.vale.ini', '.gitleaks.toml', '.github/styles/config/vocabularies/Base/accept.txt']:
       target = self.root / name
       target.parent.mkdir(parents=True, exist_ok=True)
       shutil.copy2(ROOT / name, target)

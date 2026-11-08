@@ -1,0 +1,5 @@
+title = "Repository credential detection"
+
+# Retain the pinned engine's built-in rules and their upstream allowlists.
+[extend]
+useDefault = true

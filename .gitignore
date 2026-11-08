@@ -1,0 +1,130 @@
+# ======================================================================
+# OPERATING SYSTEM FILES
+# Keep machine-generated metadata out of shared source history.
+# ======================================================================
+# MACOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# WINDOWS
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# LINUX
+*~
+.directory
+.Trash-*
+
+
+# ======================================================================
+# SECRETS, ENVIRONMENT AND CREDENTIALS
+# Keep local configuration and private credentials off Git; allow
+# example schemas.
+# ======================================================================
+.env
+.env.*
+*.env
+!.env.example
+!.env.*.example
+!*.env.example
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.id_rsa
+*.id_ed25519
+id_rsa
+id_ed25519
+*.keystore
+
+
+# ======================================================================
+# IDES AND TEXT EDITORS
+# Ignore personal editor state while allowing shared VS Code project
+# settings.
+# ======================================================================
+# VISUAL STUDIO CODE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JETBRAINS / INTELLIJ
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# SUBLIME TEXT
+*.sublime-project
+*.sublime-workspace
+
+# VIM / EMACS
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+
+# ======================================================================
+# LOGS AND DIAGNOSTICS
+# Generated diagnostics vary by machine and can contain sensitive
+# runtime data.
+# ======================================================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+
+# ======================================================================
+# TEMPORARY AND SCRATCH FILES
+# Reserve these paths for disposable work rather than source files.
+# ======================================================================
+tmp/
+.tmp/
+temp/
+scratch/
+*.bak
+*.tmp
+*.orig
+
+
+# ======================================================================
+# BUILD AND PACKAGE ARTIFACTS
+# Recreate generated output with build and test tools instead of
+# committing it.
+# ======================================================================
+dist/
+build/
+coverage/
+.nyc_output/
+.cache/
+
+
+# ======================================================================
+# LOCAL TOOL CACHES
+# Recreate downloaded prose rules and Python bytecode on each machine.
+# ======================================================================
+.github/styles/*
+!.github/styles/config/
+__pycache__/
+*.py[cod]

@@ -1,0 +1,72 @@
+# Auto-detect text files and normalize line endings to LF
+* text=auto eol=lf
+
+# Explicit text files
+*.c text
+*.cpp text
+*.cs text
+*.css text
+*.go text
+*.html text
+*.java text
+*.js text
+*.json text
+*.jsx text
+*.md text
+*.py text
+*.rb text
+*.rs text
+*.sh text eol=lf
+*.sql text
+*.ts text
+*.tsx text
+*.xml text
+*.yaml text
+*.yml text
+
+# Binary files
+*.7z binary
+*.ai binary
+*.bmp binary
+*.dll binary
+*.dmg binary
+*.doc binary
+*.docx binary
+*.dylib binary
+*.ear binary
+*.eot binary
+*.exe binary
+*.gif binary
+*.gz binary
+*.ico binary
+*.iso binary
+*.jar binary
+*.jpeg binary
+*.jpg binary
+*.mov binary
+*.mp3 binary
+*.mp4 binary
+*.otf binary
+*.pdf binary
+*.png binary
+*.ppt binary
+*.pptx binary
+*.psd binary
+*.rar binary
+*.so binary
+*.svg text
+*.tar binary
+*.tar.gz binary
+*.tgz binary
+*.tif binary
+*.tiff binary
+*.ttf binary
+*.war binary
+*.wav binary
+*.webm binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.xls binary
+*.xlsx binary
+*.zip binary

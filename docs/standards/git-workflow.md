@@ -134,7 +134,7 @@ hooks, create workflows, or configure GitHub branch protection.
 | Area | Current state | Planned follow-up |
 | :--- | :--- | :--- |
 | Commit-message format | Local subject validation when the hook is enabled; manual review of full messages | See the [script reference](../../scripts/README.md) for activation and verification |
-| Pull request title | Manual review | Automated validation in Phase 6 |
+| Pull request title | Manual review and metadata workflow definition; live verification pending | Verify activation and required settings through the [checks reference](../architecture/ci-cd.md#pull-request-titles) |
 | Pull request description | Pull request template and manual review | Review template prompts when the contribution process changes |
 | Repository checks | Local suite and core CI definition; live verification pending | See the [checks reference](../architecture/ci-cd.md) for coverage and activation |
 | Merge and review settings | Not yet documented or verified by this scaffolding work | Document and verify repository settings with the corresponding automation and setup work |

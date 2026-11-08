@@ -401,8 +401,8 @@ permits ignored tool caches while rejecting ordinary source changes.
 
 Full history supports the documented Gitleaks scan scope. This job does not upload
 scan reports, publish packages, or require project secrets. It is defined for the
-same events as the core matrix; scheduled security scans and PR-title handling
-remain a later review group. Live execution still needs verification.
+same events as the core matrix. Separate scheduled scanning and PR-title
+workflows are described below. Live execution still needs verification.
 
 ### Checkout Dependency Evaluation
 
@@ -436,6 +436,55 @@ The emitted job names are `Repository checks (ubuntu-24.04)` and
 settings remain a later review group;
 a YAML definition alone does not make these checks mandatory.
 
+## Pull Request Titles
+
+The [Pull Request Title workflow](../../.github/workflows/pr-title.yml) validates
+the title against the [Git workflow convention](../standards/git-workflow.md) on
+opened, edited, synchronized, reopened, and ready-for-review pull requests. It
+checks the complete title, including the optional scope and breaking marker, and
+rejects empty descriptions and control characters.
+
+This workflow uses `pull_request_target` only to process event metadata. It checks
+out no repository code, invokes no external action, grants no token permissions,
+and reads the title from `GITHUB_EVENT_PATH` as JSON data rather than inserting it
+into a shell script. It prints generic results instead of echoing untrusted titles.
+A per-PR concurrency group cancels stale runs after later title updates.
+
+The inline Python uses the hosted runner's standard library so validation needs
+neither contribution code nor a package installation. Its exact code is exercised
+by regression fixtures, including hostile-looking shell text and agreement with
+the local hook on representative subjects. Human review still assesses whether
+the title describes the change accurately.
+
+The emitted check name is `Validate Conventional Commit PR title`. Activation
+requires GitHub to use a base-branch workflow containing this definition; initial
+phase PRs may precede that availability. Verify title edits, fork PR behavior, and
+the attached check on GitHub before making it required. See GitHub's
+[event guidance](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request_target)
+and [script-injection guidance](https://docs.github.com/en/actions/reference/security/secure-use#good-practices-for-mitigating-script-injection-attacks).
+
+## Scheduled Credential Scanning
+
+The [Scheduled Credential Scan workflow](../../.github/workflows/security.yml)
+uses the same verified installer and Gitleaks wrapper as the external-check job.
+It runs weekly on Monday at 04:23 UTC and supports manual dispatch. It installs
+only Gitleaks, checks out full history without persisting credentials, and uses
+`contents: read` permissions with a ten-minute timeout. No project secrets or
+report uploads are configured.
+
+GitHub schedules run from the default branch and can be delayed or disabled by
+platform conditions. Confirm the schedule is active after the workflow reaches
+the default branch; see GitHub's
+[schedule guidance](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule).
+Manual dispatch also depends on default-branch workflow availability. Inspect a
+live run and its checkout commit before claiming operational coverage.
+
+`Scheduled credential scan` is a maintenance check, not a pull request check;
+do not add it to required PR status checks. Main pushes and PRs already receive
+credential scanning through `External checks (Linux)`. Handling findings follows
+the [security policy](../../SECURITY.md); scheduled scanning does not rotate or
+revoke credentials.
+
 ## Enforcement Status
 
 | Area | State |
@@ -449,7 +498,8 @@ a YAML definition alone does not make these checks mandatory.
 | Gitleaks | Pinned local check and external CI job with redacted output; live execution pending verification |
 | Core CI workflow | Defined and locally validated; live runs pending verification |
 | External-check CI job | Defined and locally validated; live execution pending verification |
-| PR-title validation, scheduled scans, and dependency updates | Pending implementation |
+| PR-title validation and scheduled scanning | Workflow definitions and local validation available; live verification pending |
+| Dependency updates | Pending implementation |
 | Required status checks and review/merge settings | Pending configuration and verification in the target repository |
 
 Local checks do not configure merge protection. Introduce workflows and required

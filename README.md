@@ -4,7 +4,8 @@ A codeless, language-agnostic foundation for software projects, with consistent
 repository standards, structured documentation, and recorded architectural decisions.
 
 Repository scaffolding is in progress. This README describes the foundation
-currently present.
+currently present. See the [repository roadmap](docs/roadmap/README.md) for milestones, their
+dependency order, and the next review group.
 
 ## Repository foundation
 

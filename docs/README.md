@@ -9,6 +9,7 @@ decisions. Add categories as their subject matter is introduced.
 
 | Category | Purpose |
 | :--- | :--- |
+| [Roadmap](roadmap/README.md) | Repository scaffolding in Milestone 0 and subsequent project milestones |
 | [Standards](standards/README.md) | Shared repository conventions |
 | [Architecture Decision Records (ADRs)](adr/README.md) | Proposed and recorded decisions, their options, and their rationale |
 

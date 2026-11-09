@@ -5,10 +5,11 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tool_support import pinned_tool
 
 
 ROOT = Path(__file__).resolve().parents[3]
-REAL_SHELLCHECK = shutil.which('shellcheck')
+REAL_SHELLCHECK = pinned_tool('shellcheck', ['--version'], 'version: 0.11.0')
 BASH = shutil.which('bash')
 
 
@@ -79,7 +80,7 @@ exit 7
   def test_unknown_arguments_are_rejected(self):
     self.assertNotEqual(self.run_check('--unknown').returncode, 0)
 
-  @unittest.skipUnless(REAL_SHELLCHECK, 'ShellCheck not installed; real-tool integration is checked separately')
+  @unittest.skipUnless(REAL_SHELLCHECK, 'ShellCheck pinned version not installed; real-tool integration is checked separately')
   def test_real_shellcheck_accepts_valid_script_and_rejects_unquoted_expansion(self):
     self.env['PATH'] = str(Path(REAL_SHELLCHECK).parent) + os.pathsep + os.environ['PATH']
     path = self.root / 'scripts/ci/example.sh'

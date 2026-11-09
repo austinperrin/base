@@ -85,6 +85,15 @@ The tests exercise setup, real Git commits, ADR generation, and cleanup in tempo
 not change the current checkout's Git configuration. Review and CI enforcement
 remain separate from local hook activation.
 
+## Repository Checks
+
+The local suite entry point is [`scripts/ci/test.sh`](ci/test.sh). It runs the
+available documentation, credential-filename, and repository-configuration checks,
+Bash syntax and permission checks, and both regression suites. Use the
+[repository checks and CI reference](../docs/architecture/ci-cd.md) for their
+commands, prerequisites, regression tests, and supported syntax. CI workflows
+remain pending.
+
 ## Related Documents
 
 - [Contributing](../CONTRIBUTING.md) - Preparing and reviewing changes.

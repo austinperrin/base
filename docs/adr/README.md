@@ -23,6 +23,8 @@ define their structure, numbering, review, and status lifecycle.
 
 Copy the [Architecture Decision Record (ADR) template](template.md) and complete it
 following the [ADR standards](../standards/architecture-decisions.md).
+You can also create a numbered draft using the
+[ADR generator](../../scripts/README.md#adr-generation).
 Register the record in the decision log and update its status when the responsible
 decision maker approves an outcome.
 

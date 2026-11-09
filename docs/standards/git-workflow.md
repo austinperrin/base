@@ -133,7 +133,7 @@ hooks, create workflows, or configure GitHub branch protection.
 
 | Area | Current state | Planned follow-up |
 | :--- | :--- | :--- |
-| Commit-message format | Manual review | Local validation hook in Phase 5 |
+| Commit-message format | Local subject validation when the hook is enabled; manual review of full messages | See the [script reference](../../scripts/README.md) for activation and verification |
 | Pull request title | Manual review | Automated validation in Phase 6 |
 | Pull request description | Pull request template and manual review | Review template prompts when the contribution process changes |
 | Repository checks | Manual review of applicable standards | Automated checks in Phase 6 |

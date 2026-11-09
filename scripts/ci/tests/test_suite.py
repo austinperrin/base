@@ -31,12 +31,16 @@ class SuiteTests(unittest.TestCase):
     for script in (ROOT / 'scripts/ci').iterdir():
       if script.is_file() and script.suffix in {'.sh', '.py', '.json'}:
         shutil.copy2(script, self.root / 'scripts/ci' / script.name)
+    for document in (ROOT / 'docs/architecture').glob('*.md'):
+      target = self.root / 'docs/architecture' / document.name
+      target.parent.mkdir(parents=True, exist_ok=True)
+      shutil.copy2(document, target)
     for workflow in (ROOT / '.github/workflows').glob('*'):
       if workflow.is_file():
         target = self.root / '.github/workflows' / workflow.name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(workflow, target)
-    for name in ['.vale.ini', '.gitleaks.toml', '.github/styles/config/vocabularies/Base/accept.txt']:
+    for name in ['.vale.ini', '.gitleaks.toml', '.github/dependabot.yml', '.github/styles/config/vocabularies/Base/accept.txt']:
       target = self.root / name
       target.parent.mkdir(parents=True, exist_ok=True)
       shutil.copy2(ROOT / name, target)

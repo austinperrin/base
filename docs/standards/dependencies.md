@@ -17,8 +17,8 @@ tools, and automation as they are introduced into the repository.
    using the chosen ecosystem's supported mechanisms. Document required runtime
    and package-manager versions alongside them.
 3. **Ongoing review**: Review dependencies and their transitive dependencies for
-   relevant advisories and compatibility changes. Automated monitoring will support
-   this policy when it is introduced; review is currently manual.
+   relevant advisories and compatibility changes. Confirm the coverage of available
+   automation and review dependencies outside that coverage manually.
 
 ---
 
@@ -65,8 +65,8 @@ commit SHA and include a version comment for readability. Verify that the commit
 belongs to the intended upstream repository. See GitHub's
 [third-party action guidance](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
 
-Review updates as dependency changes. Automated updates to those references remain
-pending the automation scaffolding group.
+Review updates as dependency changes. The [update coverage](#automated-updates-and-auditing)
+below distinguishes configured automation from manual maintenance.
 
 ### 3. Lockfiles and Integrity Metadata
 
@@ -108,17 +108,29 @@ installation alone is insufficient evidence that an update is safe to merge.
 
 ## Automated Updates and Auditing
 
-**Status: Pending implementation.** Dependabot configuration and automated
-vulnerability checks have not been introduced by this scaffolding group.
+**Status: GitHub Actions update configuration available; live activation pending.**
+[`.github/dependabot.yml`](../../.github/dependabot.yml) configures weekly version
+updates for GitHub Actions, a bounded open-PR count, and Conventional Commits
+prefixes. It assigns no project-specific reviewers or labels and does not enable
+auto-merge. Its schedule and other values are owned by the configuration file.
 
-The planned automation group will review GitHub Actions updates and the applicable
-package ecosystems, tool configuration, and CI checks. Operational maintenance
-procedures follow in the repository maintenance group. Until then, review the
-applicable requirements manually and record the results.
+Dependabot activation requires the configuration on the default branch and
+compatible repository settings. Verify its update job and a resulting PR through
+the [repository settings checklist](../architecture/repository-settings.md).
+See the [official options reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference)
+when extending its supported ecosystems.
+
+This configuration does not update the custom tool archive manifest, wrapper
+version requirements, or Vale package URL. Maintainers must review those upstream
+releases and update their related pins, configuration, and regression evidence
+together using the [verified installation reference](../architecture/ci-cd.md#verified-tool-installation).
+It also does not establish automated vulnerability coverage for every dependency;
+review feature availability and the project's actual ecosystems before making
+that claim. Add application package ecosystems when their manifests are introduced.
 
 The [Milestone 0 roadmap](../roadmap/milestone-0-repository-scaffolding.md) tracks
-those implementation groups. This policy does not install a package manager or
-select an application technology stack.
+remaining setup and the later operational dependency-maintenance procedure. This
+policy does not select an application stack or add a package manager.
 
 ---
 

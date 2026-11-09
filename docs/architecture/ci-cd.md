@@ -431,10 +431,9 @@ skipped when their prerequisites are installed.
 Fork pull requests may require maintainer approval under GitHub settings. Manual
 dispatch availability depends on the workflow being on the default branch.
 
-The emitted job names are `Repository checks (ubuntu-24.04)` and
-`Repository checks (macos-15)`, plus `External checks (Linux)`. Required-check
-settings remain a later review group;
-a YAML definition alone does not make these checks mandatory.
+The [repository settings checklist](repository-settings.md#required-pull-request-checks)
+owns required check names and live setup. A YAML definition alone does not make
+these checks mandatory.
 
 ## Pull Request Titles
 
@@ -456,8 +455,7 @@ by regression fixtures, including hostile-looking shell text and agreement with
 the local hook on representative subjects. Human review still assesses whether
 the title describes the change accurately.
 
-The emitted check name is `Validate Conventional Commit PR title`. Activation
-requires GitHub to use a base-branch workflow containing this definition; initial
+Activation requires GitHub to use a base-branch workflow containing this definition; initial
 phase PRs may precede that availability. Verify title edits, fork PR behavior, and
 the attached check on GitHub before making it required. See GitHub's
 [event guidance](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request_target)
@@ -485,6 +483,14 @@ credential scanning through `External checks (Linux)`. Handling findings follows
 the [security policy](../../SECURITY.md); scheduled scanning does not rotate or
 revoke credentials.
 
+## Repository Settings and Dependency Updates
+
+The [repository settings checklist](repository-settings.md) owns required checks,
+review and merge controls, activation requirements, and live verification evidence.
+The [dependency standard](../standards/dependencies.md#automated-updates-and-auditing)
+describes configured update coverage and tool pins that still require manual review.
+Neither document configures live GitHub settings by itself.
+
 ## Enforcement Status
 
 | Area | State |
@@ -499,11 +505,11 @@ revoke credentials.
 | Core CI workflow | Defined and locally validated; live runs pending verification |
 | External-check CI job | Defined and locally validated; live execution pending verification |
 | PR-title validation and scheduled scanning | Workflow definitions and local validation available; live verification pending |
-| Dependency updates | Pending implementation |
-| Required status checks and review/merge settings | Pending configuration and verification in the target repository |
+| Dependency updates | GitHub Actions Dependabot configuration available; live activation pending |
+| Required status checks and review/merge settings | Checklist documented; live configuration and verification pending |
 
-Local checks do not configure merge protection. Introduce workflows and required
-settings only with verified implementation, and update this document as each
+Local checks do not configure merge protection. Apply the repository settings
+checklist against verified workflow behavior, and update this document as each
 part becomes available. The [roadmap](../roadmap/README.md) tracks those groups.
 
 ## Related Documents

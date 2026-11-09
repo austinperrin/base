@@ -117,7 +117,7 @@ We use **Mermaid.js** for all diagrams so that architecture and workflows remain
 
 ## Automated Style Linting (Vale)
 
-**Status: Pending implementation.** [Vale](https://docs.vale.sh/) is a prose linter
+**Status: Local check available; CI integration pending.** [Vale](https://docs.vale.sh/) is a prose linter
 that checks enabled style rules. The [Google style package](https://github.com/vale-cli/Google)
 implements machine-checkable parts of Google's guide; it is maintained separately
 and is not maintained or endorsed by Google.
@@ -127,11 +127,12 @@ They do not guarantee full compliance with the guide, technical accuracy, or use
 explanations. Human review remains necessary. Documentation structure and link
 integrity are separate concerns, described below.
 
-* **Planned configuration**: `.vale.ini` using the `Google` style package.
-* **Planned CI integration**: Documentation linting in the repository workflow, with explicitly selected rules and blocking severity levels. A failed check can block merging once it is required by repository settings.
-* **Local usage**: Tool versions and commands will be documented with the implementation.
-
-This scaffolding group does not include Vale configuration or automated prose checks.
+The [Vale implementation reference](../architecture/ci-cd.md#vale) owns setup,
+commands, pinned engine and rule versions, vocabulary, scope, and blocking
+severity. Configuration lives in [`.vale.ini`](../../.vale.ini). Enabled errors
+block the local check; warnings and suggestions support editorial review.
+A failed check can block merging once CI and required repository settings are
+implemented and verified.
 
 ---
 

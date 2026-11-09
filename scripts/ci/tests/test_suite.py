@@ -28,7 +28,12 @@ class SuiteTests(unittest.TestCase):
       target = self.root / name
       target.parent.mkdir(parents=True, exist_ok=True)
       shutil.copy2(ROOT / name, target)
-    shutil.copy2(ROOT / 'scripts/ci/test.sh', self.root / 'scripts/ci/test.sh')
+    for script in (ROOT / 'scripts/ci').glob('*.sh'):
+      shutil.copy2(script, self.root / 'scripts/ci' / script.name)
+    for name in ['.vale.ini', '.gitleaks.toml', '.github/styles/config/vocabularies/Base/accept.txt']:
+      target = self.root / name
+      target.parent.mkdir(parents=True, exist_ok=True)
+      shutil.copy2(ROOT / name, target)
     subprocess.run(['git', 'init', '-q'], cwd=self.root, env=self.env, check=True,
                    capture_output=True)
     for domain in ['ci', 'dev']:

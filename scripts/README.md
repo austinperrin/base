@@ -89,8 +89,15 @@ remain separate from local hook activation.
 
 The local suite entry point is [`scripts/ci/test.sh`](ci/test.sh). It runs the
 available documentation, credential-filename, and repository-configuration checks,
-Bash syntax and permission checks, and both regression suites. Use the
-[repository checks and CI reference](../docs/architecture/ci-cd.md) for their
+Bash syntax and permission checks, and both regression suites. The separate
+[ShellCheck entry point](ci/check-shell.sh) adds static shell analysis when its
+pinned tool is installed. The separate
+[workflow check](ci/check-workflows.sh) validates workflow files with pinned
+actionlint; it reports when there are no workflows to validate. The separate
+[prose check](ci/check-prose.sh) applies pinned Vale and Google rules after style
+installation. The separate [credential content check](ci/check-credentials.sh)
+scans current-branch history and staged changes with redacted Gitleaks output.
+Use the [repository checks and CI reference](../docs/architecture/ci-cd.md) for their
 commands, prerequisites, regression tests, and supported syntax. CI workflows
 remain pending.
 

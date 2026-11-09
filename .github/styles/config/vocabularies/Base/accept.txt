@@ -1,0 +1,9 @@
+[aA]ctionlint
+Gitleaks
+ShellCheck
+Vale
+CODEOWNERS
+codeless
+pyflakes
+[tT]ooling(?:'s)?
+unignored

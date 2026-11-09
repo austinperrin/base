@@ -15,3 +15,9 @@ decisions. Add categories as their subject matter is introduced.
 
 For documentation ownership, formatting, and navigation rules, see the
 [documentation standard](standards/documentation.md).
+
+## Agent Instructions
+
+AI assistants working in this directory should follow the
+[documentation agent guidelines](AGENTS.md), which inherit the
+[repository-wide instructions](../AGENTS.md).

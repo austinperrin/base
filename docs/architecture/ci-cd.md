@@ -5,8 +5,10 @@
 This document owns the commands, coverage, and limitations of repository-wide
 validation. [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) records the
 accepted approach. The current implementation contains local documentation, credential-filename,
-and repository-configuration checks. Core and external-check CI jobs are defined;
-live-run verification and required GitHub checks remain pending.
+and repository-configuration checks. Core and external-check CI jobs have passed an initial PR run; default-branch
+activation and required GitHub checks still need verification. The
+[roadmap evidence](../roadmap/milestone-0-repository-scaffolding.md#phase-6-verification)
+records the verified commit and remaining setup.
 
 ## Commands and Prerequisites
 
@@ -402,7 +404,7 @@ permits ignored tool caches while rejecting ordinary source changes.
 Full history supports the documented Gitleaks scan scope. This job does not upload
 scan reports, publish packages, or require project secrets. It is defined for the
 same events as the core matrix. Separate scheduled scanning and PR-title
-workflows are described below. Live execution still needs verification.
+workflows are described below. Verify execution in each target repository.
 
 ### Checkout Dependency Evaluation
 
@@ -423,10 +425,10 @@ the workflow definition; it does not verify a live run or repository permissions
 
 ### Activation and Verification
 
-The workflow jobs have not yet been exercised on GitHub as part of this review.
-After they are committed and a supported event occurs, inspect both matrix jobs
-and the external-check job for the intended commit, results and skips, tool
-versions, and clean-checkout steps. External-check integration tests must not be
+The initial project run passed both matrix jobs and the external-check job; see
+the roadmap evidence above. For each adopting repository or subsequent workflow
+change, inspect the intended commit, results and skips, tool versions, and
+clean-checkout steps. External-check integration tests must not be
 skipped when their prerequisites are installed.
 Fork pull requests may require maintainer approval under GitHub settings. Manual
 dispatch availability depends on the workflow being on the default branch.
@@ -498,12 +500,12 @@ Neither document configures live GitHub settings by itself.
 | Documentation links and structure | Local scripts and focused regression tests |
 | Developer helpers | Regression tests included in the local suite; individual usage in the [script reference](../../scripts/README.md) |
 | Credential filenames and repository configuration | Local scripts and regression tests |
-| ShellCheck | Pinned local check and external CI job; live execution pending verification |
-| actionlint | Pinned local check and external CI job; live execution pending verification |
-| Vale | Pinned local check, Google rules, vocabulary, and external CI job; live execution pending verification |
-| Gitleaks | Pinned local check and external CI job with redacted output; live execution pending verification |
-| Core CI workflow | Defined and locally validated; live runs pending verification |
-| External-check CI job | Defined and locally validated; live execution pending verification |
+| ShellCheck | Pinned local check and external CI job; initial PR execution verified |
+| actionlint | Pinned local check and external CI job; initial PR execution verified |
+| Vale | Pinned local check, Google rules, vocabulary, and external CI job; initial PR execution verified |
+| Gitleaks | Pinned local check and external CI job with redacted output; initial PR execution verified |
+| Core CI workflow | Initial Linux and macOS PR jobs verified; see roadmap evidence |
+| External-check CI job | Initial PR job verified with all real-tool fixtures; see roadmap evidence |
 | PR-title validation and scheduled scanning | Workflow definitions and local validation available; live verification pending |
 | Dependency updates | GitHub Actions Dependabot configuration available; live activation pending |
 | Required status checks and review/merge settings | Checklist documented; live configuration and verification pending |

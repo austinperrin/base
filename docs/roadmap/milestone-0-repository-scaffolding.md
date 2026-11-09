@@ -14,8 +14,8 @@ and plan subsequent project work from Milestone 1.
 ## Current Position
 
 Phases 0–5 are Completed. Phase 6 implementation is delivered and locally
-validated; hosted execution, default-branch activation, and repository settings
-verification remain pending. Phase 7 has not started.
+validated. The initial core and external CI jobs passed; default-branch feature
+activation and repository settings verification remain pending. Phase 7 has not started.
 
 [ADR-0001](../adr/0001-adopt-google-documentation-style.md) accepts Google
 Developer Documentation Style.
@@ -29,6 +29,22 @@ Git history and pull requests record integration into `main`. The retained
 `chore/scaffold-repository` and `chore/reference-scaffolding-drafts` branches
 preserve earlier work for reference; their contents do not establish completion
 in this snapshot.
+
+
+## Phase 6 Verification
+
+The [initial Repository Checks run](https://github.com/austinperrin/base/actions/runs/42541659275)
+passed for commit `ebd183d` on [the CI integration PR](https://github.com/austinperrin/base/pull/8).
+Both Linux and macOS core jobs passed, as did the external-check job. The external
+job installed the pinned archives, ran all 83 tests with the real-tool integration
+cases enabled, passed all four external checks, and left the checkout unchanged.
+
+PR-title event handling, scheduled scanning, Dependabot activation, and live
+repository settings still require verification as their default-branch and
+integration prerequisites become available. Phase 6 remains In progress until
+that evidence is recorded. The [settings checklist](../architecture/repository-settings.md)
+defines those checks; review and merge the phase PRs in dependency order before
+starting Phase 7.
 
 ## Dependency Order
 
@@ -71,7 +87,7 @@ deliverables; future paths are not links to implemented content.
 | **3. Establish repository policies and contribution practices** | Completed | Review Git conventions, dependency standards, community expectations, security reporting, contributor guidance, and agent instructions. Add issue and PR templates alongside the practices they support. Define maintainer ownership, CODEOWNERS adoption guidance, and basic issue triage and label conventions. | `docs/standards/git-workflow.md`, `docs/standards/dependencies.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `AGENTS.md`, `docs/AGENTS.md`, `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`, `docs/standards/ownership.md`, `docs/standards/issue-triage.md`, and `.github/CODEOWNERS`. |
 | **4. Record project-specific decisions** | Completed | Introduce proposed ADRs containing requirements, options, use cases, trade-offs, and open outcomes. Separate mandatory hygiene from implementation choices. Begin with secrets and review any other decisions the project must own. | Proposed records in `docs/adr/`, starting with ADR-0002. Hold `.env.example` outside the intended baseline unless explicitly approved; a proposed comparison does not select an implementation. |
 | **5. Add local developer tooling** | Completed | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
-| **6. Add automated enforcement** | In progress; implementation delivered, live verification pending | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings, including a repository settings checklist for review requirements, required status checks, merge behavior, and force-push protections. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
+| **6. Add automated enforcement** | In progress; initial CI passed, activation and settings pending | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings, including a repository settings checklist for review requirements, required status checks, merge behavior, and force-push protections. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
 | **7. Add repository maintenance procedures** | Pending | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
 | **8. Complete project setup and extension guidance** | Pending | Explain how to implement the repository foundation, replace its identity, and handle scaffolding-specific material. Include replacing repository-specific URLs in issue forms, issue chooser contacts, and the pull request template so links and reports target the adopting project. Assign project owners and configure CODEOWNERS with the adopting project's people or teams; verify the repository settings checklist. Provide reference guidance for extending standards as the project grows. Reconsider the application tutorial when reviewing this group. | Getting Started, scaling guidance, troubleshooting, `docs/guides/README.md`, and the completed root README. The reference `docs/guides/building-your-project.md` is material to reconsider, not a committed deliverable. |
 | **9. Verify the assembled repository** | Pending | Check a clean checkout and a representative initialized project, confirm navigation and automation, and prepare the scaffolding branch for merge. | The resulting committed repository, not the surrounding drafts. Verify the full foundation and its project-initialization path. |
@@ -91,8 +107,9 @@ deliverables; future paths are not links to implemented content.
 
 Review the Phase 6 pull request and verify the implemented workflows and
 [repository settings checklist](../architecture/repository-settings.md) as their
-activation prerequisites become available. Hosted runs and live settings remain
-unverified; do not mark those checks complete based on local results alone.
+activation prerequisites become available. The initial core and external CI run passed, as recorded above. Default-branch
+feature activation and live settings remain unverified; do not mark those checks
+complete based on local results alone.
 
 ### Checkpoint Before Phase 7
 

@@ -17,6 +17,7 @@ define their structure, numbering, review, and status lifecycle.
 | ID | Title | Status | Date | Summary |
 | :--- | :--- | :--- | :--- | :--- |
 | [ADR-0001](0001-adopt-google-documentation-style.md) | Adopt Google Developer Documentation Style | Accepted | 2026-11-07 | Use Google's guide as the editorial baseline; automated checks remain pending. |
+| [ADR-0002](0002-secret-management.md) | Secret Management | Proposed | 2026-11-07 | Compare secret storage and delivery approaches for the adopting project to choose. |
 
 ## Create a Record
 

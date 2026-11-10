@@ -67,12 +67,41 @@ application packaging, deployment, and release channels need their own requireme
    If `main` advances or the checkout changes before tagging, rerun verification
    for the chosen candidate. Do not move an existing published version tag.
 6. Open the repository's Releases page and draft a release using the pushed tag.
-   Generate notes, then review them against the actual changes. Explain
-   compatibility changes, migration steps, verification, and known limitations.
-   Automated note categories remain a separate roadmap item until configured.
+   Generate and review notes using the [release-note preparation](#release-note-preparation)
+   steps below. Explain compatibility changes, migration steps, verification,
+   and known limitations.
 7. Confirm the intended repository, tag, commit, version, and visibility before
    publishing. Do not attach credentials, local configuration, or unreviewed build
    output as assets. This procedure does not produce application packages.
+
+### Release-Note Preparation
+
+The [release configuration](../../.github/release.yml) owns category names and
+matching rules for GitHub's generated notes. The
+[label conventions](../standards/issue-triage.md#label-conventions) own label
+meanings. Categories describe changes; they do not select a versioning scheme,
+publish a release, or replace review of the notes.
+
+1. Confirm the repository contains the labels used by the release and Dependabot
+   configurations. Use the [triage procedure](issue-triage.md) to provision missing
+   definitions before relying on them. These configuration files do not create
+   labels in a newly initialized repository.
+2. Review the merged PRs in the intended release range and apply accurate labels.
+   Check compatibility changes explicitly; commit-title punctuation alone does
+   not apply a release label. Leave unrelated or unlabeled work visible for review.
+3. Generate a preview for the intended tag and commit with the reviewed configuration
+   available on GitHub. Confirm the start and end of the comparison; the first
+   release needs a deliberate review of its initial scope. Follow GitHub's
+   [generated-notes guidance](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes)
+   when choosing the previous tag and previewing categories.
+4. Check representative labels, overlapping classifications, and unlabeled PRs
+   against the configuration. Explicit category exclusions resolve overlapping
+   classifications; the final catch-all retains unmatched changes. No authors or
+   labels are globally excluded by this configuration.
+5. Inspect the generated text for omissions, duplication, sensitive information,
+   and misleading summaries. Edit it for the actual user impact and required
+   migration steps. Record preview evidence when changing the configuration; a
+   local YAML parse does not verify GitHub's rendered output.
 
 ## Verification and Evidence
 

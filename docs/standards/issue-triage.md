@@ -36,6 +36,9 @@ the repository; issue forms do not provision them. Labels can overlap when usefu
 | `bug` | Existing behavior or content is incorrect. |
 | `documentation` | Documentation needs correction or improvement. |
 | `enhancement` | A new capability or improvement is requested. |
+| `dependencies` | A dependency is added, updated, removed, or reconfigured. |
+| `github-actions` | GitHub Actions workflows or their configuration change. |
+| `breaking-change` | Users must change how they use an established interface, configuration, or workflow. |
 | `question` | The request asks for guidance or needs further information. |
 | `duplicate` | Another linked issue tracks the same need. |
 | `wontfix` | Maintainers have explained why the request will not be implemented. |
@@ -46,6 +49,10 @@ Remove labels when their meaning no longer applies. Add project-specific labels
 only when they support a recurring need, and document their meaning here. See
 [GitHub's label management guidance](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
 for creating and applying labels with the necessary permissions.
+
+Use `breaking-change` alongside the change's other applicable labels. Explain
+the migration in its PR and release notes; this label does not select a version
+increment or resolve the [versioning decision](../adr/0004-release-versioning.md).
 
 ## Prioritization and Tracking
 
@@ -61,9 +68,10 @@ follow the [Git workflow](git-workflow.md) for verification and closure.
 ## Maintenance Procedure
 
 Use the [issue-triage procedure](../runbooks/issue-triage.md) for incoming requests,
-backlog review, and checking or provisioning the labels defined here. Release-note
-categorization remains planned maintenance work tracked by the roadmap. The
-procedure does not install a triage bot or enforce response times.
+backlog review, and checking or provisioning the labels defined here. The
+[release process](../runbooks/release-process.md#release-note-preparation) describes
+how these classifications support release notes. The procedure does not install
+a triage bot or enforce response times.
 
 ## Related Documents
 

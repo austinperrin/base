@@ -102,10 +102,11 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Review the credential-exposure response procedure and its links from the security
-policy and secrets ADR. Confirm that the procedure applies to the project without
-selecting a storage mechanism. Release-note categories and their label setup
-remain the next Phase 7 group.
+Review and merge the release-note configuration PR. The runbook, release-helper,
+and credential-exposure groups are merged through PRs #10–#12. Before closing
+Phase 7, verify the release helper on the clean assembled `main` checkout and
+record the corresponding hosted CI and generated-note preview results.
+Keep versioning ADR-0004 Proposed.
 
 ### Checkpoint Before Phase 7
 
@@ -122,10 +123,32 @@ group. The [dependency-maintenance procedure](../runbooks/dependency-maintenance
 connects the dependency standard to manual and automated update review. The
 [release process](../runbooks/release-process.md) and its verification helper are
 established with the Proposed versioning decision and operational regression
-coverage. The [credential-exposure response](../runbooks/secret-rotation.md) is
-the current review group. Procedures link to canonical standards and include verification and
+coverage. The [credential-exposure response](../runbooks/secret-rotation.md)
+completes the planned incident procedure. Release-note configuration and label
+conventions are implemented. Procedures link to canonical standards and include verification and
 recovery steps. They do not assert that platform settings are already configured
 in every repository.
+
+### Phase 7 Verification
+
+- **Local verification**: All 96 regression tests passed with the pinned tools,
+  including 13 operational tests. Link, documentation structure, prose, shell,
+  workflow, credential, and whitespace checks passed for the reviewed groups.
+- **Labels**: `dependencies`, `github-actions`, and `breaking-change` were created
+  and their descriptions verified in the target repository.
+- **Release-note preview**: GitHub's generate-notes API confirmed use of
+  `.github/release.yml` at `69c5232`. Existing merged PRs appeared in the expected
+  Enhancements and Documentation categories. Eight local classification scenarios
+  covered overlapping and unmatched labels. The preview created no tag or release;
+  categories without representative merged PRs have not been observed on GitHub.
+- **Live release readiness**: After PR #11 merged, the helper passed on clean
+  `main` at `a8c00cc`, including all 96 local tests and the exact-commit
+  [push CI run](https://github.com/austinperrin/base/actions/runs/42756458327).
+  The candidate `phase-7-readiness-check` was not created as a tag or release,
+  and the checkout remained clean. ADR-0004 remains Proposed.
+- **Remaining integration**: Merge the release-note configuration PR, then verify
+  the final assembled Phase 7 checkout before proceeding to Phase 8. Phase 7 remains
+  In progress until integration and its results are reviewed.
 
 ## Review and Commit Process
 

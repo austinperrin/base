@@ -12,6 +12,7 @@ and recovery actions. Link to the owning standard for policy and conventions.
 | :--- | :--- |
 | [Runbook template](template.md) | Create a procedure for a repeatable task |
 | [Issue triage](issue-triage.md) | Review incoming requests and reassess open work |
+| [Dependency maintenance](dependency-maintenance.md) | Review automated and manual dependency updates |
 
 ## Authoring and Maintenance
 

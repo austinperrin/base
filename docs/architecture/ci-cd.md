@@ -5,8 +5,10 @@
 This document owns the commands, coverage, and limitations of repository-wide
 validation. [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) records the
 accepted approach. The current implementation contains local documentation, credential-filename,
-and repository-configuration checks. CI workflows and required GitHub checks
-remain pending.
+and repository-configuration checks. Core and external-check CI jobs have passed an initial PR run; default-branch
+activation and required GitHub checks still need verification. The
+[roadmap evidence](../roadmap/milestone-0-repository-scaffolding.md#phase-6-verification)
+records the verified commit and remaining setup.
 
 ## Commands and Prerequisites
 
@@ -121,8 +123,8 @@ extract it outside the checkout, and put the executable on `PATH`. Follow the
 [upstream installation instructions](https://github.com/koalaman/shellcheck#installing)
 for supported distributions or building that release from source. Verify with
 `shellcheck --version`; a package manager installation is suitable only if it
-provides the pinned version. No automatic installer is included. CI installation
-and artifact-integrity verification remain part of the workflow review group.
+provides the pinned version. The [verified tool installer](#verified-tool-installation) provides the Linux CI
+installation and archive-integrity checks.
 
 The check covers `scripts/*/*.sh` and `.githooks/commit-msg`. It reports enabled
 diagnostics at style severity and above, uses `--norc`, and clears
@@ -168,8 +170,8 @@ verify it against the release's published checksums and follow the upstream
 recommendation to verify its artifact attestation, extract it outside the checkout, and put the executable on `PATH`. See the
 [versioned installation guide](https://github.com/rhysd/actionlint/blob/v1.7.12/docs/install.md)
 for supported installation methods. Confirm the version with `actionlint -version`;
-package-manager installations must provide the required version. CI installation
-will be introduced with the workflows.
+package-manager installations must provide the required version. The [verified tool installer](#verified-tool-installation) provides the Linux CI
+installation.
 
 The wrapper checks `.github/workflows/*.yml` and `*.yaml` with explicit file
 arguments, including paths with spaces. When no workflows exist, it reports that
@@ -226,8 +228,8 @@ with `vale --version` before syncing styles.
 defines the enabled styles and default alert level. `vale sync` downloads that
 package into ignored `.github/styles/` paths; it is a separate preparation step
 that requires network access. The check itself does not sync or repair files and
-fails with setup instructions when the package is missing. Verify installation
-provenance when introducing automated downloads in CI.
+fails with setup instructions when the package is missing. The [verified tool installer](#verified-tool-installation) installs the pinned
+package for CI after checking its archive hash; it does not invoke `vale sync`.
 
 The wrapper uses the explicit project configuration and `--no-global` to exclude
 personal configuration. It checks `docs/`, the root README, CONTRIBUTING, SECURITY,
@@ -283,8 +285,8 @@ The wrapper's `required_version` pins Gitleaks to `8.30.1`. Obtain the matching
 OS/architecture binary from the
 [fixed upstream release](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1),
 verify it against the published release checksums, and install it outside the
-checkout on `PATH`. Confirm the version with `gitleaks version`. CI installation
-will be reviewed with the workflows; no binary is bundled here.
+checkout on `PATH`. Confirm the version with `gitleaks version`. The [verified tool installer](#verified-tool-installation) provides the Linux CI
+installation; no binary is bundled here.
 
 ### Scan Scope and Output
 
@@ -329,6 +331,168 @@ history, scan arguments, shallow-checkout rejection, and failure propagation.
 Real-scanner integration tests require the pinned executable on `PATH`; otherwise
 they are explicitly skipped. The core suite does not require external scanners.
 
+## Verified Tool Installation
+
+The [tool manifest](../../scripts/ci/tools.json) records versions, official release
+URLs, archive SHA-256 hashes, and executable archive members. Hashes were checked
+against upstream release metadata. Update these pins and wrapper versions together,
+then review the upstream releases and run the installer and real-tool fixtures.
+
+The [installer](../../scripts/ci/install-tools.py) requires Python 3.9 or newer and
+network access. It prepares Linux AMD64 artifacts only and never executes them;
+macOS and Windows contributors can continue to use the individual installation
+instructions above. For Linux tools, run:
+
+```bash
+python3 scripts/ci/install-tools.py --platform linux-amd64 --destination /tmp/repository-tools
+export PATH="/tmp/repository-tools:$PATH"
+```
+
+Choose a destination for your environment; CI uses its job-local runner temporary
+directory. By default, all four executables are installed there and Google rules
+replace only the ignored `.github/styles/Google/` cache. Project vocabulary under
+`config/` is preserved. Use repeatable `--tool` options to select individual tools,
+and `--styles-path` to prepare a style cache elsewhere.
+
+The installer checks each complete archive before publishing its contents. It
+extracts only the expected executable from tar archives, rejects unexpected ZIP
+paths and symbolic links, limits download and extraction sizes, and does not run
+remote installation scripts. A mismatched hash fails without replacing that tool.
+Installation is per artifact rather than a transaction across all tools; earlier
+successful installations remain if a later download fails. It does not change
+shell profiles or automatically add executables to `PATH`.
+
+Checksums bind installation to the reviewed bytes; they do not establish that an
+upstream release is free from vulnerabilities. Archive updates require the
+[dependency evaluation](../standards/dependencies.md), including applicable upstream
+integrity and attestation guidance. The installer does not verify build
+attestations automatically; it uses reviewed hash pins without adding a GitHub CLI
+or authentication prerequisite. Review available upstream attestations when
+refreshing pins. The installer is separate from read-only check commands and is
+not invoked by the core suite.
+
+## Core CI Workflow
+
+The [Repository Checks workflow](../../.github/workflows/repo-lint.yml) runs the
+same core suite on `ubuntu-24.04` and `macos-15`. It runs for pull requests against
+any base branch, pushes to `main`, and manual dispatch where GitHub permits it.
+Unfiltered pull request bases support the planned phase branches without adding
+scaffolding-specific branch names. There are no path filters that could leave a
+required check waiting after an unrelated file change.
+
+Each job has a 15-minute timeout and runs on a fresh hosted runner. The workflow
+uses `contents: read` permissions and a pinned checkout action with persisted
+credentials disabled. Pull request code runs under `pull_request`, without project
+secrets or a privileged `pull_request_target` checkout. It does not publish,
+deploy, modify repository settings, or upload artifacts. A final step rejects
+tracked changes or ordinary untracked files left by the suite.
+
+The core suite relies on runner-provided Bash, Git, and Python and checks its
+prerequisites. Optional real-tool integration tests run only when the exact pinned
+version is available; mismatched runner tools cause explicit skips rather than
+making the core suite depend on ambient versions. The external-check job installs the required versions and reruns the suite so
+those integration tests execute with the pinned tools.
+
+### External-Check Job
+
+`External checks (Linux)` uses `ubuntu-24.04` with the same read-only token and a
+15-minute timeout. It checks out full history, installs the pinned executables into
+`RUNNER_TEMP`, prepares the Google cache, reruns the core suite with the real tools,
+and invokes all four external check wrappers. The final checkout-cleanliness step
+permits ignored tool caches while rejecting ordinary source changes.
+
+Full history supports the documented Gitleaks scan scope. This job does not upload
+scan reports, publish packages, or require project secrets. It is defined for the
+same events as the core matrix. Separate scheduled scanning and PR-title
+workflows are described below. Verify execution in each target repository.
+
+### Checkout Dependency Evaluation
+
+The workflow pins `actions/checkout` to the upstream commit for `v7.0.1`, verified
+against that repository's release tag. Its
+[release documentation](https://github.com/actions/checkout/blob/v7.0.1/README.md)
+describes security and dependency updates and the hosted-runner requirements. The
+[MIT-licensed action](https://github.com/actions/checkout/blob/v7.0.1/LICENSE)
+provides the checkout without adding an application dependency; it brings its own
+Node runtime and packaged dependencies, which still require update review.
+
+Supported runner labels were checked against the
+[runner image list](https://github.com/actions/runner-images#available-images).
+OS labels limit major image changes but do not freeze installed software. Review
+image retirements and action updates under the
+[dependency standard](../standards/dependencies.md). A local actionlint pass checks
+the workflow definition; it does not verify a live run or repository permissions.
+
+### Activation and Verification
+
+The initial project run passed both matrix jobs and the external-check job; see
+the roadmap evidence above. For each adopting repository or subsequent workflow
+change, inspect the intended commit, results and skips, tool versions, and
+clean-checkout steps. External-check integration tests must not be
+skipped when their prerequisites are installed.
+Fork pull requests may require maintainer approval under GitHub settings. Manual
+dispatch availability depends on the workflow being on the default branch.
+
+The [repository settings checklist](repository-settings.md#required-pull-request-checks)
+owns required check names and live setup. A YAML definition alone does not make
+these checks mandatory.
+
+## Pull Request Titles
+
+The [Pull Request Title workflow](../../.github/workflows/pr-title.yml) validates
+the title against the [Git workflow convention](../standards/git-workflow.md) on
+opened, edited, synchronized, reopened, and ready-for-review pull requests. It
+checks the complete title, including the optional scope and breaking marker, and
+rejects empty descriptions and control characters.
+
+This workflow uses `pull_request_target` only to process event metadata. It checks
+out no repository code, invokes no external action, grants no token permissions,
+and reads the title from `GITHUB_EVENT_PATH` as JSON data rather than inserting it
+into a shell script. It prints generic results instead of echoing untrusted titles.
+A per-PR concurrency group cancels stale runs after later title updates.
+
+The inline Python uses the hosted runner's standard library so validation needs
+neither contribution code nor a package installation. Its exact code is exercised
+by regression fixtures, including hostile-looking shell text and agreement with
+the local hook on representative subjects. Human review still assesses whether
+the title describes the change accurately.
+
+Activation requires GitHub to use a base-branch workflow containing this definition; initial
+phase PRs may precede that availability. Verify title edits, fork PR behavior, and
+the attached check on GitHub before making it required. See GitHub's
+[event guidance](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request_target)
+and [script-injection guidance](https://docs.github.com/en/actions/reference/security/secure-use#good-practices-for-mitigating-script-injection-attacks).
+
+## Scheduled Credential Scanning
+
+The [Scheduled Credential Scan workflow](../../.github/workflows/security.yml)
+uses the same verified installer and Gitleaks wrapper as the external-check job.
+It runs weekly on Monday at 04:23 UTC and supports manual dispatch. It installs
+only Gitleaks, checks out full history without persisting credentials, and uses
+`contents: read` permissions with a ten-minute timeout. No project secrets or
+report uploads are configured.
+
+GitHub schedules run from the default branch and can be delayed or disabled by
+platform conditions. Confirm the schedule is active after the workflow reaches
+the default branch; see GitHub's
+[schedule guidance](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule).
+Manual dispatch also depends on default-branch workflow availability. Inspect a
+live run and its checkout commit before claiming operational coverage.
+
+`Scheduled credential scan` is a maintenance check, not a pull request check;
+do not add it to required PR status checks. Main pushes and PRs already receive
+credential scanning through `External checks (Linux)`. Handling findings follows
+the [security policy](../../SECURITY.md); scheduled scanning does not rotate or
+revoke credentials.
+
+## Repository Settings and Dependency Updates
+
+The [repository settings checklist](repository-settings.md) owns required checks,
+review and merge controls, activation requirements, and live verification evidence.
+The [dependency standard](../standards/dependencies.md#automated-updates-and-auditing)
+describes configured update coverage and tool pins that still require manual review.
+Neither document configures live GitHub settings by itself.
+
 ## Enforcement Status
 
 | Area | State |
@@ -336,15 +500,18 @@ they are explicitly skipped. The core suite does not require external scanners.
 | Documentation links and structure | Local scripts and focused regression tests |
 | Developer helpers | Regression tests included in the local suite; individual usage in the [script reference](../../scripts/README.md) |
 | Credential filenames and repository configuration | Local scripts and regression tests |
-| ShellCheck | Separate pinned local check and regression tests; CI installation pending |
-| actionlint | Separate pinned local check and regression tests; no workflows introduced yet |
-| Vale | Pinned local prose check, Google rules, vocabulary, and regression tests; CI installation pending |
-| Gitleaks | Separate pinned staged-content and current-branch history check with redacted output; CI integration pending |
-| CI workflows and dependency updates | Pending implementation |
-| Required status checks and review/merge settings | Pending configuration and verification in the target repository |
+| ShellCheck | Pinned local check and external CI job; initial PR execution verified |
+| actionlint | Pinned local check and external CI job; initial PR execution verified |
+| Vale | Pinned local check, Google rules, vocabulary, and external CI job; initial PR execution verified |
+| Gitleaks | Pinned local check and external CI job with redacted output; initial PR execution verified |
+| Core CI workflow | Initial Linux and macOS PR jobs verified; see roadmap evidence |
+| External-check CI job | Initial PR job verified with all real-tool fixtures; see roadmap evidence |
+| PR-title validation and scheduled scanning | Workflow definitions and local validation available; live verification pending |
+| Dependency updates | GitHub Actions Dependabot configuration available; live activation pending |
+| Required status checks and review/merge settings | Checklist documented; live configuration and verification pending |
 
-Local checks do not configure merge protection. Introduce workflows and required
-settings only with verified implementation, and update this document as each
+Local checks do not configure merge protection. Apply the repository settings
+checklist against verified workflow behavior, and update this document as each
 part becomes available. The [roadmap](../roadmap/README.md) tracks those groups.
 
 ## Related Documents

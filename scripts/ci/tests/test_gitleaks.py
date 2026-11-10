@@ -5,12 +5,13 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tool_support import pinned_tool
 import uuid
 
 
 ROOT = Path(__file__).resolve().parents[3]
 BASH = shutil.which('bash')
-REAL_GITLEAKS = shutil.which('gitleaks')
+REAL_GITLEAKS = pinned_tool('gitleaks', ['version'], '8.30.1')
 
 
 class GitleaksTests(unittest.TestCase):
@@ -104,7 +105,7 @@ exit 7
     self.assertNotEqual(result.returncode, 0)
     self.assertIn('complete current-branch history', result.stderr)
 
-  @unittest.skipUnless(REAL_GITLEAKS, 'Gitleaks not installed; real-scanner integration is checked separately')
+  @unittest.skipUnless(REAL_GITLEAKS, 'Gitleaks pinned version not installed; real-scanner integration is checked separately')
   def test_real_scanner_detects_staged_synthetic_value_and_redacts_it(self):
     self.real_tool()
     self.assertEqual(self.run_check().returncode, 0)
@@ -119,7 +120,7 @@ exit 7
     # The local untracked file is deliberately outside the chosen scan scope.
     self.assertEqual(self.run_check().returncode, 0)
 
-  @unittest.skipUnless(REAL_GITLEAKS, 'Gitleaks not installed; real-scanner integration is checked separately')
+  @unittest.skipUnless(REAL_GITLEAKS, 'Gitleaks pinned version not installed; real-scanner integration is checked separately')
   def test_real_scanner_detects_removed_value_in_history(self):
     self.real_tool()
     synthetic = 'ghp_' + uuid.uuid4().hex + 'Ab9X'

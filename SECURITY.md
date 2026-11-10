@@ -71,7 +71,8 @@ The project's storage and delivery approach remains open in
 Detailed rotation and repository-cleanup procedures remain pending the repository
 maintenance group in the [scaffolding roadmap](docs/roadmap/milestone-0-repository-scaffolding.md).
 The [repository checks reference](docs/architecture/ci-cd.md#gitleaks) documents
-local credential detection and its limits; CI enforcement remains pending.
+credential detection and its limits. Use the
+[roadmap](docs/roadmap/README.md) for implementation and verification progress.
 
 ## Related Documents
 

@@ -98,8 +98,10 @@ actionlint; it reports when there are no workflows to validate. The separate
 installation. The separate [credential content check](ci/check-credentials.sh)
 scans current-branch history and staged changes with redacted Gitleaks output.
 Use the [repository checks and CI reference](../docs/architecture/ci-cd.md) for their
-commands, prerequisites, regression tests, and supported syntax. CI workflows
-remain pending.
+commands, prerequisites, regression tests, supported syntax, and the core CI
+workflow and external-check job. The [tool installer](ci/install-tools.py) prepares
+pinned Linux executables and style rules; see the checks reference for its write
+boundaries and usage. Live CI verification and required-check settings remain pending.
 
 ## Related Documents
 

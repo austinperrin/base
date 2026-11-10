@@ -1,0 +1,62 @@
+name: Repository Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repository:
+    name: Repository checks (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run repository checks and regression tests
+        run: ./scripts/ci/test.sh
+      - name: Verify the checkout is unchanged
+        run: test -z "$(git status --porcelain --untracked-files=all)"
+
+  external:
+    name: External checks (Linux)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out complete history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install verified tool artifacts
+        run: |
+          python3 scripts/ci/install-tools.py --platform linux-amd64 --destination "$RUNNER_TEMP/repository-tools"
+          echo "$RUNNER_TEMP/repository-tools" >> "$GITHUB_PATH"
+      - name: Exercise the suite with pinned tools
+        run: ./scripts/ci/test.sh
+      - name: Check shell scripts
+        run: ./scripts/ci/check-shell.sh
+      - name: Check workflows
+        run: ./scripts/ci/check-workflows.sh
+      - name: Check documentation prose
+        run: ./scripts/ci/check-prose.sh
+      - name: Check credential content and history
+        run: ./scripts/ci/check-credentials.sh
+      - name: Verify the checkout is unchanged
+        run: test -z "$(git status --porcelain --untracked-files=all)"

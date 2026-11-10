@@ -5,11 +5,12 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tool_support import pinned_tool
 
 
 ROOT = Path(__file__).resolve().parents[3]
 BASH = shutil.which('bash')
-REAL_ACTIONLINT = shutil.which('actionlint')
+REAL_ACTIONLINT = pinned_tool('actionlint', ['-version'], '1.7.12')
 
 
 class ActionlintTests(unittest.TestCase):
@@ -91,7 +92,7 @@ exit 8
   def test_unknown_arguments_are_rejected(self):
     self.assertNotEqual(self.run_check('--unknown').returncode, 0)
 
-  @unittest.skipUnless(REAL_ACTIONLINT, 'actionlint not installed; real-tool integration is checked separately')
+  @unittest.skipUnless(REAL_ACTIONLINT, 'actionlint pinned version not installed; real-tool integration is checked separately')
   def test_real_tool_accepts_workflow_and_rejects_invalid_expression(self):
     self.env['PATH'] = str(Path(REAL_ACTIONLINT).parent) + os.pathsep + os.environ['PATH']
     path = self.workflow()

@@ -137,11 +137,12 @@ This scaffolding group does not include Vale configuration or automated prose ch
 
 ## Automated Structure Checks
 
-**Status: Pending implementation.** The planned checks cover heading hierarchy,
-labelled and closed code fences, category-index registration, documentation hub
-reachability, breadcrumbs, related links, and relative Markdown link integrity.
+**Status: Local checks available; CI integration pending.** The
+[repository checks and CI reference](../architecture/ci-cd.md) documents commands,
+coverage, and parsing limits for heading structure, fenced blocks, registration,
+navigation, and local link integrity.
 
-Until those checks are introduced, verify these conventions during review.
+Run the applicable checks and verify the full conventions during review.
 Check that examples are accurate, indexes are current, and linked files are
 already committed or included in the same change. When creating or changing an
 architectural decision, follow the

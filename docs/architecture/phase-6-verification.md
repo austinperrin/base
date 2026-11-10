@@ -41,18 +41,25 @@ checks enforce the reviewed action pins rather than an Actions allowlist.
 | PR-title events | [PR #9](https://github.com/austinperrin/base/pull/9) passed on opening with a [valid title](https://github.com/austinperrin/base/actions/runs/42748559879). An edit to an [invalid title failed](https://github.com/austinperrin/base/actions/runs/42748616572); restoring the valid title [passed again](https://github.com/austinperrin/base/actions/runs/42748669851). All runs used the expected `pull_request_target` event. |
 | Merge blocking | PR #9 was `BLOCKED` while a required repository check was pending. With all three repository jobs successful, the invalid title kept it `BLOCKED`. Restoring the valid title changed the merge state to `CLEAN`. No merge was attempted. The [repository-check run](https://github.com/austinperrin/base/actions/runs/42748559565) passed all three jobs. |
 | Fork contributions | Pending a representative external fork contribution. A same-repository PR does not verify fork permissions or approval behavior. |
-| Reporting channels | Private vulnerability reporting is disabled. The security policy documents the maintainer's email as the fallback; delivery has not been tested. |
+| Reporting channels | Private vulnerability reporting is disabled. On 2026-11-09, the maintainer confirmed that `perrinaustin@gmail.com` is monitored and receives private security reports. This is a maintainer confirmation, not an automated delivery test. |
 | Additional dependency features | Advisory alerts and automatic security updates are disabled. The current configuration covers GitHub Actions version updates; these features have not been enabled as part of this verification. |
 
-## Remaining Verification
+## Accepted Follow-ups
 
-The PR-title and merge-blocking cases are verified. Cases requiring another
-account, a future scheduled event, or an upstream update need a maintainer's
-explicit disposition and follow-up owner. Do not describe a manual dispatch as
-proof that a scheduled event occurred or a same-repository PR as a fork test.
+On 2026-11-09, the maintainer accepted the following cases as follow-ups owned by
+`austinperrin`. They are unverified cases, not passing test results.
 
-Phase completion requires review of the evidence and an explicit disposition for
-remaining cases. It does not follow solely from merging the workflow files.
+| Follow-up | When to verify | Required evidence |
+| :--- | :--- | :--- |
+| First scheduled credential scan | After the next scheduled event | A successful run triggered by `schedule`, on the expected default-branch commit, with redacted scanning and an unchanged checkout |
+| Dependabot update PR | When an applicable upstream update produces a PR | Expected title and passing required checks through the normal review process |
+| External fork contribution | When an external contributor or test account is available | Restricted permissions, no project secrets, expected approval handling, and passing checks |
+
+The implemented controls and available live cases are verified, and the
+maintainer has accepted the remaining limitations. The roadmap records Phase 6
+completion on that basis. Keep this evidence distinct from results that become
+available later; a manual dispatch does not establish a scheduled event, and a
+same-repository PR does not establish fork behavior.
 
 ## Related Documents
 

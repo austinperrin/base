@@ -134,10 +134,10 @@ hooks, create workflows, or configure GitHub branch protection.
 | Area | Current state | Planned follow-up |
 | :--- | :--- | :--- |
 | Commit-message format | Local subject validation when the hook is enabled; manual review of full messages | See the [script reference](../../scripts/README.md) for activation and verification |
-| Pull request title | Manual review and metadata workflow definition; live verification pending | Verify activation and required settings through the [checks reference](../architecture/ci-cd.md#pull-request-titles) |
+| Pull request title | Metadata workflow and live title-edit cases verified | See the [verification record](../architecture/phase-6-verification.md) for results and target-repository settings |
 | Pull request description | Pull request template and manual review | Review template prompts when the contribution process changes |
 | Repository checks | Local suite and core CI implemented; required settings remain separate | See the [checks reference](../architecture/ci-cd.md) for coverage and activation |
-| Merge and review settings | [Settings checklist](../architecture/repository-settings.md) documented; live configuration and verification pending | Verify the target repository and record evidence before claiming enforcement |
+| Merge and review settings | Live main-branch rules verified; single-maintainer review policy recorded | See the [verification record](../architecture/phase-6-verification.md); verify settings separately in each target repository |
 
 The [Milestone 0 roadmap](../roadmap/milestone-0-repository-scaffolding.md)
 tracks those follow-up groups. New enforcement must implement this standard;

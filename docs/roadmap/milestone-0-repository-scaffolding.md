@@ -16,12 +16,13 @@ and plan subsequent project work from Milestone 1.
 Phases 0–6 are Completed. Phase 6 live controls and available workflow cases are
 verified, with maintainer-approved follow-ups recorded in the
 [verification record](../architecture/phase-6-verification.md#accepted-follow-ups).
-Phase 7 remains Pending until this verification PR is reviewed and merged.
+The Phase 6 verification PR is merged. Phase 7 is In progress, beginning with
+the runbook framework and issue-triage procedure.
 
 [ADR-0001](../adr/0001-adopt-google-documentation-style.md) accepts Google
 Developer Documentation Style.
 
-[ADR-0002](../adr/0002-secret-management.md) remains Proposed for adopting projects.
+[ADR-0002](../adr/0002-secret-management.md) remains Proposed pending a project decision.
 
 [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) accepts the shared
 quality-checking approach. Decision approval does not verify live enforcement.
@@ -60,7 +61,7 @@ flowchart TD
 
 This is the working sequence, not a requirement to invent content for every phase.
 Introduce supporting requirements before their implementation. A Proposed ADR
-comparison does not select an implementation for the adopting project.
+comparison does not select an implementation for the project.
 
 ## Phases and Deliverables
 
@@ -82,14 +83,14 @@ deliverables; future paths are not links to implemented content.
 | **4. Record project-specific decisions** | Completed | Introduce proposed ADRs containing requirements, options, use cases, trade-offs, and open outcomes. Separate mandatory hygiene from implementation choices. Begin with secrets and review any other decisions the project must own. | Proposed records in `docs/adr/`, starting with ADR-0002. Hold `.env.example` outside the intended baseline unless explicitly approved; a proposed comparison does not select an implementation. |
 | **5. Add local developer tooling** | Completed | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
 | **6. Add automated enforcement** | Completed | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings, including a repository settings checklist for review requirements, required status checks, merge behavior, and force-push protections. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
-| **7. Add repository maintenance procedures** | Pending | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
+| **7. Add repository maintenance procedures** | In progress | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
 | **8. Complete project setup and extension guidance** | Pending | Explain how to implement the repository foundation, replace its identity, and handle scaffolding-specific material. Include replacing repository-specific URLs in issue forms, issue chooser contacts, and the pull request template so links and reports target the adopting project. Assign project owners and configure CODEOWNERS with the adopting project's people or teams; verify the repository settings checklist. Provide reference guidance for extending standards as the project grows. Reconsider the application tutorial when reviewing this group. | Getting Started, scaling guidance, troubleshooting, `docs/guides/README.md`, and the completed root README. The reference `docs/guides/building-your-project.md` is material to reconsider, not a committed deliverable. |
 | **9. Verify the assembled repository** | Pending | Check a clean checkout and a representative initialized project, confirm navigation and automation, and prepare the remaining changes for review and merge. | The resulting committed repository, not the surrounding drafts. Verify the full foundation and its project-initialization path. |
 
 ### Phase Boundaries
 
 - The ADR framework belongs to Phase 2. Project-specific comparisons begin in
-  Phase 4 and leave their outcomes open for the adopting project.
+  Phase 4 and leave their outcomes open for the project to decide.
 - Written policies belong to Phase 3; local helpers and automated checks follow
   in Phases 5 and 6. Reference files do not satisfy implementation dependencies.
 - Introduce tests with the functionality they verify. Maintenance helpers and
@@ -99,16 +100,25 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Review and merge the Phase 6 verification PR before resuming Phase 7. The runbook
-framework and issue-triage drafts remain uncommitted on the Phase 7 topic branch;
-they do not establish phase completion.
+Add the dependency-maintenance procedure, connecting the established dependency
+standard to review of action pins, downloaded tools, and automated update PRs.
+Release verification, credential-exposure response, release-note categories, and
+operational helpers remain subsequent Phase 7 groups.
 
 ### Checkpoint Before Phase 7
 
-PRs #1–#8 are merged, and the original scaffolding history is preserved by the
-archive tag above. Live verification and the disposition of remaining cases are
-recorded in the Phase 6 verification PR. After that PR is reviewed and merged,
-continue with focused topic branches from `main` and the review process below.
+PRs #1–#8 and the Phase 6 verification PR are merged. The verification record
+contains observed results and accepted maintainer-owned follow-ups. Continue
+Phase 7 on focused topic branches from `main`, using the review process below.
+
+### Phase 7 Progress
+
+The [runbook framework](../runbooks/README.md),
+[authoring template](../runbooks/template.md), and
+[issue-triage procedure](../runbooks/issue-triage.md) establish the first maintenance
+group. Procedures link to canonical standards and include verification and
+recovery steps. They do not assert that platform settings are already configured
+in every repository.
 
 ## Review and Commit Process
 

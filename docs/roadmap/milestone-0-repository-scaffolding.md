@@ -102,10 +102,12 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Review release-note categories, supporting label conventions, and Dependabot
-label configuration. Before closing Phase 7, provision and verify the labels,
-preview GitHub-generated notes from the reviewed configuration, and verify the
-release helper on a clean merged checkout. Keep versioning ADR-0004 Proposed.
+Integrate the reviewed Phase 7 groups through focused PRs from `main`: runbook
+framework and routine maintenance, release verification and the Proposed versioning
+decision, credential-exposure response, then release-note configuration. Open each
+PR after its prerequisites merge. Before closing Phase 7, verify the release helper
+on a clean merged checkout and record the corresponding hosted CI results.
+Keep versioning ADR-0004 Proposed.
 
 ### Checkpoint Before Phase 7
 
@@ -123,10 +125,27 @@ connects the dependency standard to manual and automated update review. The
 [release process](../runbooks/release-process.md) and its verification helper are
 established with the Proposed versioning decision and operational regression
 coverage. The [credential-exposure response](../runbooks/secret-rotation.md)
-completes the planned incident procedure. Release-note categories and label setup
-are the current review group. Procedures link to canonical standards and include verification and
+completes the planned incident procedure. Release-note configuration and label
+conventions are implemented. Procedures link to canonical standards and include verification and
 recovery steps. They do not assert that platform settings are already configured
 in every repository.
+
+### Phase 7 Verification
+
+- **Local verification**: All 96 regression tests passed with the pinned tools,
+  including 13 operational tests. Link, documentation structure, prose, shell,
+  workflow, credential, and whitespace checks passed for the reviewed groups.
+- **Labels**: `dependencies`, `github-actions`, and `breaking-change` were created
+  and their descriptions verified in the target repository.
+- **Release-note preview**: GitHub's generate-notes API confirmed use of
+  `.github/release.yml` at `69c5232`. Existing merged PRs appeared in the expected
+  Enhancements and Documentation categories. Eight local classification scenarios
+  covered overlapping and unmatched labels. The preview created no tag or release;
+  categories without representative merged PRs have not been observed on GitHub.
+- **Remaining integration**: Merge the focused Phase 7 PRs and run the release
+  helper on the clean resulting `main`. The local fake-CLI tests do not establish
+  a successful live readiness run. Phase 7 remains In progress until those results
+  are reviewed.
 
 ## Review and Commit Process
 

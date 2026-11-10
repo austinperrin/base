@@ -1,0 +1,48 @@
+changelog:
+  categories:
+    - title: Breaking changes
+      labels:
+        - breaking-change
+    - title: Dependency updates
+      labels:
+        - dependencies
+      exclude:
+        labels:
+          - breaking-change
+    - title: Fixes
+      labels:
+        - bug
+      exclude:
+        labels:
+          - breaking-change
+          - dependencies
+    - title: Enhancements
+      labels:
+        - enhancement
+      exclude:
+        labels:
+          - breaking-change
+          - dependencies
+          - bug
+    - title: Documentation
+      labels:
+        - documentation
+      exclude:
+        labels:
+          - breaking-change
+          - dependencies
+          - bug
+          - enhancement
+    - title: Repository automation
+      labels:
+        - github-actions
+      exclude:
+        labels:
+          - breaking-change
+          - dependencies
+          - bug
+          - enhancement
+          - documentation
+    - title: Other changes
+      labels:
+        - '*'

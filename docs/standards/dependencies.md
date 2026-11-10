@@ -113,8 +113,11 @@ installation alone is insufficient evidence that an update is safe to merge.
 repository's update-job result and accepted update-PR follow-up.
 [`.github/dependabot.yml`](../../.github/dependabot.yml) configures weekly version
 updates for GitHub Actions, a bounded open-PR count, and Conventional Commits
-prefixes. It assigns no project-specific reviewers or labels and does not enable
-auto-merge. Its schedule and other values are owned by the configuration file.
+prefixes. It assigns labels from the
+[triage conventions](issue-triage.md#label-conventions), but no project-specific
+reviewers, and does not enable auto-merge. Its schedule and other values are owned
+by the configuration file. Provision the configured labels before relying on
+them; Dependabot ignores custom labels that do not exist in the target repository.
 
 Dependabot activation requires the configuration on the default branch and
 compatible repository settings. Verify its update job and a resulting PR through

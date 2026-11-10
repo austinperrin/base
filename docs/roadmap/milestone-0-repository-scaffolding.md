@@ -102,10 +102,10 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Review the credential-exposure response procedure and its links from the security
-policy and secrets ADR. Confirm that the procedure applies to the project without
-selecting a storage mechanism. Release-note categories and their label setup
-remain the next Phase 7 group.
+Review release-note categories, supporting label conventions, and Dependabot
+label configuration. Before closing Phase 7, provision and verify the labels,
+preview GitHub-generated notes from the reviewed configuration, and verify the
+release helper on a clean merged checkout. Keep versioning ADR-0004 Proposed.
 
 ### Checkpoint Before Phase 7
 
@@ -122,8 +122,9 @@ group. The [dependency-maintenance procedure](../runbooks/dependency-maintenance
 connects the dependency standard to manual and automated update review. The
 [release process](../runbooks/release-process.md) and its verification helper are
 established with the Proposed versioning decision and operational regression
-coverage. The [credential-exposure response](../runbooks/secret-rotation.md) is
-the current review group. Procedures link to canonical standards and include verification and
+coverage. The [credential-exposure response](../runbooks/secret-rotation.md)
+completes the planned incident procedure. Release-note categories and label setup
+are the current review group. Procedures link to canonical standards and include verification and
 recovery steps. They do not assert that platform settings are already configured
 in every repository.
 

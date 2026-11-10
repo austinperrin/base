@@ -69,8 +69,9 @@ report the exposure privately through the channels above without sharing its val
 The project's storage and delivery approach remains open in
 [ADR-0002: Secret Management](docs/adr/0002-secret-management.md).
 Detailed rotation and repository-cleanup procedures remain pending the repository
-maintenance group, and automated security checks remain pending the enforcement
-group in the [scaffolding roadmap](docs/roadmap/milestone-0-repository-scaffolding.md).
+maintenance group in the [scaffolding roadmap](docs/roadmap/milestone-0-repository-scaffolding.md).
+The [repository checks reference](docs/architecture/ci-cd.md#gitleaks) documents
+local credential detection and its limits; CI enforcement remains pending.
 
 ## Related Documents
 

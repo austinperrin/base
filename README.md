@@ -14,6 +14,7 @@ dependency order, and the next review group.
 | [Editor configuration](.editorconfig) | Consistent whitespace, encoding, and line endings |
 | [Git attributes](.gitattributes) | Text normalization and binary file handling |
 | [Git ignore rules](.gitignore) | Exclude local credentials, temporary files, and generated output |
+| [AI agent guidelines](AGENTS.md) | Hierarchical instructions linked to repository standards |
 | [Documentation](docs/README.md) | Canonical standards and repository documentation |
 | [Architecture Decision Records (ADRs)](docs/adr/README.md) | Context, options, and rationale for decisions |
 
@@ -22,6 +23,17 @@ dependency order, and the next review group.
 Standards define shared practices. Architecture decision records explain the
 choices behind them and can present unresolved options for the adopting project.
 See the [Architecture Decision Records (ADRs) index](docs/adr/README.md) for each decision's status.
+
+## Contributing
+
+Follow the [contribution guide](CONTRIBUTING.md) to propose changes using the
+repository's established standards and review process.
+
+## Community and Security
+
+See the [Code of Conduct](CODE_OF_CONDUCT.md) for community expectations and
+conduct reporting. Follow the [Security Policy](SECURITY.md) to report a
+vulnerability privately.
 
 ## License
 

@@ -1,0 +1,37 @@
+name: "Feature Request"
+description: "Suggest a feature, documentation improvement, or repository enhancement."
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the need and the improvement you would like to see.
+        For vulnerabilities, follow the [security policy](https://github.com/austinperrin/base/security/policy) instead of opening a public issue.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Use Case
+      description: What need would this change address, and who would benefit?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the desired result. An implementation plan is optional.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe other approaches and why they may or may not meet the need.
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Include relevant examples, references, or mockups. Remove credentials and private information before submitting.
+    validations:
+      required: false

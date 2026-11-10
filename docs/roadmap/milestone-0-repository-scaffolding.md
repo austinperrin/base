@@ -102,9 +102,10 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Review the Proposed release-versioning ADR, the policy-independent release
-process and readiness helper, and operational regression coverage. Credential-exposure response and release-note categories remain
-subsequent Phase 7 groups.
+Review the credential-exposure response procedure and its links from the security
+policy and secrets ADR. Confirm that the procedure applies to the project without
+selecting a storage mechanism. Release-note categories and their label setup
+remain the next Phase 7 group.
 
 ### Checkpoint Before Phase 7
 
@@ -120,6 +121,8 @@ The [runbook framework](../runbooks/README.md),
 group. The [dependency-maintenance procedure](../runbooks/dependency-maintenance.md)
 connects the dependency standard to manual and automated update review. The
 [release process](../runbooks/release-process.md) and its verification helper are
+established with the Proposed versioning decision and operational regression
+coverage. The [credential-exposure response](../runbooks/secret-rotation.md) is
 the current review group. Procedures link to canonical standards and include verification and
 recovery steps. They do not assert that platform settings are already configured
 in every repository.

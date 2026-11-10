@@ -57,6 +57,9 @@ included in the proposed commit and keep its documentation and dependencies
 self-contained. Files available only in a separate reference branch are not part
 of the change being reviewed.
 
+Use the [script reference](scripts/README.md) to activate the local commit-message
+hook and run its regression checks.
+
 ## Pull Request Checklist
 
 Use the [pull request template](.github/PULL_REQUEST_TEMPLATE.md) to describe your

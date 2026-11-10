@@ -102,11 +102,10 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Integrate the reviewed Phase 7 groups through focused PRs from `main`: runbook
-framework and routine maintenance, release verification and the Proposed versioning
-decision, credential-exposure response, then release-note configuration. Open each
-PR after its prerequisites merge. Before closing Phase 7, verify the release helper
-on a clean merged checkout and record the corresponding hosted CI results.
+Review and merge the release-note configuration PR. The runbook, release-helper,
+and credential-exposure groups are merged through PRs #10–#12. Before closing
+Phase 7, verify the release helper on the clean assembled `main` checkout and
+record the corresponding hosted CI and generated-note preview results.
 Keep versioning ADR-0004 Proposed.
 
 ### Checkpoint Before Phase 7
@@ -147,9 +146,9 @@ in every repository.
   [push CI run](https://github.com/austinperrin/base/actions/runs/42756458327).
   The candidate `phase-7-readiness-check` was not created as a tag or release,
   and the checkout remained clean. ADR-0004 remains Proposed.
-- **Remaining integration**: Merge the credential-exposure and release-note PRs,
-  then verify the final assembled Phase 7 checkout before proceeding to Phase 8.
-  Phase 7 remains In progress until integration and its results are reviewed.
+- **Remaining integration**: Merge the release-note configuration PR, then verify
+  the final assembled Phase 7 checkout before proceeding to Phase 8. Phase 7 remains
+  In progress until integration and its results are reviewed.
 
 ## Review and Commit Process
 

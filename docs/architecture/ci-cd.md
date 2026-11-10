@@ -5,10 +5,11 @@
 This document owns the commands, coverage, and limitations of repository-wide
 validation. [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) records the
 accepted approach. The current implementation contains local documentation, credential-filename,
-and repository-configuration checks. Core and external-check CI jobs have passed an initial PR run; default-branch
-activation and required GitHub checks still need verification. The
-[roadmap evidence](../roadmap/milestone-0-repository-scaffolding.md#phase-6-verification)
-records the verified commit and remaining setup.
+and repository-configuration checks. Core and external-check CI jobs run on pull requests and main-branch changes. The
+[verification record](phase-6-verification.md) contains observed enforcement
+results and maintainer-approved follow-ups; the
+[roadmap](../roadmap/milestone-0-repository-scaffolding.md#phase-6-verification)
+records phase completion.
 
 ## Commands and Prerequisites
 
@@ -506,9 +507,9 @@ Neither document configures live GitHub settings by itself.
 | Gitleaks | Pinned local check and external CI job with redacted output; initial PR execution verified |
 | Core CI workflow | Initial Linux and macOS PR jobs verified; see roadmap evidence |
 | External-check CI job | Initial PR job verified with all real-tool fixtures; see roadmap evidence |
-| PR-title validation and scheduled scanning | Workflow definitions and local validation available; live verification pending |
-| Dependency updates | GitHub Actions Dependabot configuration available; live activation pending |
-| Required status checks and review/merge settings | Checklist documented; live configuration and verification pending |
+| PR-title validation and scheduled scanning | Title edits and manual scanner dispatch verified; see the [verification record](phase-6-verification.md) for scheduled-event follow-up |
+| Dependency updates | GitHub Actions update job verified; update-PR follow-up is recorded in the [verification record](phase-6-verification.md) |
+| Required status checks and review/merge settings | Live configuration and merge blocking verified; see the [verification record](phase-6-verification.md) for the approved review policy |
 
 Local checks do not configure merge protection. Apply the repository settings
 checklist against verified workflow behavior, and update this document as each

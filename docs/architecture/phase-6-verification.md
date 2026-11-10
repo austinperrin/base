@@ -38,19 +38,18 @@ checks enforce the reviewed action pins rather than an Actions allowlist.
 | Credential workflow dispatch | [Manual run on main](https://github.com/austinperrin/base/actions/runs/42748211138) passed full-history checkout, verified scanner installation, redacted scanning, and checkout-cleanliness verification. |
 | Scheduled activation | The credential workflow is active on the default branch with its configured schedule. An actual scheduled event has not yet been observed. |
 | Dependabot activation | [Initial update job](https://github.com/austinperrin/base/actions/runs/42743945842) succeeded. No update PR is available yet to inspect its title or checks. |
-| PR-title events | Pending a representative PR opened after workflow activation, including an invalid title and an edit back to a valid title. |
-| Merge blocking | Ruleset configuration is verified. Live observation of a PR blocked by its required title check remains pending. |
+| PR-title events | [PR #9](https://github.com/austinperrin/base/pull/9) passed on opening with a [valid title](https://github.com/austinperrin/base/actions/runs/42748559879). An edit to an [invalid title failed](https://github.com/austinperrin/base/actions/runs/42748616572); restoring the valid title [passed again](https://github.com/austinperrin/base/actions/runs/42748669851). All runs used the expected `pull_request_target` event. |
+| Merge blocking | PR #9 was `BLOCKED` while a required repository check was pending. With all three repository jobs successful, the invalid title kept it `BLOCKED`. Restoring the valid title changed the merge state to `CLEAN`. No merge was attempted. The [repository-check run](https://github.com/austinperrin/base/actions/runs/42748559565) passed all three jobs. |
 | Fork contributions | Pending a representative external fork contribution. A same-repository PR does not verify fork permissions or approval behavior. |
 | Reporting channels | Private vulnerability reporting is disabled. The security policy documents the maintainer's email as the fallback; delivery has not been tested. |
 | Additional dependency features | Advisory alerts and automatic security updates are disabled. The current configuration covers GitHub Actions version updates; these features have not been enabled as part of this verification. |
 
 ## Remaining Verification
 
-Complete the pending PR-title and merge-blocking cases and record their results
-here. For cases requiring another account, a future scheduled event, or an upstream
-update, record the limitation and its owner explicitly. Do not describe a manual
-dispatch as proof that a scheduled event occurred or a same-repository PR as a
-fork test.
+The PR-title and merge-blocking cases are verified. Cases requiring another
+account, a future scheduled event, or an upstream update need a maintainer's
+explicit disposition and follow-up owner. Do not describe a manual dispatch as
+proof that a scheduled event occurred or a same-repository PR as a fork test.
 
 Phase completion requires review of the evidence and an explicit disposition for
 remaining cases. It does not follow solely from merging the workflow files.

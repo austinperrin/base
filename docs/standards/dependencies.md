@@ -108,7 +108,9 @@ installation alone is insufficient evidence that an update is safe to merge.
 
 ## Automated Updates and Auditing
 
-**Status: GitHub Actions update configuration available; live activation pending.**
+**Status: GitHub Actions update configuration implemented.** The
+[verification record](../architecture/phase-6-verification.md) records this
+repository's update-job result and accepted update-PR follow-up.
 [`.github/dependabot.yml`](../../.github/dependabot.yml) configures weekly version
 updates for GitHub Actions, a bounded open-PR count, and Conventional Commits
 prefixes. It assigns no project-specific reviewers or labels and does not enable
@@ -128,9 +130,9 @@ It also does not establish automated vulnerability coverage for every dependency
 review feature availability and the project's actual ecosystems before making
 that claim. Add application package ecosystems when their manifests are introduced.
 
-The [Milestone 0 roadmap](../roadmap/milestone-0-repository-scaffolding.md) tracks
-remaining setup and the later operational dependency-maintenance procedure. This
-policy does not select an application stack or add a package manager.
+Use the [dependency-maintenance procedure](../runbooks/dependency-maintenance.md)
+to review automated and manual updates and verify the related pins. This policy
+does not select an application stack or add a package manager.
 
 ---
 
@@ -140,3 +142,4 @@ policy does not select an application stack or add a package manager.
 * [Git workflow](git-workflow.md) - Commit and pull request requirements.
 * [Architecture Decision Record (ADR) standards](architecture-decisions.md) - Significant dependency and technology choices.
 * [Milestone 0 roadmap](../roadmap/milestone-0-repository-scaffolding.md) - Planned tooling, automation, and maintenance work.
+* [Dependency maintenance](../runbooks/dependency-maintenance.md) - Execution, verification, and recovery steps.

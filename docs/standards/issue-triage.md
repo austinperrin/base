@@ -58,11 +58,12 @@ issues to the relevant milestone document rather than copying its phase checklis
 into issue descriptions. Link implementation pull requests to their issues and
 follow the [Git workflow](git-workflow.md) for verification and closure.
 
-## Maintenance Follow-up
+## Maintenance Procedure
 
-Label provisioning, a recurring triage procedure, and release-note categorization
-will be addressed in the maintenance work tracked by the roadmap. This standard
-does not install a triage bot, enforce response times, or configure GitHub labels.
+Use the [issue-triage procedure](../runbooks/issue-triage.md) for incoming requests,
+backlog review, and checking or provisioning the labels defined here. Release-note
+categorization remains planned maintenance work tracked by the roadmap. The
+procedure does not install a triage bot or enforce response times.
 
 ## Related Documents
 
@@ -70,3 +71,4 @@ does not install a triage bot, enforce response times, or configure GitHub label
 - [Contributing](../../CONTRIBUTING.md) - Issue forms and contribution entry points.
 - [Security policy](../../SECURITY.md) - Private vulnerability reporting.
 - [Roadmap](../roadmap/README.md) - Milestone priorities and maintenance follow-up.
+- [Issue-triage procedure](../runbooks/issue-triage.md) - Execution, verification, and recovery steps.

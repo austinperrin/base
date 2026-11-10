@@ -24,7 +24,9 @@ the repository alone does not require creating a secret store or configuration f
 The repository's [ignore rules](../../.gitignore) exclude common local credential
 files. They do not determine how the project must store or deliver secrets.
 Security reporting follows the [security policy](../../SECURITY.md). Detailed
-rotation and recovery procedures remain pending the repository maintenance group.
+rotation and recovery follow the
+[credential-exposure procedure](../runbooks/secret-rotation.md), independently of
+the storage approach selected here.
 
 ## 2. Decision Drivers
 

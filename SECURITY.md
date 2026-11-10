@@ -66,10 +66,10 @@ If a credential is exposed, assume it is compromised and revoke or rotate it at
 its source immediately. Deleting a file or commit alone does not invalidate it;
 report the exposure privately through the channels above without sharing its value.
 
-The project's storage and delivery approach remains open in
+The project's storage and delivery decision is recorded in
 [ADR-0002: Secret Management](docs/adr/0002-secret-management.md).
-Detailed rotation and repository-cleanup procedures remain pending the repository
-maintenance group in the [scaffolding roadmap](docs/roadmap/milestone-0-repository-scaffolding.md).
+Follow the [credential-exposure procedure](docs/runbooks/secret-rotation.md) for
+containment, replacement access, cleanup assessment, and verification.
 The [repository checks reference](docs/architecture/ci-cd.md#gitleaks) documents
 credential detection and its limits. Use the
 [roadmap](docs/roadmap/README.md) for implementation and verification progress.
@@ -78,3 +78,4 @@ credential detection and its limits. Use the
 
 - [ADR-0002: Secret Management](docs/adr/0002-secret-management.md) - Options for storing and delivering secrets.
 - [Project roadmap](docs/roadmap/README.md) - Planned security tooling and maintenance work.
+- [Credential exposure response](docs/runbooks/secret-rotation.md) - Operational response and verification.

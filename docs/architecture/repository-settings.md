@@ -4,8 +4,9 @@
 
 This checklist owns the GitHub settings and live verification needed to enforce
 repository policies. It applies to this repository and projects adopting it.
-Its presence does not configure GitHub. All live settings and evidence remain
-pending until a maintainer verifies them in the target repository.
+Its presence does not configure the platform. Record results for the target
+repository separately; the [Phase 6 verification record](phase-6-verification.md)
+contains this repository's observed settings, results, and remaining cases.
 
 ## Prerequisites and Ownership
 

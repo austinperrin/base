@@ -66,14 +66,13 @@ If a credential is exposed, assume it is compromised and revoke or rotate it at
 its source immediately. Deleting a file or commit alone does not invalidate it;
 report the exposure privately through the channels above without sharing its value.
 
-The project-specific secret storage and delivery comparison is planned for
-Phase 4 in the [roadmap](docs/roadmap/README.md).
+The project's storage and delivery approach remains open in
+[ADR-0002: Secret Management](docs/adr/0002-secret-management.md).
 Detailed rotation and repository-cleanup procedures remain pending the repository
 maintenance group, and automated security checks remain pending the enforcement
 group in the [scaffolding roadmap](docs/roadmap/milestone-0-repository-scaffolding.md).
 
 ## Related Documents
 
-- [Contributing](CONTRIBUTING.md) - Contribution and review guidance.
-
+- [ADR-0002: Secret Management](docs/adr/0002-secret-management.md) - Options for storing and delivering secrets.
 - [Project roadmap](docs/roadmap/README.md) - Planned security tooling and maintenance work.

@@ -100,10 +100,9 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Add the dependency-maintenance procedure, connecting the established dependency
-standard to review of action pins, downloaded tools, and automated update PRs.
-Release verification, credential-exposure response, release-note categories, and
-operational helpers remain subsequent Phase 7 groups.
+Add release verification and its regression coverage, with the project versioning
+choice recorded through the decision framework. Credential-exposure response and
+release-note categories remain subsequent Phase 7 groups.
 
 ### Checkpoint Before Phase 7
 
@@ -116,7 +115,9 @@ Phase 7 on focused topic branches from `main`, using the review process below.
 The [runbook framework](../runbooks/README.md),
 [authoring template](../runbooks/template.md), and
 [issue-triage procedure](../runbooks/issue-triage.md) establish the first maintenance
-group. Procedures link to canonical standards and include verification and
+group. The [dependency-maintenance procedure](../runbooks/dependency-maintenance.md)
+connects the dependency standard to manual and automated update review. Procedures
+link to canonical standards and include verification and
 recovery steps. They do not assert that platform settings are already configured
 in every repository.
 

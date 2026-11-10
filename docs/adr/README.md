@@ -19,6 +19,7 @@ define their structure, numbering, review, and status lifecycle.
 | [ADR-0001](0001-adopt-google-documentation-style.md) | Adopt Google Developer Documentation Style | Accepted | 2026-11-07 | Use Google's guide as the editorial baseline; automated checks remain pending. |
 | [ADR-0002](0002-secret-management.md) | Secret Management | Proposed | 2026-11-07 | Compare secret storage and delivery approaches for the adopting project to choose. |
 | [ADR-0003](0003-enforce-repository-quality-checks.md) | Enforce Repository Quality Checks | Accepted | 2026-11-08 | Use shared repository checks with focused linters; implementation remains pending. |
+| [ADR-0004](0004-release-versioning.md) | Release Versioning | Proposed | 2026-11-09 | Compare release identifiers and leave the policy and implementation to the project. |
 
 ## Create a Record
 

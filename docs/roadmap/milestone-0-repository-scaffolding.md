@@ -23,6 +23,8 @@ the runbook framework and issue-triage procedure.
 Developer Documentation Style.
 
 [ADR-0002](../adr/0002-secret-management.md) remains Proposed pending a project decision.
+[ADR-0004](../adr/0004-release-versioning.md) leaves release versioning open for the
+project to select before publication.
 
 [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) accepts the shared
 quality-checking approach. Decision approval does not verify live enforcement.
@@ -100,9 +102,9 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Add release verification and its regression coverage, with the project versioning
-choice recorded through the decision framework. Credential-exposure response and
-release-note categories remain subsequent Phase 7 groups.
+Review the Proposed release-versioning ADR, the policy-independent release
+process and readiness helper, and operational regression coverage. Credential-exposure response and release-note categories remain
+subsequent Phase 7 groups.
 
 ### Checkpoint Before Phase 7
 
@@ -116,8 +118,9 @@ The [runbook framework](../runbooks/README.md),
 [authoring template](../runbooks/template.md), and
 [issue-triage procedure](../runbooks/issue-triage.md) establish the first maintenance
 group. The [dependency-maintenance procedure](../runbooks/dependency-maintenance.md)
-connects the dependency standard to manual and automated update review. Procedures
-link to canonical standards and include verification and
+connects the dependency standard to manual and automated update review. The
+[release process](../runbooks/release-process.md) and its verification helper are
+the current review group. Procedures link to canonical standards and include verification and
 recovery steps. They do not assert that platform settings are already configured
 in every repository.
 

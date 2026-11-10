@@ -89,7 +89,7 @@ remain separate from local hook activation.
 
 The local suite entry point is [`scripts/ci/test.sh`](ci/test.sh). It runs the
 available documentation, credential-filename, and repository-configuration checks,
-Bash syntax and permission checks, and both regression suites. The separate
+Bash syntax and permission checks, and developer, CI, and operational regression suites. The separate
 [ShellCheck entry point](ci/check-shell.sh) adds static shell analysis when its
 pinned tool is installed. The separate
 [workflow check](ci/check-workflows.sh) validates workflow files with pinned
@@ -101,7 +101,32 @@ Use the [repository checks and CI reference](../docs/architecture/ci-cd.md) for 
 commands, prerequisites, regression tests, supported syntax, and the core CI
 workflow and external-check job. The [tool installer](ci/install-tools.py) prepares
 pinned Linux executables and style rules; see the checks reference for its write
-boundaries and usage. Live CI verification and required-check settings remain pending.
+boundaries and usage. The
+[verification record](../docs/architecture/phase-6-verification.md) records live CI
+and required-check evidence for this repository.
+
+## Release Verification
+
+Run [`verify-release.sh`](ops/verify-release.sh) with the reviewed Git tag:
+
+```bash
+read -r -p 'Reviewed release tag: ' release_tag
+./scripts/ops/verify-release.sh "$release_tag"
+```
+
+The [release-verification reference](../docs/architecture/ci-cd.md#release-verification)
+owns prerequisites, gate behavior, and limitations. The
+[release process](../docs/runbooks/release-process.md) owns version selection,
+tagging, publication, and recovery. The helper verifies readiness without creating
+a tag or release and can be invoked by path from another directory.
+It checks Git tag syntax without selecting a versioning scheme. The
+[versioning decision](../docs/adr/0004-release-versioning.md) remains Proposed.
+
+Operational regression tests use temporary repositories and a fake GitHub CLI:
+
+```bash
+python3 -B -m unittest discover -s scripts/ops/tests -v
+```
 
 ## Related Documents
 

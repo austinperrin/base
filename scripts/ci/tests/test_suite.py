@@ -18,7 +18,8 @@ class SuiteTests(unittest.TestCase):
     self.root.mkdir()
     self.env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1',
                     GIT_CONFIG_GLOBAL=os.devnull, PYTHONDONTWRITEBYTECODE='1')
-    names = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).split(b'\0')
+    names = subprocess.check_output(
+      ['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=ROOT).split(b'\0')
     for raw in names:
       if not raw:
         continue
@@ -46,7 +47,7 @@ class SuiteTests(unittest.TestCase):
       shutil.copy2(ROOT / name, target)
     subprocess.run(['git', 'init', '-q'], cwd=self.root, env=self.env, check=True,
                    capture_output=True)
-    for domain in ['ci', 'dev']:
+    for domain in ['ci', 'dev', 'ops']:
       folder = self.root / 'scripts' / domain / 'tests'
       folder.mkdir(parents=True)
       (folder / 'test_fixture.py').write_text(
@@ -65,7 +66,7 @@ class SuiteTests(unittest.TestCase):
             for path in self.root.rglob('*') if path.is_file()
             and '.git' not in path.relative_to(self.root).parts}
 
-  def test_suite_runs_both_test_groups_from_another_directory_without_repairs(self):
+  def test_suite_runs_all_test_groups_from_another_directory_without_repairs(self):
     before = self.snapshot()
     result = self.run_suite()
     self.assertEqual(result.returncode, 0, result.stderr)
@@ -74,6 +75,7 @@ class SuiteTests(unittest.TestCase):
       self.assertIn(label, result.stdout)
     self.assertIn('test_ci_fixture', result.stderr)
     self.assertIn('test_dev_fixture', result.stderr)
+    self.assertIn('test_ops_fixture', result.stderr)
     self.assertEqual(before, self.snapshot())
 
   def test_nonexecutable_script_is_not_repaired(self):
@@ -101,8 +103,8 @@ class SuiteTests(unittest.TestCase):
     self.assertNotIn('test_ci_fixture', result.stderr)
     self.assertNotIn('suite passed', result.stdout)
 
-  def test_failures_in_either_test_group_fail_suite(self):
-    for domain in ['dev', 'ci']:
+  def test_failures_in_any_test_group_fail_suite(self):
+    for domain in ['dev', 'ci', 'ops']:
       with self.subTest(domain=domain):
         path = self.root / 'scripts' / domain / 'tests/test_fixture.py'
         original = path.read_text()

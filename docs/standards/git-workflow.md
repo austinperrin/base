@@ -69,8 +69,9 @@ the change; add a body when the reason or trade-off needs more context.
 | `chore` | Repository housekeeping or maintenance |
 | `revert` | Reversal of an earlier change |
 
-Release versioning and automation will be documented with the release process.
-The commit type table does not assign automatic version increments to every type.
+Follow the [release process](../runbooks/release-process.md) for repository version
+selection and publication. The commit type table does not assign automatic
+version increments to every type.
 
 ### Breaking Changes
 Indicate breaking changes with an exclamation mark before the colon (`!`) or a `BREAKING CHANGE:` footer:

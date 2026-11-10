@@ -494,6 +494,45 @@ The [dependency standard](../standards/dependencies.md#automated-updates-and-aud
 describes configured update coverage and tool pins that still require manual review.
 Neither document configures live GitHub settings by itself.
 
+## Release Verification
+
+The [release helper](../../scripts/ops/verify-release.sh) runs the local suite and
+verifies Git tag syntax and availability, a clean `main` checkout, live origin state, and
+the latest `Repository Checks` push run for the exact commit. It requires all
+three named core and external jobs to have succeeded, rejecting missing, skipped,
+failed, or ambiguous job results. A previous success cannot mask a newer pending
+or failed run. It queries the workflow by `repo-lint.yml`, not a display-name guess.
+
+The helper uses Bash, Git, Python, and authenticated GitHub CLI access. It supports
+GitHub origins with HTTPS or SSH URLs, explicitly targets the origin repository
+for API calls, and checks the push destination against the fetch destination.
+It checks local and live remote tag availability and compares local `HEAD` with
+live remote `main`, rather than trusting a potentially stale tracking ref. It
+rechecks repository state after the local suite and then verifies hosted CI.
+
+Release verification does not modify source files, Git configuration, branches,
+or tags, and it does not publish a release. It requires network access and a
+successful push run; an API failure or unavailable results stop verification.
+The PR-title workflow runs on PR metadata, and the scheduled credential scanner
+runs separately; neither is incorrectly required as a push job. The external
+push job already includes credential scanning with full-history checkout.
+
+The helper uses `git check-ref-format` for tag syntax and rejects empty or
+option-like names. It does not enforce SemVer, calendar fields, version increments,
+or package-registry rules. [ADR-0004](../adr/0004-release-versioning.md) leaves the
+versioning policy Proposed; the release runbook requires the project to approve
+that policy before publication. Accepting a tag is not evidence of policy approval.
+
+Readiness applies to the inspected commit and state, not to future changes.
+There is no atomic reservation of a version tag. The operator must retain the
+verified commit, confirm the final target, and review notes and support scope
+through the [release process](../runbooks/release-process.md).
+
+Regression coverage uses temporary Git repositories, a local bare remote, and a
+fake GitHub CLI. It tests exact-commit and job gates, stale successes, dirty or
+wrong-branch checkouts, tag collisions, failure propagation, and explicit API
+targeting. It creates no real release and requires no GitHub authentication.
+
 ## Enforcement Status
 
 | Area | State |

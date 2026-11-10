@@ -36,5 +36,6 @@ done
 ./scripts/ci/check-repository.sh
 python3 -B -m unittest discover -s scripts/dev/tests -v
 python3 -B -m unittest discover -s scripts/ci/tests -v
+python3 -B -m unittest discover -s scripts/ops/tests -v
 
 echo "Local repository suite passed. External linters and CI are separate."

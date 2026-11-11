@@ -13,11 +13,11 @@ and plan subsequent project work from Milestone 1.
 
 ## Current Position
 
-Phases 0–6 are Completed. Phase 6 live controls and available workflow cases are
+Phases 0–7 are Completed. Phase 6 live controls and available workflow cases are
 verified, with maintainer-approved follow-ups recorded in the
 [verification record](../architecture/phase-6-verification.md#accepted-follow-ups).
-The Phase 6 verification PR is merged. Phase 7 is In progress, beginning with
-the runbook framework and issue-triage procedure.
+Phase 7 implementation PRs #10–#13 are merged and the assembled checkout is
+verified. Phase 8 is Pending while its setup and customization scope is reviewed.
 
 [ADR-0001](../adr/0001-adopt-google-documentation-style.md) accepts Google
 Developer Documentation Style.
@@ -85,8 +85,8 @@ deliverables; future paths are not links to implemented content.
 | **4. Record project-specific decisions** | Completed | Introduce proposed ADRs containing requirements, options, use cases, trade-offs, and open outcomes. Separate mandatory hygiene from implementation choices. Begin with secrets and review any other decisions the project must own. | Proposed records in `docs/adr/`, starting with ADR-0002. Hold `.env.example` outside the intended baseline unless explicitly approved; a proposed comparison does not select an implementation. |
 | **5. Add local developer tooling** | Completed | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
 | **6. Add automated enforcement** | Completed | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings, including a repository settings checklist for review requirements, required status checks, merge behavior, and force-push protections. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
-| **7. Add repository maintenance procedures** | In progress | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
-| **8. Complete project setup and extension guidance** | Pending | Explain how to implement the repository foundation, replace its identity, and handle scaffolding-specific material. Include replacing repository-specific URLs in issue forms, issue chooser contacts, and the pull request template so links and reports target the adopting project. Assign project owners and configure CODEOWNERS with the adopting project's people or teams; verify the repository settings checklist. Provide reference guidance for extending standards as the project grows. Reconsider the application tutorial when reviewing this group. | Getting Started, scaling guidance, troubleshooting, `docs/guides/README.md`, and the completed root README. The reference `docs/guides/building-your-project.md` is material to reconsider, not a committed deliverable. |
+| **7. Add repository maintenance procedures** | Completed | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
+| **8. Complete project setup and extension guidance** | Pending | Establish a concise root entry point and task-oriented runbooks for repository initialization and GitHub configuration. Audit and reduce repeated identity, contact, and URL customization. Keep reusable standards and procedures project-neutral, preserve attribution and historical authorship, and distinguish source verification evidence from verification of a new repository. Link to existing standards and ADRs for explanations and deferred choices. Introduce extension or troubleshooting material only for concrete tasks; reconsider the reference guides and application tutorial instead of adopting their structure automatically. | Repository-initialization and GitHub-settings runbooks, updated navigation and root README, and scoped portability changes. Evaluate an optional preview-based initialization helper only if it reduces repeated edits enough to justify its maintenance. |
 | **9. Verify the assembled repository** | Pending | Check a clean checkout and a representative initialized project, confirm navigation and automation, and prepare the remaining changes for review and merge. | The resulting committed repository, not the surrounding drafts. Verify the full foundation and its project-initialization path. |
 
 ### Phase Boundaries
@@ -102,11 +102,52 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Review and merge the release-note configuration PR. The runbook, release-helper,
-and credential-exposure groups are merged through PRs #10–#12. Before closing
-Phase 7, verify the release helper on the clean assembled `main` checkout and
-record the corresponding hosted CI and generated-note preview results.
-Keep versioning ADR-0004 Proposed.
+Review the Phase 7 completion evidence and agree the Phase 8 setup scope before
+implementation. The proposed direction is runbook-first navigation with minimal
+project-specific edits, rather than a required guides directory or an application
+tutorial. The reference branch remains input for review, not a required layout.
+
+### Proposed Phase 8 Review Groups
+
+1. **Portability audit**: Identify active project identity, reporting contacts,
+   ownership mappings, repository URLs, and source-specific verification records.
+   Reduce repeated edits while preserving copyright notices and historical ADR
+   authorship. Keep ongoing standards and procedures usable after initialization.
+2. **Repository initialization**: Add a runbook that covers creating the project,
+   setting its identity and contacts, enabling local tooling, and verifying the
+   resulting repository. Keep contribution to this foundation separate from
+   starting a new project. Leave Proposed choices open until needed.
+3. **GitHub configuration**: Add a runbook for inspecting existing settings,
+   activating workflows and labels, choosing eligible review owners, applying
+   repository protections, and verifying the result. Link to the existing
+   [settings checklist](../architecture/repository-settings.md) for requirements
+   and to official provider documentation for supported configuration steps.
+4. **Navigation and extension**: Keep the root README short, with clear paths for
+   project setup, routine maintenance, standards, decisions, and contribution.
+   Put troubleshooting with the relevant procedure. Add an extension runbook only
+   when there is a concrete recurring task; do not add an application tutorial by
+   default.
+5. **Initialization cleanup**: Provide a one-time helper for the source-only
+   material identified by the audit. Preview the exact removals and navigation
+   updates by default; require an explicit apply action. Check the repository
+   root, refuse unexpected or modified removal candidates, and validate the
+   resulting links before completing the operation. Do not select files through
+   broad name patterns or a search for the word `template`. Keep authoring
+   templates, reusable policies, maintenance tooling, and project work intact.
+
+The intended outcome is a repository that reads as the project's own after the
+initialization runbook, README customization, and reviewed cleanup. Active project
+identity and contacts must not require a recurring search through all standards
+and runbooks. The audit determines which source-specific verification records
+and one-time setup instructions can be removed or replaced, and which foundation
+history should remain. Preserve the Milestone 0 foundation record without claiming
+that the source repository's verification proves the new repository's settings.
+
+The phase remains Pending while this proposal is reviewed. The cleanup helper is
+planned; its exact removal list and any identity-update automation require review
+of the audit. No files are removed solely by recording this plan. Existing
+architecture references own implementation explanations; runbooks own execution
+steps without duplicating requirements.
 
 ### Checkpoint Before Phase 7
 
@@ -136,19 +177,20 @@ in every repository.
   workflow, credential, and whitespace checks passed for the reviewed groups.
 - **Labels**: `dependencies`, `github-actions`, and `breaking-change` were created
   and their descriptions verified in the target repository.
-- **Release-note preview**: GitHub's generate-notes API confirmed use of
-  `.github/release.yml` at `69c5232`. Existing merged PRs appeared in the expected
-  Enhancements and Documentation categories. Eight local classification scenarios
-  covered overlapping and unmatched labels. The preview created no tag or release;
-  categories without representative merged PRs have not been observed on GitHub.
-- **Live release readiness**: After PR #11 merged, the helper passed on clean
-  `main` at `a8c00cc`, including all 96 local tests and the exact-commit
-  [push CI run](https://github.com/austinperrin/base/actions/runs/42756458327).
-  The candidate `phase-7-readiness-check` was not created as a tag or release,
-  and the checkout remained clean. ADR-0004 remains Proposed.
-- **Remaining integration**: Merge the release-note configuration PR, then verify
-  the final assembled Phase 7 checkout before proceeding to Phase 8. Phase 7 remains
-  In progress until integration and its results are reviewed.
+- **Final release-note preview**: On 2026-11-10, GitHub's generate-notes API
+  confirmed use of `.github/release.yml` from merged `main` at `7adbb0d`.
+  Dependency updates, Enhancements, and Documentation contained the expected merged
+  PRs, including PR #13 under Dependency updates. Eight local classification
+  scenarios covered overlapping and unmatched labels. The preview created no tag
+  or release; categories without representative merged PRs remain locally verified.
+- **Final live release readiness**: On 2026-11-10, the helper passed on clean
+  merged `main` at `7adbb0d`, including all 96 local tests and the exact-commit
+  [push CI run](https://github.com/austinperrin/base/actions/runs/42828334015).
+  The candidate `phase-7-readiness-check` was not created as a tag or release.
+  ADR-0004 remains Proposed; readiness did not select a versioning scheme.
+- **Integration**: PRs #10–#13 are merged. The clean assembled Phase 7 checkout,
+  its hosted CI, live readiness helper, and generated-note configuration are
+  verified. Phase 7 is Completed; Phase 8 remains Pending for scope review.
 
 ## Review and Commit Process
 

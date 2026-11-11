@@ -22,9 +22,9 @@ repository access, or merge authority.
 Use [`.github/CODEOWNERS`](../../.github/CODEOWNERS) as the canonical mapping of
 paths to review owners. Its initial examples are commented out; no owners are
 assigned until maintainers replace them with valid project accounts and activate
-the entries. Do not retain the scaffolding author's identity by default.
+the entries.
 
-When adopting or changing the mapping:
+When setting or changing the mapping:
 
 1. Choose a default owner for the repository, then add narrower area mappings
    where responsibility differs. Include ownership of the CODEOWNERS file itself.

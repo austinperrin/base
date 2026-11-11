@@ -37,8 +37,10 @@ Common prefixes include:
 
 Use [Conventional Commits v1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
 for commit messages and pull request titles. The allowed types below are repository
-policy. Verification is currently manual; the [enforcement status](#enforcement-status)
-separates this policy from tooling that has not yet been introduced.
+policy. The local hook checks commit subjects when enabled, and the PR title
+workflow checks titles. Review full commit messages manually; see
+[implementation and verification](#implementation-and-verification) for the
+remaining setup.
 
 ### Commit Format
 ```text
@@ -114,35 +116,30 @@ flowchart LR
    Link related issues or decisions when applicable. Use the
    [pull request template](../../.github/PULL_REQUEST_TEMPLATE.md) to record these details.
 3. **Verification**: Review the proposed commit contents and run checks applicable
-   to the change. All configured required checks must pass before merging. Until
-   automation is introduced, verify the applicable standards manually and record
-   what was checked; do not describe absent checks as passing.
+   to the change. All configured required checks must pass before merging. Verify
+   standards that have no automated check manually, and record what was checked.
 4. **Review**: Resolve feedback and obtain the approval required for the change.
    Keep the review focused on the files actually included in the pull request.
    Use the [ownership standard](ownership.md) to identify review responsibilities.
 5. **Squash and merge**: Use the reviewed pull request title as the squash commit
    title. GitHub settings that enforce this workflow are separate from the written
-   policy and must be configured and verified when introduced.
+   policy; configure and verify them for the repository.
 
-## Enforcement Status
+## Implementation and Verification
 
 Follow the [external platform guidance](README.md#external-platform-guidance)
 when introducing platform configuration or repository settings.
 
-These conventions define the intended workflow. Writing them does not install
-hooks, create workflows, or configure GitHub branch protection.
+The [script reference](../../scripts/README.md) explains local commit-hook
+activation. The [repository checks reference](../architecture/ci-cd.md) describes
+implemented validation and its limits. Use the
+[repository settings checklist](../architecture/repository-settings.md) to enable
+and verify required checks, review rules, and merge controls for the target
+repository. A workflow file or written policy does not configure those settings.
 
-| Area | Current state | Planned follow-up |
-| :--- | :--- | :--- |
-| Commit-message format | Local subject validation when the hook is enabled; manual review of full messages | See the [script reference](../../scripts/README.md) for activation and verification |
-| Pull request title | Metadata workflow and live title-edit cases verified | See the [verification record](../architecture/phase-6-verification.md) for results and target-repository settings |
-| Pull request description | Pull request template and manual review | Review template prompts when the contribution process changes |
-| Repository checks | Local suite and core CI implemented; required settings remain separate | See the [checks reference](../architecture/ci-cd.md) for coverage and activation |
-| Merge and review settings | Live main-branch rules verified; single-maintainer review policy recorded | See the [verification record](../architecture/phase-6-verification.md); verify settings separately in each target repository |
-
-The [Milestone 0 roadmap](../roadmap/milestone-0-repository-scaffolding.md)
-tracks those follow-up groups. New enforcement must implement this standard;
-update the standard and its related tooling together when policy changes.
+New enforcement must implement this standard. Update the standard and its related
+tooling together when policy changes. Record project work in the
+[roadmap](../roadmap/README.md).
 
 ---
 
@@ -151,4 +148,4 @@ update the standard and its related tooling together when policy changes.
 * [Standards index](README.md) - Canonical repository conventions.
 * [Documentation standards](documentation.md) - Writing, formatting, and navigation rules.
 * [Architecture Decision Record (ADR) standards](architecture-decisions.md) - Recording significant decisions and their rationale.
-* [Milestone 0 roadmap](../roadmap/milestone-0-repository-scaffolding.md) - Scaffolding progress and dependencies.
+* [Repository settings checklist](../architecture/repository-settings.md) - Live branch and review controls.

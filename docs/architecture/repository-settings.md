@@ -3,10 +3,9 @@
 [Docs](../README.md) > [Architecture](README.md) > Repository Settings
 
 This checklist owns the GitHub settings and live verification needed to enforce
-repository policies. It applies to this repository and projects adopting it.
-Its presence does not configure the platform. Record results for the target
-repository separately; the [Phase 6 verification record](phase-6-verification.md)
-contains this repository's observed settings, results, and remaining cases.
+repository policies. Its presence does not configure the platform. Record results
+for each repository separately; the [Phase 6 verification record](phase-6-verification.md)
+contains the foundation repository's historical results and remaining cases.
 
 ## Prerequisites and Ownership
 
@@ -15,15 +14,15 @@ contains this repository's observed settings, results, and remaining cases.
 - [ ] Inspect existing settings and protections before making changes. Preserve
   protections already in place and resolve conflicts with the responsible maintainers.
 - [ ] Assign review owners according to the [ownership standard](../standards/ownership.md).
-  The commented CODEOWNERS scaffold does not assign real owners or grant access.
+  Commented CODEOWNERS examples do not assign real owners or grant access.
 - [ ] Confirm that the workflow files and their supporting scripts exist on the
-  branches where GitHub requires them. Initial phase PRs can precede activation;
-  record the remaining setup rather than claiming those checks are already enforced.
+  branches where GitHub requires them. Record any remaining setup rather than
+  claiming that checks are enforced before their workflows are available.
 
 Use GitHub's [ruleset guidance](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)
 and the [external platform guidance](../standards/README.md#external-platform-guidance)
-when applying these requirements. Adopters using another provider need equivalent
-controls and verification appropriate to that provider.
+when applying these requirements. For another provider, use equivalent controls
+and verification appropriate to that provider.
 
 ## Actions and Workflow Activation
 
@@ -99,7 +98,8 @@ controls in the target repository:
 - [ ] Verify the reporting channels documented in the [security policy](../../SECURITY.md).
   Enable private vulnerability reporting if the project intends to use it and the
   feature is available; otherwise confirm the documented private contact works.
-- [ ] Recheck repository-specific URLs and accounts when adopting the foundation.
+- [ ] Check repository-specific URLs and accounts during initial setup and after
+  ownership or repository-location changes.
   Keep tool and rule updates covered by the [dependency standard](../standards/dependencies.md).
 
 ## Verification Evidence
@@ -110,9 +110,8 @@ Include successful and rejected cases, configuration still pending, and feature
 limitations. Keep project progress in the [roadmap](../roadmap/README.md) and link
 to that evidence rather than duplicating status throughout the documentation.
 
-The initial phase-branch integration must account for workflows that become
-available only after earlier changes reach the target branch. Do not mark a
-setting verified solely because its intended value appears in this checklist.
+Do not mark a setting verified solely because its intended value appears in this
+checklist. Verify the workflows and rules in the target repository.
 
 ## Related Documents
 

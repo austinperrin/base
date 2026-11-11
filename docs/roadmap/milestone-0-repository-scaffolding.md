@@ -17,7 +17,7 @@ Phases 0–7 are Completed. Phase 6 live controls and available workflow cases a
 verified, with maintainer-approved follow-ups recorded in the
 [verification record](../architecture/phase-6-verification.md#accepted-follow-ups).
 Phase 7 implementation PRs #10–#13 are merged and the assembled checkout is
-verified. Phase 8 is Pending while its setup and customization scope is reviewed.
+verified. Phase 8 is In progress, beginning with the portability audit.
 
 [ADR-0001](../adr/0001-adopt-google-documentation-style.md) accepts Google
 Developer Documentation Style.
@@ -86,7 +86,7 @@ deliverables; future paths are not links to implemented content.
 | **5. Add local developer tooling** | Completed | Implement helpers for established practices, document prerequisites and behavior, and test each helper as introduced. Setup must respect the secrets decision rather than automatically assuming `.env`. | `.githooks/`, `scripts/dev/`, focused helper tests, and an incremental `scripts/README.md`. |
 | **6. Add automated enforcement** | Completed | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings, including a repository settings checklist for review requirements, required status checks, merge behavior, and force-push protections. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
 | **7. Add repository maintenance procedures** | Completed | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
-| **8. Complete project setup and extension guidance** | Pending | Establish a concise root entry point and task-oriented runbooks for repository initialization and GitHub configuration. Audit and reduce repeated identity, contact, and URL customization. Keep reusable standards and procedures project-neutral, preserve attribution and historical authorship, and distinguish source verification evidence from verification of a new repository. Link to existing standards and ADRs for explanations and deferred choices. Introduce extension or troubleshooting material only for concrete tasks; reconsider the reference guides and application tutorial instead of adopting their structure automatically. | Repository-initialization and GitHub-settings runbooks, updated navigation and root README, and scoped portability changes. Evaluate an optional preview-based initialization helper only if it reduces repeated edits enough to justify its maintenance. |
+| **8. Complete project setup and extension guidance** | In progress | Establish a concise root entry point and task-oriented runbooks for repository initialization and GitHub configuration. Audit and reduce repeated identity, contact, and URL customization. Keep reusable standards and procedures project-neutral, preserve attribution and historical authorship, and distinguish source verification evidence from verification of a new repository. Link to existing standards and ADRs for explanations and deferred choices. Introduce extension or troubleshooting material only for concrete tasks; reconsider the reference guides and application tutorial instead of adopting their structure automatically. | Repository-initialization and GitHub-settings runbooks, updated navigation and root README, and scoped portability changes. Evaluate an optional preview-based initialization helper only if it reduces repeated edits enough to justify its maintenance. |
 | **9. Verify the assembled repository** | Pending | Check a clean checkout and a representative initialized project, confirm navigation and automation, and prepare the remaining changes for review and merge. | The resulting committed repository, not the surrounding drafts. Verify the full foundation and its project-initialization path. |
 
 ### Phase Boundaries
@@ -102,12 +102,14 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Review the Phase 7 completion evidence and agree the Phase 8 setup scope before
-implementation. The proposed direction is runbook-first navigation with minimal
-project-specific edits, rather than a required guides directory or an application
-tutorial. The reference branch remains input for review, not a required layout.
+Review the portability edits to ongoing standards and repository-check references.
+The audit found five source-specific links in GitHub contribution forms, two active
+reporting-contact references, and a historical source verification record. The
+repository-initialization procedure will own the required replacements and the
+boundary between reusable files and source-only history. The planned direction is
+runbook-first navigation with minimal project-specific edits.
 
-### Proposed Phase 8 Review Groups
+### Phase 8 Review Groups
 
 1. **Portability audit**: Identify active project identity, reporting contacts,
    ownership mappings, repository URLs, and source-specific verification records.
@@ -143,9 +145,9 @@ and one-time setup instructions can be removed or replaced, and which foundation
 history should remain. Preserve the Milestone 0 foundation record without claiming
 that the source repository's verification proves the new repository's settings.
 
-The phase remains Pending while this proposal is reviewed. The cleanup helper is
-planned; its exact removal list and any identity-update automation require review
-of the audit. No files are removed solely by recording this plan. Existing
+The cleanup helper is planned; its exact removal list and any identity-update
+automation require review of the audit. No files are removed solely by recording
+this plan. Existing
 architecture references own implementation explanations; runbooks own execution
 steps without duplicating requirements.
 

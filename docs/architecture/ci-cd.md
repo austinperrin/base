@@ -6,10 +6,9 @@ This document owns the commands, coverage, and limitations of repository-wide
 validation. [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) records the
 accepted approach. The current implementation contains local documentation, credential-filename,
 and repository-configuration checks. Core and external-check CI jobs run on pull requests and main-branch changes. The
-[verification record](phase-6-verification.md) contains observed enforcement
-results and maintainer-approved follow-ups; the
-[roadmap](../roadmap/milestone-0-repository-scaffolding.md#phase-6-verification)
-records phase completion.
+[foundation verification record](phase-6-verification.md) contains the original
+repository's observed enforcement results and maintainer-approved follow-ups.
+Verify the settings and workflows in each project repository separately.
 
 ## Commands and Prerequisites
 
@@ -308,7 +307,7 @@ can still appear in diagnostic messages; do not publish sensitive context casual
 The first failed scan stops the command. Detection is pattern-based and incomplete;
 a pass is not proof that credentials are absent. Use the
 [security policy](../../SECURITY.md) for reporting and revoking exposed credentials.
-Neither this check nor filename hygiene selects how the adopting project stores
+Neither this check nor filename hygiene selects how the project stores
 or delivers secrets.
 
 ### Dependency Evaluation
@@ -377,8 +376,8 @@ not invoked by the core suite.
 The [Repository Checks workflow](../../.github/workflows/repo-lint.yml) runs the
 same core suite on `ubuntu-24.04` and `macos-15`. It runs for pull requests against
 any base branch, pushes to `main`, and manual dispatch where GitHub permits it.
-Unfiltered pull request bases support the planned phase branches without adding
-scaffolding-specific branch names. There are no path filters that could leave a
+Unfiltered pull request bases support topic branches without adding
+branch-specific names. There are no path filters that could leave a
 required check waiting after an unrelated file change.
 
 Each job has a 15-minute timeout and runs on a fresh hosted runner. The workflow
@@ -426,11 +425,9 @@ the workflow definition; it does not verify a live run or repository permissions
 
 ### Activation and Verification
 
-The initial project run passed both matrix jobs and the external-check job; see
-the roadmap evidence above. For each adopting repository or subsequent workflow
-change, inspect the intended commit, results and skips, tool versions, and
-clean-checkout steps. External-check integration tests must not be
-skipped when their prerequisites are installed.
+For each repository or subsequent workflow change, inspect the intended commit,
+results and skips, tool versions, and clean-checkout steps. External-check
+integration tests must not be skipped when their prerequisites are installed.
 Fork pull requests may require maintainer approval under GitHub settings. Manual
 dispatch availability depends on the workflow being on the default branch.
 

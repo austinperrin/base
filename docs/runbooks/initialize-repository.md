@@ -29,7 +29,7 @@ documentation after setup.
 
 ### Create the New Repository
 
-1. For a new history, use **Use this template > Create a new repository** when
+1. For a new history, select **Use this template > Create a new repository** when
    template creation is enabled for the foundation. Enter the new owner, name,
    description, and visibility. Copy the default branch only. Clone the new
    repository and confirm `git remote -v` points to it. GitHub's

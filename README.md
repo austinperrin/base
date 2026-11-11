@@ -1,40 +1,36 @@
 # Base Repository Template
 
-A codeless, language-agnostic foundation for software projects, with consistent
-repository standards, structured documentation, and recorded architectural decisions.
+A codeless, language-agnostic foundation for software projects, with repository
+standards, structured documentation, and automated quality checks.
 
-Repository scaffolding is in progress. This README describes the foundation
-currently present. See the [repository roadmap](docs/roadmap/README.md) for milestones, their
-dependency order, and the next review group.
+## Start a Project
 
-## Repository foundation
+Follow the [repository-initialization runbook](docs/runbooks/initialize-repository.md)
+to create a project from this foundation, replace its identity and reporting
+contacts, assign owners, and verify the new repository. For a GitHub project,
+follow the [GitHub configuration runbook](docs/runbooks/configure-github.md) to
+activate and verify repository controls. Plan the project's next work in the
+[roadmap](docs/roadmap/README.md), starting with Milestone 1.
 
-| Area | Purpose |
+## Explore the Foundation
+
+| Area | What it provides |
 | :--- | :--- |
-| [Editor configuration](.editorconfig) | Consistent whitespace, encoding, and line endings |
-| [Git attributes](.gitattributes) | Text normalization and binary file handling |
-| [Git ignore rules](.gitignore) | Exclude local credentials, temporary files, and generated output |
-| [AI agent guidelines](AGENTS.md) | Hierarchical instructions linked to repository standards |
-| [Local developer tools](scripts/README.md) | Repository setup and local validation |
-| [Documentation](docs/README.md) | Canonical standards and repository documentation |
-| [Architecture Decision Records (ADRs)](docs/adr/README.md) | Context, options, and rationale for decisions |
+| [Standards](docs/standards/README.md) | Conventions for contributions, documentation, dependencies, and ownership |
+| [Runbooks](docs/runbooks/README.md) | Steps for setup and recurring maintenance tasks |
+| [Architecture Decision Records (ADRs)](docs/adr/README.md) | Approved decisions and open choices for the project to resolve |
+| [Architecture](docs/architecture/README.md) | Implemented checks and their limits |
+| [Local developer tools](scripts/README.md) | Setup helpers and local validation commands |
+| [AI agent guidelines](AGENTS.md) | Instructions linked to the repository's standards |
 
-## Standards and decisions
+The [documentation hub](docs/README.md) connects these areas. The
+[project roadmap](docs/roadmap/README.md) owns current progress and upcoming work.
 
-Standards define shared practices. Architecture decision records explain the
-choices behind them and can present unresolved options for the adopting project.
-See the [Architecture Decision Records (ADRs) index](docs/adr/README.md) for each decision's status.
+## Contribute to This Foundation
 
-## Contributing
-
-Follow the [contribution guide](CONTRIBUTING.md) to propose changes using the
-repository's established standards and review process.
-
-## Community and Security
-
-See the [Code of Conduct](CODE_OF_CONDUCT.md) for community expectations and
-conduct reporting. Follow the [Security Policy](SECURITY.md) to report a
-vulnerability privately.
+Follow the [contribution guide](CONTRIBUTING.md) to improve this repository.
+The [Code of Conduct](CODE_OF_CONDUCT.md) sets community expectations, and the
+[Security Policy](SECURITY.md) explains private vulnerability reporting.
 
 ## License
 

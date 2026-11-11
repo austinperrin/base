@@ -132,4 +132,4 @@ python3 -B -m unittest discover -s scripts/ops/tests -v
 
 - [Contributing](../CONTRIBUTING.md) - Preparing and reviewing changes.
 - [Local Git hooks](../.githooks/README.md) - Commit-message validation boundaries.
-- [Milestone 0 roadmap](../docs/roadmap/milestone-0-repository-scaffolding.md) - Remaining tooling and automation work.
+- [Repository roadmap](../docs/roadmap/README.md) - Project milestones and planned work.

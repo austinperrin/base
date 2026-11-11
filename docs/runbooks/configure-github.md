@@ -14,8 +14,8 @@ checklist owns the required controls and check names.
 
 - Identify the target repository, its default branch, visibility, applicable
   organization rules, and a maintainer with permission to change its settings.
-- Update the project's identity and reporting contacts in its root README,
-  security policy, and Code of Conduct before inviting reports or relying on
+- Complete the [identity and contact setup](initialize-repository.md#set-identity-and-reporting-contacts)
+  for identity and reporting contacts before inviting reports or relying on
   the issue forms.
 - Confirm `.github/workflows/`, `.github/dependabot.yml`, and the scripts they call
   are on the default branch. Have a representative pull request available for
@@ -117,4 +117,4 @@ security scanner to make a PR mergeable.
 - [Repository settings checklist](../architecture/repository-settings.md) - Required controls and evidence.
 - [Repository checks and CI](../architecture/ci-cd.md) - Workflow behavior and limitations.
 - [Git workflow](../standards/git-workflow.md) - Branch, PR, and merge policy.
-- [Security policy](../../SECURITY.md) - Private reporting channels.
+- [Initialize a project repository](initialize-repository.md) - Identity and reporting-contact setup.

@@ -96,10 +96,11 @@ documentation after setup.
     ./scripts/ci/test.sh
     ```
 
-11. Apply the [repository settings checklist](../architecture/repository-settings.md)
-    to the new repository. Confirm workflow permissions, real check names, review
-    owners, merge rules, and private reporting channels. A copied workflow file
-    does not activate branch protection or prove that a hosted check passed.
+11. For a GitHub project, follow the
+    [GitHub configuration runbook](configure-github.md). It applies the
+    [repository settings checklist](../architecture/repository-settings.md) to
+    the new repository. A copied workflow file does not activate branch
+    protection or prove that a hosted check passed.
 12. Open an initialization PR. Record the selected history path, changed contacts
     and links, local results, hosted checks, settings still pending, and the owner
     of each follow-up. Merge under the [Git workflow](../standards/git-workflow.md)
@@ -133,7 +134,7 @@ the checks. A published reporting address or exposed credential may require the
 
 ## Related Documents
 
-- [Repository settings checklist](../architecture/repository-settings.md) - Required platform controls and live verification.
+- [GitHub configuration runbook](configure-github.md) - Platform setup and live verification.
 - [Repository ownership](../standards/ownership.md) - Maintainer and review-owner responsibilities.
 - [Repository roadmap](../roadmap/README.md) - Foundation history and project milestones.
 - [Documentation standards](../standards/documentation.md) - Project documentation and navigation.

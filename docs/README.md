@@ -9,10 +9,10 @@ decisions. Add categories as their subject matter is introduced.
 
 | Category | Purpose |
 | :--- | :--- |
-| [Roadmap](roadmap/README.md) | Repository scaffolding in Milestone 0 and subsequent project milestones |
+| [Roadmap](roadmap/README.md) | Project milestones, dependencies, and progress |
 | [Architecture](architecture/README.md) | Implemented repository tooling and validation boundaries |
 | [Standards](standards/README.md) | Shared repository conventions |
-| [Runbooks](runbooks/README.md) | Procedures for recurring maintenance and operational tasks |
+| [Runbooks](runbooks/README.md) | Project setup and recurring maintenance procedures |
 | [Architecture Decision Records (ADRs)](adr/README.md) | Proposed and recorded decisions, their options, and their rationale |
 
 For documentation ownership, formatting, and navigation rules, see the

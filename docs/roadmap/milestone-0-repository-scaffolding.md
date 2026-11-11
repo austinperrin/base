@@ -102,12 +102,11 @@ deliverables; future paths are not links to implemented content.
 
 ## Next Review Group
 
-Review the portability edits to ongoing standards and repository-check references.
-The audit found five source-specific links in GitHub contribution forms, two active
-reporting-contact references, and a historical source verification record. The
-repository-initialization procedure will own the required replacements and the
-boundary between reusable files and source-only history. The planned direction is
-runbook-first navigation with minimal project-specific edits.
+Portability edits and the repository-initialization and GitHub-configuration
+runbooks are merged. Review navigation from the root README through setup,
+standards, maintenance, decisions, and project milestones. Next, review the
+one-time cleanup list and helper for source-specific links, contacts, and
+verification records. Keep the developer's project setup work small and explicit.
 
 ### Phase 8 Review Groups
 
@@ -147,8 +146,8 @@ that the source repository's verification proves the new repository's settings.
 
 The cleanup helper is planned; its exact removal list and any identity-update
 automation require review of the audit. No files are removed solely by recording
-this plan. Existing
-architecture references own implementation explanations; runbooks own execution
+this plan. Existing architecture references own implementation explanations;
+runbooks own execution
 steps without duplicating requirements.
 
 ### Checkpoint Before Phase 7

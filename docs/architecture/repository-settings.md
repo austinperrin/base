@@ -4,8 +4,7 @@
 
 This checklist owns the GitHub settings and live verification needed to enforce
 repository policies. Its presence does not configure the platform. Record results
-for each repository separately; the [Phase 6 verification record](phase-6-verification.md)
-contains the foundation repository's historical results and remaining cases.
+for each repository separately.
 
 ## Prerequisites and Ownership
 

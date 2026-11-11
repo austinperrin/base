@@ -7,8 +7,9 @@ This index documents the helpers currently available in the repository.
 ## Prerequisites
 
 The setup script and hook require Bash 3.2 or newer, Git, and standard command-line
-utilities. On Windows, run them in Git Bash or a compatible environment. The ADR generator, cleanup helper, and regression tests additionally require
-Python 3.9 or newer with its standard library.
+utilities. On Windows, run them in Git Bash or a compatible environment. The ADR
+generator, disposable-file cleanup, project-initialization helper, and regression
+tests additionally require Python 3.9 or newer with its standard library.
 
 ## Developer Tools
 
@@ -17,6 +18,7 @@ Python 3.9 or newer with its standard library.
 | [setup.sh](dev/setup.sh) | Configures the local commit-message hook after checking for conflicts | `./scripts/dev/setup.sh` |
 | [new-adr.sh](dev/new-adr.sh) | Creates the next numbered Proposed ADR from the current template | `./scripts/dev/new-adr.sh "Choose storage"` |
 | [clean.sh](dev/clean.sh) | Previews disposable ignored files; deletes only with `--apply` | `./scripts/dev/clean.sh --dry-run` |
+| [initialize-project.py](dev/initialize-project.py) | Previews or applies one-time project setup and cleanup | `python3 scripts/dev/initialize-project.py --help` |
 
 Setup resolves the repository from its own location, so it can also be invoked by
 path from another working directory. It sets this checkout's local
@@ -30,6 +32,16 @@ any integration with the existing hooks before enabling this configuration.
 See [local Git hooks](../.githooks/README.md) for validation scope and the
 [Git workflow](../docs/standards/git-workflow.md) for the canonical conventions.
 Run setup again in each new clone that should use these hooks.
+
+## One-Time Project Initialization
+
+The [initialization runbook](../docs/runbooks/initialize-repository.md) owns the
+setup order. `initialize-project.py configure` previews fixed source URL and
+reporting-contact replacements; `finish` previews removal of source-only records
+and the helper itself. Each stage requires `--apply` to write changes. The helper
+checks the destination GitHub remote, refuses modified removal candidates, and
+checks documentation after applying changes. It leaves the root README, review
+owners, ADR outcomes, and live repository settings for the maintainer to resolve.
 
 ## ADR Generation
 
@@ -101,9 +113,9 @@ Use the [repository checks and CI reference](../docs/architecture/ci-cd.md) for 
 commands, prerequisites, regression tests, supported syntax, and the core CI
 workflow and external-check job. The [tool installer](ci/install-tools.py) prepares
 pinned Linux executables and style rules; see the checks reference for its write
-boundaries and usage. The
-[verification record](../docs/architecture/phase-6-verification.md) records live CI
-and required-check evidence for this repository.
+boundaries and usage. Use the
+[repository settings checklist](../docs/architecture/repository-settings.md) to
+verify live CI and required checks in each repository.
 
 ## Release Verification
 

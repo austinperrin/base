@@ -58,18 +58,29 @@ documentation after setup.
 4. Replace the title, description, and foundation-specific introduction in the
    [root README](../../README.md) with the project's purpose and first steps.
    Keep useful paths to documentation, contribution, security, and the roadmap.
-5. Set the private reporting address in [SECURITY.md](../../SECURITY.md) and the
-   conduct-reporting address in [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md).
-   Review the security policy's supported-version and response-time statements
-   against the new project's actual maintenance commitments. Keep the Contributor
-   Covenant attribution and existing copyright notices intact.
-6. Replace the source repository URL in the issue chooser's security contact,
-   both issue forms, and the pull request template. Check that each resulting
-   link opens the new repository's security policy or contribution document.
-   These five links live under `.github/`; inspect each before publishing forms.
+5. Preview the one-time replacement of the source repository links and reporting
+   contacts. Replace the uppercase placeholders with the project's GitHub path
+   and monitored addresses:
+
+   ```bash
+   python3 scripts/dev/initialize-project.py configure \
+     --repository OWNER/REPOSITORY \
+     --security-email SECURITY_EMAIL \
+     --conduct-email CONDUCT_EMAIL
+   ```
+
+   Review every listed file. Repeat the command with `--apply` to update the
+   source URLs in `.github/` and the addresses in [SECURITY.md](../../SECURITY.md)
+   and [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md). The helper refuses to run
+   while `origin` still points to the foundation.
+6. Open each resulting issue-form and pull-request-template link and confirm it
+   points to the new repository. Review the security policy's supported-version
+   and response-time statements against actual maintenance commitments. Keep the
+   Contributor Covenant attribution and existing copyright notices intact.
 7. Assign real users or teams in [`.github/CODEOWNERS`](../../.github/CODEOWNERS).
    Confirm their access, then activate only the mappings the project needs. The
-   commented examples do not request reviews. Use the
+   commented examples do not request reviews; remove or update the pending-setup
+   comments when the mapping is ready. Use the
    [ownership standard](../standards/ownership.md#codeowners) for precedence and
    verification.
 
@@ -96,15 +107,29 @@ documentation after setup.
     ./scripts/ci/test.sh
     ```
 
-11. For a GitHub project, follow the
-    [GitHub configuration runbook](configure-github.md). It applies the
-    [repository settings checklist](../architecture/repository-settings.md) to
-    the new repository. A copied workflow file does not activate branch
-    protection or prove that a hosted check passed.
-12. Open an initialization PR. Record the selected history path, changed contacts
-    and links, local results, hosted checks, settings still pending, and the owner
-    of each follow-up. Merge under the [Git workflow](../standards/git-workflow.md)
-    after the applicable checks and review.
+11. Commit and push the setup changes on the topic branch, then open a draft
+    initialization PR. Use it to observe hosted checks. For GitHub, follow the
+    [GitHub configuration runbook](configure-github.md), which applies the
+    [repository settings checklist](../architecture/repository-settings.md).
+    Verify workflow permissions, review owners, merge rules, and private reporting.
+    A copied workflow file does not activate branch protection.
+12. After the setup and settings are verified, preview the source-only removals:
+
+    ```bash
+    python3 scripts/dev/initialize-project.py finish
+    ```
+
+    Review the exact updates and removals, then repeat with `--apply`. This removes
+    the one-time runbook and helper, its tests, and the original foundation's
+    Phase 6 verification record; it updates their incoming links. Milestone 0
+    retains a link to the original record on the foundation repository. The helper
+    refuses modified removal candidates or unexpected incoming links, and rolls
+    back its changes if documentation checks fail.
+13. Review the final diff, run local checks, and push the cleanup commit to the
+    draft PR. Record the selected history path, contacts, links, local and hosted
+    results, settings, and remaining follow-ups. After the updated hosted checks
+    pass, complete review and merge under the
+    [Git workflow](../standards/git-workflow.md).
 
 ## Verification and Evidence
 
@@ -119,9 +144,9 @@ git grep -n -E 'austinperrin/base|perrinaustin@gmail.com|@your-maintainer|@your-
 ```
 
 Run `./scripts/ci/check-links.sh` and `./scripts/ci/check-docs.sh` after editing
-navigation. Record hosted CI and settings verification for the new repository in
-the initialization PR or a linked setup record. Historical foundation results do
-not replace these checks.
+navigation and after final cleanup. Record hosted CI and settings verification for
+the new repository in the initialization PR or a linked setup record. Historical
+foundation results do not replace these checks.
 
 ## Recovery and Escalation
 

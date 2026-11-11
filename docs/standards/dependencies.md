@@ -108,9 +108,7 @@ installation alone is insufficient evidence that an update is safe to merge.
 
 ## Automated Updates and Auditing
 
-**Status: GitHub Actions update configuration implemented.** The
-[verification record](../architecture/phase-6-verification.md) records this
-repository's update-job result and accepted update-PR follow-up.
+**Status: GitHub Actions update configuration implemented.**
 [`.github/dependabot.yml`](../../.github/dependabot.yml) configures weekly version
 updates for GitHub Actions, a bounded open-PR count, and Conventional Commits
 prefixes. It assigns labels from the

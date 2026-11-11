@@ -115,7 +115,7 @@ checklist. Verify the workflows and rules in the target repository.
 
 ## Related Documents
 
+- [Configure GitHub repository settings](../runbooks/configure-github.md) - Setup sequence and live verification.
 - [Repository checks and CI](ci-cd.md) - Implemented jobs and their limits.
 - [Git workflow](../standards/git-workflow.md) - Contribution and merge policy.
 - [Ownership](../standards/ownership.md) - Maintainer and review-owner responsibilities.
-- [Dependency management](../standards/dependencies.md) - Evaluation and update policy.

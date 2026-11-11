@@ -23,11 +23,11 @@ checks = load_module('repo_checks', ROOT / 'scripts/ci/repo_checks.py')
 
 class RepositoryTests(unittest.TestCase):
   def setUp(self):
-    self.temporary = tempfile.TemporaryDirectory(prefix='base-tests-')
+    self.temporary = tempfile.TemporaryDirectory(prefix='repository-tests-')
     self.addCleanup(self.temporary.cleanup)
     self.root = Path(self.temporary.name).resolve()
     self.run_command('git', 'init', '-q', '-b', 'main')
-    self.run_command('git', 'config', 'user.name', 'Template Tests')
+    self.run_command('git', 'config', 'user.name', 'Repository Tests')
     self.run_command('git', 'config', 'user.email', 'tests@example.invalid')
 
   def run_command(self, *args, check=True):
@@ -165,22 +165,22 @@ class RepositoryTests(unittest.TestCase):
     self.run_command('git', 'rm', '--cached', 'service/.env.test')
     self.assertEqual(checks.check_secrets(self.root), [])
 
-  def foundation(self):
+  def baseline(self):
     for name in checks.REQUIRED_FILES:
       self.copy(name)
     self.copy('.githooks/commit-msg')
     self.copy('scripts/dev/setup.sh')
 
   def test_repository_baseline_does_not_require_secret_or_ci_implementation(self):
-    self.foundation()
+    self.baseline()
     self.assertFalse((self.root / '.env.example').exists())
     self.assertFalse((self.root / '.github/workflows').exists())
     self.assertEqual(checks.check_repository(self.root), [])
     (self.root / 'LICENSE').unlink()
-    self.assertIn('Missing foundation file: LICENSE', checks.check_repository(self.root))
+    self.assertIn('Missing required repository file: LICENSE', checks.check_repository(self.root))
 
   def test_permissions_are_reported_without_repair(self):
-    self.foundation()
+    self.baseline()
     path = self.root / 'scripts/dev/setup.sh'
     path.chmod(0o644)
     errors = checks.check_repository(self.root)
@@ -188,7 +188,7 @@ class RepositoryTests(unittest.TestCase):
     self.assertEqual(path.stat().st_mode & 0o111, 0)
 
   def test_workflow_refs_require_full_sha_in_both_extensions(self):
-    self.foundation()
+    self.baseline()
     for extension in ['yml', 'yaml']:
       path = self.write(f'.github/workflows/check.{extension}',
                         "steps:\n  - uses: 'actions/checkout@v4'\n")
@@ -197,7 +197,7 @@ class RepositoryTests(unittest.TestCase):
       self.assertEqual(checks.check_repository(self.root), [])
 
   def test_reusable_workflow_refs_are_checked(self):
-    self.foundation()
+    self.baseline()
     path = self.write('.github/workflows/reuse.yml',
                       'jobs:\n  check:\n    uses: owner/project/.github/workflows/check.yml@main\n')
     self.assertTrue(any('full commit SHA' in error for error in checks.check_repository(self.root)))
@@ -207,7 +207,7 @@ class RepositoryTests(unittest.TestCase):
   def test_new_entry_points_report_cli_failures(self):
     for name in ['scripts/ci/repo_checks.py', 'scripts/ci/check-secrets.sh', 'scripts/ci/check-repository.sh']:
       self.copy(name)
-    self.foundation()
+    self.baseline()
     for name in ['check-secrets.sh', 'check-repository.sh']:
       result = self.run_command('bash', f'scripts/ci/{name}')
       self.assertEqual(result.returncode, 0, result.stderr)

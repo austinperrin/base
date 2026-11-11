@@ -10,10 +10,10 @@ its scope, progress, and completion evidence stay together.
 
 | Milestone | Purpose | Status |
 | :--- | :--- | :--- |
-| [Milestone 0: Repository Scaffolding](milestone-0-repository-scaffolding.md) | Establish the repository foundation | In progress |
+| [Milestone 0: Repository Scaffolding](milestone-0-repository-scaffolding.md) | Establish initial repository practices | Completed |
 
-Milestone 0 tracks repository scaffolding, its current phase status, and the next
-review group. Milestone 1 onward tracks project work built on that foundation.
+Milestone 0 records the completed repository scaffolding and its verification.
+Milestone 1 onward tracks project work after that initial setup.
 
 ## Continuing with Milestone 1
 
@@ -25,9 +25,8 @@ Include the milestone's owner, status, scope, dependencies, phases, completion
 criteria, and links to relevant standards and decisions. Record evidence as work
 is completed. Follow the same approach for subsequent milestones.
 
-If project work begins while Milestone 0 is still in progress, identify any
-unfinished scaffolding it depends on and address it in the plan. Starting a new
-milestone does not complete earlier phases or resolve Proposed decisions.
+Milestone 0's completion does not resolve Proposed decisions or replace the
+project-specific settings and checks required when starting a new repository.
 
 ## Organization and Maintenance
 

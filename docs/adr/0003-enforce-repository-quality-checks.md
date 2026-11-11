@@ -15,15 +15,15 @@ and security. Local developer helpers now have regression tests, but there is no
 committed repository-wide check suite or CI enforcement. Manual review can miss
 broken navigation, configuration errors, and accidental credential exposure.
 
-This record proposes an approach for enforcing the foundation's established
-standards without choosing an application language or package manager. It is a
-decision for this repository's scaffolding, distinct from the adopting project's
-open secrets decision. Approval of an approach does not prove its implementation.
+This record selects an approach for enforcing the repository's established
+standards without choosing an application language or package manager. The
+[secret-management decision](0002-secret-management.md) remains separate and
+Proposed. Approval of an approach does not prove its implementation.
 
 ## 2. Decision Drivers
 
 - Check established standards with reproducible commands locally and in CI.
-- Keep validation independent of an adopting application's technology stack.
+- Keep validation independent of the project's application technology stack.
 - Report actionable failures without modifying source files or repository settings.
 - Test failure cases in temporary repositories, preserving the working checkout.
 - Keep provider-specific workflow configuration separate from reusable check logic.
@@ -36,7 +36,7 @@ open secrets decision. Approval of an approach does not prove its implementation
 | :--- | :--- | :--- | :--- |
 | **A. Manual review and local helpers** | Early exploration or very small changes | Minimal tooling; reviewers can assess meaning and context | Repeated mechanical review; inconsistent coverage; no shared automated merge evidence |
 | **B. Platform-focused checks and integrations** | Projects centered on one hosting platform | Can reuse hosted capabilities and existing integrations | Availability and behavior depend on the platform; local reproduction may differ; repository-specific documentation rules can remain uncovered |
-| **C. Shared repository checks with focused external linters** | A reusable repository foundation that grows across applications | Consistent local and CI checks; custom rules reflect repository standards; external tools handle specialized analysis | Requires regression coverage, version management, documented prerequisites, and clear parsing limits |
+| **C. Shared repository checks with focused external linters** | A repository that grows across applications and services | Consistent local and CI checks; custom rules reflect repository standards; external tools handle specialized analysis | Requires regression coverage, version management, documented prerequisites, and clear parsing limits |
 
 These approaches can overlap. Human review and useful platform controls remain
 necessary even when a shared suite supplies automated evidence.
@@ -95,9 +95,9 @@ commands there; decision approval does not establish enforcement.
 | Adoption verification | Project-specific values replaced and checks exercised in a representative initialized project |
 
 Follow the [dependency standard](../standards/dependencies.md) when selecting tools
-and actions. Keep the [roadmap](../roadmap/README.md) current as implementation
-lands. Do not require future documentation or scripts merely because the reference
-branch contains them. Release procedures remain in the maintenance phase.
+and actions. Keep implementation status in the [roadmap](../roadmap/README.md) and
+[architecture reference](../architecture/ci-cd.md) rather than in this decision
+record.
 
 ## Related Documents
 
@@ -105,3 +105,4 @@ branch contains them. Release procedures remain in the maintenance phase.
 - [Documentation standards](../standards/documentation.md) - Editorial and structural requirements.
 - [Git workflow](../standards/git-workflow.md) - Contribution requirements and enforcement status.
 - [Dependency management](../standards/dependencies.md) - Tool evaluation and version control.
+- [ADR-0002: Secret Management](0002-secret-management.md) - Separate decision about secret storage and delivery.

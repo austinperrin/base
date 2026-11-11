@@ -9,10 +9,10 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE_REPOSITORY = 'austinperrin/base'
+SOURCE_REPOSITORY = 'austinperrin/scaffolding'
+SOURCE_ALIASES = (SOURCE_REPOSITORY, 'austinperrin/base')
 SOURCE_URL = f'https://github.com/{SOURCE_REPOSITORY}'
 SOURCE_EMAIL = 'perrinaustin@gmail.com'
-VERIFICATION_URL = f'{SOURCE_URL}/blob/main/docs/architecture/phase-6-verification.md'
 
 URL_FILES = {
   '.github/ISSUE_TEMPLATE/config.yml': 1,
@@ -27,6 +27,47 @@ REMOVALS = (
   'scripts/dev/initialize-project.py',
   'scripts/dev/tests/test_initialize_project.py',
 )
+
+PROJECT_MILESTONE = '''# Milestone 0: Repository Scaffolding
+
+[Docs](../README.md) > [Roadmap](README.md) > Milestone 0
+
+* **Status**: Completed
+* **Owner**: Repository maintainers
+* **Scope**: Establish the repository's identity, policies, documentation, tooling,
+  and maintenance practices.
+
+This milestone records the repository's initial structure and practices. Plan the
+next project goal as Milestone 1 in the [roadmap index](README.md#continuing-with-milestone-1).
+
+## Completed Scope
+
+| Area | Result |
+| :--- | :--- |
+| Identity and file hygiene | The root README, license, reporting contacts, ownership guidance, editor settings, Git attributes, and exclusions are in place. |
+| Documentation and decisions | The documentation hub, standards, and Architecture Decision Records (ADRs) provide navigation and record established and open choices. |
+| Contribution and security | Contribution guidance, issue and pull request forms, security reporting, and the Code of Conduct are available. |
+| Local and hosted checks | Developer helpers, repository checks, and GitHub workflows provide the initial validation paths. |
+| Maintenance | Runbooks cover issue triage, dependencies, releases, credential exposure, and GitHub settings. |
+
+## Verification
+
+The project setup pull request records this repository's local and hosted checks,
+reporting contacts, and live settings. Recheck GitHub controls when ownership,
+workflows, or review policy changes by following the
+[GitHub configuration runbook](../runbooks/configure-github.md). A copied workflow
+does not activate repository settings on its own.
+
+[ADR-0002](../adr/0002-secret-management.md) and
+[ADR-0004](../adr/0004-release-versioning.md) remain Proposed. Decide their
+outcomes when the project has the relevant requirements and decision maker.
+
+## Related Documents
+
+- [Roadmap index](README.md) - Plan Milestone 1 and later project work.
+- [Documentation hub](../README.md) - Find standards, decisions, and runbooks.
+- [Repository settings](../architecture/repository-settings.md) - Controls to verify for this repository.
+'''
 
 
 def run_git(*arguments):
@@ -47,7 +88,7 @@ def repository_root():
       name = url[len(prefix):]
       if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', name):
         break
-      if name.lower() == SOURCE_REPOSITORY:
+      if name.lower() in SOURCE_ALIASES:
         raise ValueError('The origin remote still points to the foundation repository.')
       return name
   raise ValueError('The origin remote must identify the new GitHub repository.')
@@ -96,7 +137,7 @@ def tracked_and_unchanged(name):
   tracked = run_git('ls-files', '--error-unmatch', '--', name)
   changed = run_git('diff', '--quiet', 'HEAD', '--', name)
   if tracked.returncode or changed.returncode or (ROOT / name).is_symlink():
-    raise ValueError(f'Removal candidate is missing or modified: {name}')
+    raise ValueError(f'Setup file is missing or modified: {name}')
   read_file(name)
 
 
@@ -113,7 +154,8 @@ def finish_plan():
     if SOURCE_EMAIL in read_file(name):
       raise ValueError('Replace source reporting contacts before finishing setup.')
   readme = read_file('README.md')
-  if '# Base Repository Template' in readme or 'initialize-repository.md' in readme:
+  if ('# Repository Scaffolding' in readme or 'initialize-repository.md' in readme
+      or any(alias in readme for alias in SOURCE_ALIASES)):
     raise ValueError('Replace the root README and its setup link before finishing.')
   owners = read_file('.github/CODEOWNERS')
   if '@your-maintainer' in owners or '@your-org' in owners:
@@ -125,10 +167,11 @@ def finish_plan():
   plan[name] = replace_count(name, row, '', 1)
 
   name = 'docs/roadmap/milestone-0-repository-scaffolding.md'
-  plan[name] = replace_count(name, '../architecture/phase-6-verification.md', VERIFICATION_URL, 2)
+  tracked_and_unchanged(name)
+  plan[name] = PROJECT_MILESTONE
 
   name = 'docs/runbooks/README.md'
-  row = '| [Initialize a project repository](initialize-repository.md) | Turn the foundation into a new project repository |\n'
+  row = '| [Initialize a project repository](initialize-repository.md) | Turn the scaffold into a new project repository |\n'
   plan[name] = replace_count(name, row, '', 1)
 
   name = 'scripts/README.md'
@@ -138,11 +181,12 @@ def finish_plan():
     '## One-Time Project Initialization\n\n'
     'The [initialization runbook](../docs/runbooks/initialize-repository.md) owns the\n'
     'setup order. `initialize-project.py configure` previews fixed source URL and\n'
-    'reporting-contact replacements; `finish` previews removal of source-only records\n'
-    'and the helper itself. Each stage requires `--apply` to write changes. The helper\n'
-    'checks the destination GitHub remote, refuses modified removal candidates, and\n'
-    'checks documentation after applying changes. It leaves the root README, review\n'
-    'owners, ADR outcomes, and live repository settings for the maintainer to resolve.\n\n'
+    'reporting-contact replacements; `finish` previews a project-owned Milestone 0\n'
+    'record and removal of one-time files. Each stage requires `--apply` to write\n'
+    'changes. The helper checks the destination GitHub remote, refuses modified\n'
+    'removal candidates, and checks documentation after applying changes. It leaves\n'
+    'the root README, review owners, ADR outcomes, and live repository settings for\n'
+    'the maintainer to resolve.\n\n'
   )
   if content.count(section) != 1:
     raise ValueError('The script-reference setup section changed; review it manually.')
@@ -179,10 +223,12 @@ def finish_plan():
       if content is None and name in plan:
         continue
       content = content if content is not None else path.read_text(encoding='utf-8')
-      if 'phase-6-verification.md' in content and name != 'docs/roadmap/milestone-0-repository-scaffolding.md':
+      if 'phase-6-verification.md' in content:
         raise ValueError(f'An incoming verification-record link remains in {name}.')
       if 'initialize-repository.md' in content:
         raise ValueError(f'An incoming initialization-runbook link remains in {name}.')
+      if any(alias in content for alias in SOURCE_ALIASES):
+        raise ValueError(f'A source-repository reference remains in {name}.')
   return plan
 
 

@@ -219,7 +219,7 @@ REQUIRED_FILES = (
 
 
 def check_repository(root):
-  errors = [f'Missing foundation file: {name}' for name in REQUIRED_FILES
+  errors = [f'Missing required repository file: {name}' for name in REQUIRED_FILES
             if not (root / name).is_file()]
   # Check repository shell entry points without changing their permissions.
   scripts = sorted((root / 'scripts').glob('*/*.sh'))

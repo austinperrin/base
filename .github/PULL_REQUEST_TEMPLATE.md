@@ -1,7 +1,7 @@
 # Pull Request
 
-Follow the [contribution guide](https://github.com/austinperrin/base/blob/HEAD/CONTRIBUTING.md)
-and [Git workflow](https://github.com/austinperrin/base/blob/HEAD/docs/standards/git-workflow.md).
+Follow the [contribution guide](https://github.com/austinperrin/scaffolding/blob/HEAD/CONTRIBUTING.md)
+and [Git workflow](https://github.com/austinperrin/scaffolding/blob/HEAD/docs/standards/git-workflow.md).
 <!-- Use a Conventional Commits title for this pull request. -->
 
 ## Description

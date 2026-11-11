@@ -17,8 +17,9 @@ class ProjectInitializationTests(unittest.TestCase):
     self.addCleanup(self.directory.cleanup)
     self.root = Path(self.directory.name) / 'project'
     self.root.mkdir()
-    tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=SOURCE)
-    for raw_name in tracked.split(b'\0'):
+    names = subprocess.check_output(
+      ['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=SOURCE)
+    for raw_name in names.split(b'\0'):
       if not raw_name:
         continue
       name = raw_name.decode('utf-8')
@@ -84,8 +85,19 @@ class ProjectInitializationTests(unittest.TestCase):
       self.assertFalse((self.root / name).exists())
     self.assertTrue((self.root / 'docs/adr/template.md').exists())
     self.assertTrue((self.root / 'docs/runbooks/template.md').exists())
-    self.assertIn('https://github.com/austinperrin/base/blob/main/docs/architecture/phase-6-verification.md',
-                  (self.root / 'docs/roadmap/milestone-0-repository-scaffolding.md').read_text())
+    milestone = (self.root / 'docs/roadmap/milestone-0-repository-scaffolding.md').read_text()
+    self.assertIn('This milestone records the repository\'s initial structure', milestone)
+    self.assertNotIn('austinperrin/scaffolding', milestone)
+    self.assertNotIn('austinperrin/base', milestone)
+    self.assertNotIn('phase-6-verification.md', milestone)
+    self.assertNotIn('PRs #', milestone)
+    self.assertNotIn('foundation', (self.root / 'docs/runbooks/configure-github.md').read_text())
+    for path in self.root.rglob('*.md'):
+      if '.git' not in path.parts:
+        content = path.read_text()
+        self.assertNotIn('austinperrin/scaffolding', content, str(path))
+        self.assertNotIn('austinperrin/base', content, str(path))
+        self.assertNotIn('the foundation', content.lower(), str(path))
 
   def test_modified_removal_candidate_blocks_finish(self):
     self.prepare_finish()
@@ -96,12 +108,23 @@ class ProjectInitializationTests(unittest.TestCase):
     self.assertIn('modified', result.stderr)
     self.assertTrue(record.exists())
 
-  def test_source_remote_blocks_changes(self):
-    self.git('remote', 'set-url', 'origin', 'https://github.com/austinperrin/base.git')
-    result = self.configure('--apply', check=False)
+  def test_modified_milestone_blocks_replacement(self):
+    self.prepare_finish()
+    milestone = self.root / 'docs/roadmap/milestone-0-repository-scaffolding.md'
+    milestone.write_text(milestone.read_text() + '\nProject note.\n')
+    result = self.helper('finish', '--apply', check=False)
     self.assertNotEqual(result.returncode, 0)
-    self.assertIn('foundation repository', result.stderr)
-    self.assertEqual(self.git('status', '--porcelain').stdout, '')
+    self.assertIn('modified', result.stderr)
+    self.assertTrue((self.root / 'scripts/dev/initialize-project.py').exists())
+
+  def test_source_remote_blocks_changes(self):
+    for repository in ('austinperrin/base', 'austinperrin/scaffolding'):
+      with self.subTest(repository=repository):
+        self.git('remote', 'set-url', 'origin', f'https://github.com/{repository}.git')
+        result = self.configure('--apply', check=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('foundation repository', result.stderr)
+        self.assertEqual(self.git('status', '--porcelain').stdout, '')
 
   def test_example_owners_block_finish(self):
     self.configure('--apply')

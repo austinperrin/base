@@ -15,7 +15,7 @@ REAL_ACTIONLINT = pinned_tool('actionlint', ['-version'], '1.7.12')
 
 class ActionlintTests(unittest.TestCase):
   def setUp(self):
-    self.workspace = tempfile.TemporaryDirectory(prefix='base-actionlint-')
+    self.workspace = tempfile.TemporaryDirectory(prefix='repository-actionlint-')
     self.addCleanup(self.workspace.cleanup)
     self.root = Path(self.workspace.name) / 'project with spaces'
     self.script = self.root / 'scripts/ci/check-workflows.sh'

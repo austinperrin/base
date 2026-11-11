@@ -71,7 +71,7 @@ covers staged content and current-branch history; credential handling follows th
 [security policy](../../SECURITY.md).
 
 The [repository-configuration check](../../scripts/ci/check-repository.sh) verifies
-foundation files listed in `REQUIRED_FILES`, executable shell entry points under
+required repository files listed in `REQUIRED_FILES`, executable shell entry points under
 `scripts/*/*.sh`, and the commit-message hook. It reports missing permissions
 without changing them. The baseline requires neither `.env.example` nor workflows
 that have not been introduced.
@@ -244,7 +244,7 @@ override:
 vale --no-global --config=.vale.ini docs README.md CONTRIBUTING.md
 ```
 
-The [project vocabulary](../../.github/styles/config/vocabularies/Base/accept.txt)
+The [project vocabulary](../../.github/styles/config/vocabularies/Project/accept.txt)
 contains reviewed technical terms that would otherwise produce spelling or term
 alerts. Add terms with context and review; avoid blanket exclusions for prose that
 should be corrected. Any rule changes belong in the configuration with an explained

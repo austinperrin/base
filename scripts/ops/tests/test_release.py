@@ -16,7 +16,7 @@ JOBS = ['Repository checks (ubuntu-24.04)', 'Repository checks (macos-15)',
 
 class ReleaseTests(unittest.TestCase):
   def setUp(self):
-    self.workspace = tempfile.TemporaryDirectory(prefix='base-release-')
+    self.workspace = tempfile.TemporaryDirectory(prefix='repository-release-')
     self.addCleanup(self.workspace.cleanup)
     self.parent = Path(self.workspace.name).resolve()
     self.repo = self.parent / 'project with spaces'

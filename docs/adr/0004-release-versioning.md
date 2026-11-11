@@ -11,7 +11,7 @@
 
 The project needs a way to identify releases that fits its users, compatibility
 expectations, distribution tools, and maintenance practices. Those requirements
-can differ between a repository foundation, a library, and a deployed application.
+can differ between an internal repository, a library, and a deployed application.
 
 This record compares approaches without selecting one. Leave it Proposed until
 the project needs versioned releases and approves a policy. A project can use
@@ -38,7 +38,7 @@ readiness; passing it does not select or validate a versioning policy.
 | Option | Use case | Pros | Cons and responsibilities |
 | :--- | :--- | :--- | :--- |
 | **A. Semantic Versioning**, such as `2.4.1` | Libraries, APIs, and tools with a defined compatibility contract | Communicates incompatible changes, compatible features, and fixes | Requires a clear compatibility contract and consistent change classification; does not communicate release timing. |
-| **B. Calendar Versioning**, such as `2026.11.1` | Date-oriented releases of applications, documentation, or repository foundations | Communicates release timing and can align with maintenance cycles | Define the date fields, revision counter, and ordering rules; explain breaking changes separately. |
+| **B. Calendar Versioning**, such as `2026.11.1` | Date-oriented releases of applications, documentation, or internal tools | Communicates release timing and can align with maintenance cycles | Define the date fields, revision counter, and ordering rules; explain breaking changes separately. |
 | **C. Sequential identifiers**, such as `release-42` | Products or internal tools needing a simple ordered release history | Easy to assign and compare within a defined sequence | Does not encode timing or compatibility; define numbering ownership and parallel-branch behavior. |
 | **D. Project-defined major/minor versions**, such as `3.7` | Products organized around generations or a custom compatibility model | Can match the project's release and support model | Define the meaning and increment rules; readers cannot assume SemVer semantics from the numeric format. |
 | **E. Commit-based snapshots**, such as `snapshot-a1b2c3d` | Continuous delivery or development snapshots | Identifies source without inventing compatibility semantics | Less readable as a release sequence; retain the full commit identity and define support and promotion rules separately. |

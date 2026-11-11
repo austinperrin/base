@@ -26,9 +26,12 @@ class SuiteTests(unittest.TestCase):
       name = os.fsdecode(raw)
       if 'tests' in Path(name).parts:
         continue
+      source = ROOT / name
+      if not source.is_file():
+        continue
       target = self.root / name
       target.parent.mkdir(parents=True, exist_ok=True)
-      shutil.copy2(ROOT / name, target)
+      shutil.copy2(source, target)
     for script in (ROOT / 'scripts/ci').iterdir():
       if script.is_file() and script.suffix in {'.sh', '.py', '.json'}:
         shutil.copy2(script, self.root / 'scripts/ci' / script.name)

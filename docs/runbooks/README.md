@@ -11,6 +11,7 @@ and recovery actions. Link to the owning standard for policy and conventions.
 | Runbook | When to use it |
 | :--- | :--- |
 | [Runbook template](template.md) | Create a procedure for a repeatable task |
+| [Initialize a project repository](initialize-repository.md) | Turn the foundation into a new project repository |
 | [Issue triage](issue-triage.md) | Review incoming requests and reassess open work |
 | [Dependency maintenance](dependency-maintenance.md) | Review automated and manual dependency updates |
 | [Release process](release-process.md) | Verify and publish a reviewed repository version |

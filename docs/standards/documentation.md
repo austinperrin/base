@@ -54,7 +54,15 @@ repeat breadcrumbs, links used only in examples, a category's index entries, or 
 existing canonical-reference table. A particularly useful companion document may
 appear in both the body and the related section.
 
-### 3. Root-Level Documents and Indexes
+### 3. Page Scope and Splitting
+
+Keep each page focused on one reader task or concept. Split sections into separate
+pages when they serve independent purposes or need different maintenance and
+verification. Use a directory index to connect related pages, and update incoming
+links, breadcrumbs, and related documents when moving content. A long page with one
+coherent purpose can stay together; do not split pages to meet a line-count limit.
+
+### 4. Root-Level Documents and Indexes
 
 Standalone root-level guides and policies, including `CONTRIBUTING.md`, `SECURITY.md`,
 and `CODE_OF_CONDUCT.md`, use a breadcrumb below their title:

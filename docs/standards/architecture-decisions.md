@@ -10,9 +10,9 @@ records; the [template](../adr/template.md) provides their starting structure.
 
 Use an ADR to explain a significant choice, its alternatives, and the reasons
 behind it. Records can describe repository decisions or present an unresolved
-choice for an adopting project.
+choice for this project.
 
-Keep ongoing requirements and procedures in their canonical standards or guides.
+Keep ongoing requirements and procedures in their canonical standards or runbooks.
 The ADR explains why a decision was made and links to those documents rather
 than repeating their instructions.
 
@@ -58,7 +58,7 @@ separate selections by environment or component when a single choice would be mi
 | Superseded by ADR-XXXX | A linked, newer record replaces the decision |
 
 A completed comparison with an unresolved outcome remains Proposed. Reviewing
-its presentation does not select an implementation for the adopting project.
+its presentation does not select an implementation for the project.
 An Accepted decision may still have outstanding implementation work; track that
 work separately from the decision's approval.
 

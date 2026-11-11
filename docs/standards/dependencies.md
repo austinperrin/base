@@ -144,5 +144,5 @@ does not select an application stack or add a package manager.
 * [Standards index](README.md) - Canonical repository conventions.
 * [Git workflow](git-workflow.md) - Commit and pull request requirements.
 * [Architecture Decision Record (ADR) standards](architecture-decisions.md) - Significant dependency and technology choices.
-* [Milestone 0 roadmap](../roadmap/milestone-0-repository-scaffolding.md) - Planned tooling, automation, and maintenance work.
+* [Repository roadmap](../roadmap/README.md) - Project milestones and planned maintenance work.
 * [Dependency maintenance](../runbooks/dependency-maintenance.md) - Execution, verification, and recovery steps.

@@ -12,8 +12,8 @@ contents, including tooling and automation as they are introduced.
 
 Security fixes target the current reviewed contents of `main`. A supported-release
 policy will be defined when versioned releases are introduced; `main` is a branch,
-not a release version. This scaffolding group does not establish support guarantees
-for older release versions.
+not a release version. This policy does not establish support guarantees for older
+release versions.
 
 ---
 

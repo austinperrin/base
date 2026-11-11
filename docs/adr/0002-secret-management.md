@@ -5,21 +5,21 @@
 * **Status**: Proposed
 * **Date**: 2026-11-07
 * **Authors**: @austinperrin
-* **Deciders**: Pending assignment by the adopting project
+* **Deciders**: Pending assignment by the project
 
 ## 1. Context and Problem Statement
 
-The adopting project needs to decide how secrets are stored, supplied to its
+The project needs to decide how secrets are stored, supplied to its
 applications and automation, and maintained over time. Local development, CI,
 and deployed environments can have different requirements.
 
 This ADR provides options for that decision. No storage mechanism, provider,
-configuration file format, or application integration is selected by the template.
+configuration file format, or application integration is selected by this record.
 Keep this record Proposed until the project records and approves its choice.
 
 A project that does not yet need secrets can leave this decision open. Revisit it
-before introducing a workload or integration that requires credentials; adopting
-the repository alone does not require creating a secret store or configuration file.
+before introducing a workload or integration that requires credentials. Repository
+setup alone does not require creating a secret store or configuration file.
 
 The repository's [ignore rules](../../.gitignore) exclude common local credential
 files. They do not determine how the project must store or deliver secrets.
@@ -58,7 +58,7 @@ illustrates platform storage and delivery for CI; it is an example, not a select
 
 ## 4. Decision Outcome
 
-**Pending.** Complete the following for the adopting project. Mark an environment
+**Pending.** Complete the following for the project. Mark an environment
 Not applicable if the project does not use it.
 
 | Environment | Secret source and storage | Delivery mechanism | Reason for selection |
@@ -90,7 +90,7 @@ examples and integrations only when the project has selected an approach and has
 a concrete need for them.
 
 Record the work needed to implement and verify the decision. This is a decision
-checklist; put operational commands in the project's canonical guides or runbooks
+checklist; put operational commands in the project's canonical runbooks
 and link to them here.
 
 | Item to resolve | Project plan or evidence |

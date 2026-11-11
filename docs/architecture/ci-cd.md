@@ -5,10 +5,9 @@
 This document owns the commands, coverage, and limitations of repository-wide
 validation. [ADR-0003](../adr/0003-enforce-repository-quality-checks.md) records the
 accepted approach. The current implementation contains local documentation, credential-filename,
-and repository-configuration checks. Core and external-check CI jobs run on pull requests and main-branch changes. The
-[foundation verification record](phase-6-verification.md) contains the original
-repository's observed enforcement results and maintainer-approved follow-ups.
-Verify the settings and workflows in each project repository separately.
+and repository-configuration checks. Core and external-check CI jobs run on pull
+requests and main-branch changes. Verify the settings and workflows in each
+project repository separately.
 
 ## Commands and Prerequisites
 
@@ -537,15 +536,15 @@ targeting. It creates no real release and requires no GitHub authentication.
 | Documentation links and structure | Local scripts and focused regression tests |
 | Developer helpers | Regression tests included in the local suite; individual usage in the [script reference](../../scripts/README.md) |
 | Credential filenames and repository configuration | Local scripts and regression tests |
-| ShellCheck | Pinned local check and external CI job; initial PR execution verified |
-| actionlint | Pinned local check and external CI job; initial PR execution verified |
-| Vale | Pinned local check, Google rules, vocabulary, and external CI job; initial PR execution verified |
-| Gitleaks | Pinned local check and external CI job with redacted output; initial PR execution verified |
-| Core CI workflow | Initial Linux and macOS PR jobs verified; see roadmap evidence |
-| External-check CI job | Initial PR job verified with all real-tool fixtures; see roadmap evidence |
-| PR-title validation and scheduled scanning | Title edits and manual scanner dispatch verified; see the [verification record](phase-6-verification.md) for scheduled-event follow-up |
-| Dependency updates | GitHub Actions update job verified; update-PR follow-up is recorded in the [verification record](phase-6-verification.md) |
-| Required status checks and review/merge settings | Live configuration and merge blocking verified; see the [verification record](phase-6-verification.md) for the approved review policy |
+| ShellCheck | Pinned local check and external CI job; confirm execution in the target repository |
+| actionlint | Pinned local check and external CI job; confirm execution in the target repository |
+| Vale | Pinned local check, Google rules, vocabulary, and external CI job |
+| Gitleaks | Pinned local check and external CI job with redacted output |
+| Core CI workflow | Linux and macOS jobs; inspect the target commit and results |
+| External-check CI job | Real-tool fixtures; inspect the target commit and results |
+| PR-title validation and scheduled scanning | Separate workflows; verify title edits and scanner dispatch in the target repository |
+| Dependency updates | GitHub Actions version-update configuration; verify the first applicable job and PR |
+| Required status checks and review/merge settings | Configure and verify in each target repository using the [settings checklist](repository-settings.md) |
 
 Local checks do not configure merge protection. Apply the repository settings
 checklist against verified workflow behavior, and update this document as each

@@ -95,9 +95,7 @@ navigation and automation.
 | Final foundation | PRs #20–#22 completed the assembled checks and project-ready wording. The clean source checkout passed the local suite; the [final hosted run](https://github.com/austinperrin/scaffolding/actions/runs/43125044915) passed Linux, macOS, and external-check jobs. A fresh project copy passed setup and local checks. Its GitHub controls still require project-specific verification. |
 
 The `archive/m0-scaffolding-history` tag retains the original scaffolding history.
-Git history and merged PRs provide the detailed change record. The
-`chore/reference-scaffolding-drafts` branch is a reference snapshot; its files do
-not establish delivered behavior.
+Git history and merged PRs provide the detailed change record.
 
 ## Open Decisions and Handoff
 

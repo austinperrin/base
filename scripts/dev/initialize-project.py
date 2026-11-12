@@ -1,11 +1,13 @@
 """Preview or apply the one-time GitHub project initialization changes."""
 
 import argparse
+from datetime import datetime
 import os
 from pathlib import Path
 import re
 import subprocess
 import sys
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -32,13 +34,16 @@ PROJECT_MILESTONE = '''# Milestone 0: Repository Scaffolding
 
 [Docs](../README.md) > [Roadmap](README.md) > Milestone 0
 
-* **Status**: Completed
+* **Status**: <span style="color: green;">Completed</span>
 * **Owner**: Repository maintainers
+* **Target**: No recorded target
 * **Scope**: Establish the repository's identity, policies, documentation, tooling,
   and maintenance practices.
 
-This milestone records the repository's initial structure and practices. Plan the
-next project goal as Milestone 1 in the [roadmap index](README.md#continuing-with-milestone-1).
+This milestone records the completed repository baseline. Its schedule dates
+mark when this baseline was established; the estimate describes the typical
+effort to build these practices. Plan the next project goal as Milestone 1 using the
+[milestone planning template](milestone-template.md).
 
 ## Completed Scope
 
@@ -141,7 +146,7 @@ def tracked_and_unchanged(name):
   read_file(name)
 
 
-def finish_plan():
+def finish_plan(setup_date):
   repository = repository_root()
   for name in REMOVALS:
     tracked_and_unchanged(name)
@@ -169,6 +174,28 @@ def finish_plan():
   name = 'docs/roadmap/milestone-0-repository-scaffolding.md'
   tracked_and_unchanged(name)
   plan[name] = PROJECT_MILESTONE
+
+  name = 'docs/roadmap/README.md'
+  tracked_and_unchanged(name)
+  content = read_file(name)
+  source_row = ('| [Milestone 0: Repository Scaffolding](milestone-0-repository-scaffolding.md) '
+                '|  | Repository maintainers | 5–9 weeks | Not recorded | Not recorded '
+                '| 2026-11-07 | 2026-11-11 | Not measured '
+                '| <span style="color: green;">Completed</span> |')
+  project_row = ('| [Milestone 0: Repository Scaffolding](milestone-0-repository-scaffolding.md) '
+                 '|  | Repository maintainers | 5–9 weeks | Not recorded | Not recorded '
+                 f'| {setup_date} | {setup_date} | Not measured '
+                 '| <span style="color: green;">Completed</span> |')
+  if content.count(source_row) != 1:
+    raise ValueError('The source roadmap schedule changed; review it manually.')
+  content = content.replace(source_row, project_row)
+  rows = content.splitlines(keepends=True)
+  phase_rows = [row for row in rows if row.startswith('|  | [Phase ')]
+  if len(phase_rows) != 10 or any(
+      sum(row.startswith(f'|  | [Phase {number}: ') for row in phase_rows) != 1
+      for number in range(10)):
+    raise ValueError('The source roadmap phases changed; review them manually.')
+  plan[name] = ''.join(row for row in rows if row not in phase_rows)
 
   name = 'docs/runbooks/README.md'
   row = '| [Initialize a project repository](initialize-repository.md) | Turn the scaffold into a new project repository |\n'
@@ -271,7 +298,9 @@ def main():
   if args.command == 'configure':
     plan = configure_plan(args.repository, args.security_email, args.conduct_email)
   else:
-    plan = finish_plan()
+    setup_date = datetime.now(ZoneInfo('America/Chicago')).date().isoformat()
+    plan = finish_plan(setup_date)
+    print(f'Milestone 0 actual start and end: {setup_date} (America/Chicago)')
   for name, content in plan.items():
     action = 'remove' if content is None else 'update'
     print(f'{"Will" if args.apply else "Would"} {action}: {name}')

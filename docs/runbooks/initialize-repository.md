@@ -92,10 +92,11 @@ documentation after setup.
    a responsible decision maker. Update the ADR and its index when a decision is
    approved. Do not add sample secret files merely to complete setup.
 9. The cleanup step replaces [Milestone 0](../roadmap/milestone-0-repository-scaffolding.md)
-   with a concise record of this repository's starting practices. Create Milestone 1
-   for the next project goal through the
-   [roadmap index](../roadmap/README.md#continuing-with-milestone-1). Record this
-   repository's checks and settings in the initialization PR.
+   with a concise record of this repository's starting practices. It keeps the
+   typical baseline estimate and records the cleanup date as both the actual
+   start and end of Milestone 0. Create Milestone 1 for the next project goal
+   through the [roadmap delivery rules](../roadmap/README.md#delivery-rules).
+   Record this repository's checks and settings in the initialization PR.
 
 ### Enable and Verify the Scaffold
 

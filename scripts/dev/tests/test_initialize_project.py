@@ -1,11 +1,13 @@
 """Exercise one-time project setup in disposable Git repositories."""
 
+from datetime import datetime
 from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
 import unittest
+from zoneinfo import ZoneInfo
 
 
 SOURCE = Path(__file__).resolve().parents[3]
@@ -76,8 +78,11 @@ class ProjectInitializationTests(unittest.TestCase):
                   (self.root / 'CODE_OF_CONDUCT.md').read_text())
     preview = self.helper('finish')
     self.assertIn('Would remove: docs/architecture/phase-6-verification.md', preview.stdout)
+    self.assertIn('Milestone 0 actual start and end:', preview.stdout)
     self.assertTrue((self.root / 'docs/architecture/phase-6-verification.md').exists())
+    date_before = datetime.now(ZoneInfo('America/Chicago')).date().isoformat()
     self.helper('finish', '--apply')
+    date_after = datetime.now(ZoneInfo('America/Chicago')).date().isoformat()
     for name in ('docs/architecture/phase-6-verification.md',
                  'docs/runbooks/initialize-repository.md',
                  'scripts/dev/initialize-project.py',
@@ -86,7 +91,19 @@ class ProjectInitializationTests(unittest.TestCase):
     self.assertTrue((self.root / 'docs/adr/template.md').exists())
     self.assertTrue((self.root / 'docs/runbooks/template.md').exists())
     milestone = (self.root / 'docs/roadmap/milestone-0-repository-scaffolding.md').read_text()
-    self.assertIn('This milestone records the repository\'s initial structure', milestone)
+    self.assertIn('This milestone records the completed repository baseline', milestone)
+    self.assertIn('<span style="color: green;">Completed</span>', milestone)
+    self.assertIn('[milestone planning template](milestone-template.md)', milestone)
+    roadmap = (self.root / 'docs/roadmap/README.md').read_text()
+    milestone_row = next(row for row in roadmap.splitlines()
+                         if row.startswith('| [Milestone 0: Repository Scaffolding]'))
+    cells = [cell.strip() for cell in milestone_row.strip('|').split('|')]
+    self.assertEqual(cells[3], '5–9 weeks')
+    self.assertEqual(cells[4:6], ['Not recorded', 'Not recorded'])
+    self.assertIn(cells[6], (date_before, date_after))
+    self.assertEqual(cells[7], cells[6])
+    self.assertEqual(cells[8], 'Not measured')
+    self.assertNotIn('|  | [Phase 0:', roadmap)
     self.assertNotIn('austinperrin/scaffolding', milestone)
     self.assertNotIn('austinperrin/base', milestone)
     self.assertNotIn('phase-6-verification.md', milestone)

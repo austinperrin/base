@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[3]
 
 class SuiteTests(unittest.TestCase):
   def setUp(self):
-    self.workspace = tempfile.TemporaryDirectory(prefix='base-suite-')
+    self.workspace = tempfile.TemporaryDirectory(prefix='repository-suite-')
     self.addCleanup(self.workspace.cleanup)
     self.root = Path(self.workspace.name).resolve() / 'project with spaces'
     self.root.mkdir()
@@ -44,7 +44,7 @@ class SuiteTests(unittest.TestCase):
         target = self.root / '.github/workflows' / workflow.name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(workflow, target)
-    for name in ['.vale.ini', '.gitleaks.toml', '.github/dependabot.yml', '.github/styles/config/vocabularies/Base/accept.txt']:
+    for name in ['.vale.ini', '.gitleaks.toml', '.github/dependabot.yml', '.github/styles/config/vocabularies/Project/accept.txt']:
       target = self.root / name
       target.parent.mkdir(parents=True, exist_ok=True)
       shutil.copy2(ROOT / name, target)

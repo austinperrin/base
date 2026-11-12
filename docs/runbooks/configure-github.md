@@ -4,8 +4,8 @@
 
 ## Objective and Triggers
 
-Use this procedure after creating a GitHub repository from the foundation or
-when its owners, workflows, or review requirements change. Configure the controls
+Use this procedure when setting up a GitHub repository or when its owners,
+workflows, or review requirements change. Configure the controls
 in the [repository settings checklist](../architecture/repository-settings.md)
 and verify them in the target repository. This runbook gives the sequence; the
 checklist owns the required controls and check names.
@@ -100,8 +100,8 @@ the effective rule without performing a destructive push.
 Record the repository, date, maintainer, rule names, check-run and PR links,
 reporting channel, and any unavailable or untested cases in a setup issue or PR.
 The [settings checklist](../architecture/repository-settings.md#verification-evidence)
-owns the complete verification criteria. Do not treat the foundation's historical
-results as evidence for the new repository.
+owns the complete verification criteria. Verify settings and results in the
+repository you are configuring.
 
 ## Recovery and Escalation
 

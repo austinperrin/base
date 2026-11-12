@@ -1,18 +1,18 @@
-# Base Repository Template
+# Repository Scaffolding
 
-A codeless, language-agnostic foundation for software projects, with repository
+A codeless, language-agnostic scaffold for software projects, with repository
 standards, structured documentation, and automated quality checks.
 
 ## Start a Project
 
 Follow the [repository-initialization runbook](docs/runbooks/initialize-repository.md)
-to create a project from this foundation, replace its identity and reporting
+to create a project from this scaffold, replace its identity and reporting
 contacts, assign owners, and verify the new repository. For a GitHub project,
 follow the [GitHub configuration runbook](docs/runbooks/configure-github.md) to
 activate and verify repository controls. Plan the project's next work in the
 [roadmap](docs/roadmap/README.md), starting with Milestone 1.
 
-## Explore the Foundation
+## Explore the Scaffold
 
 | Area | What it provides |
 | :--- | :--- |
@@ -26,7 +26,7 @@ activate and verify repository controls. Plan the project's next work in the
 The [documentation hub](docs/README.md) connects these areas. The
 [project roadmap](docs/roadmap/README.md) owns current progress and upcoming work.
 
-## Contribute to This Foundation
+## Contribute to This Scaffold
 
 Follow the [contribution guide](CONTRIBUTING.md) to improve this repository.
 The [Code of Conduct](CODE_OF_CONDUCT.md) sets community expectations, and the

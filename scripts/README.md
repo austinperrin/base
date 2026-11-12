@@ -37,11 +37,12 @@ Run setup again in each new clone that should use these hooks.
 
 The [initialization runbook](../docs/runbooks/initialize-repository.md) owns the
 setup order. `initialize-project.py configure` previews fixed source URL and
-reporting-contact replacements; `finish` previews removal of source-only records
-and the helper itself. Each stage requires `--apply` to write changes. The helper
-checks the destination GitHub remote, refuses modified removal candidates, and
-checks documentation after applying changes. It leaves the root README, review
-owners, ADR outcomes, and live repository settings for the maintainer to resolve.
+reporting-contact replacements; `finish` previews a project-owned Milestone 0
+record and removal of one-time files. Each stage requires `--apply` to write
+changes. The helper checks the destination GitHub remote, refuses modified
+removal candidates, and checks documentation after applying changes. It leaves
+the root README, review owners, ADR outcomes, and live repository settings for
+the maintainer to resolve.
 
 ## ADR Generation
 

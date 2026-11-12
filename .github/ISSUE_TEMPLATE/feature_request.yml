@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Describe the need and the improvement you would like to see.
-        For vulnerabilities, follow the [security policy](https://github.com/austinperrin/base/security/policy) instead of opening a public issue.
+        For vulnerabilities, follow the [security policy](https://github.com/austinperrin/scaffolding/security/policy) instead of opening a public issue.
   - type: textarea
     id: problem
     attributes:

@@ -20,7 +20,7 @@ spec.loader.exec_module(installer)
 
 class InstallerTests(unittest.TestCase):
   def setUp(self):
-    self.workspace = tempfile.TemporaryDirectory(prefix='base-installer-')
+    self.workspace = tempfile.TemporaryDirectory(prefix='repository-installer-')
     self.addCleanup(self.workspace.cleanup)
     self.root = Path(self.workspace.name)
     self.destination = self.root / 'bin'
@@ -69,7 +69,7 @@ class InstallerTests(unittest.TestCase):
     self.assertFalse((self.destination / 'tool').exists())
 
   def test_google_replacement_preserves_project_vocabulary(self):
-    vocab = self.styles / 'config/vocabularies/Base/accept.txt'
+    vocab = self.styles / 'config/vocabularies/Project/accept.txt'
     vocab.parent.mkdir(parents=True)
     vocab.write_text('ProjectTerm\n')
     old = self.styles / 'Google/Old.yml'

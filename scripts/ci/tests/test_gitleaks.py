@@ -16,7 +16,7 @@ REAL_GITLEAKS = pinned_tool('gitleaks', ['version'], '8.30.1')
 
 class GitleaksTests(unittest.TestCase):
   def setUp(self):
-    self.workspace = tempfile.TemporaryDirectory(prefix='base-gitleaks-')
+    self.workspace = tempfile.TemporaryDirectory(prefix='repository-gitleaks-')
     self.addCleanup(self.workspace.cleanup)
     self.root = Path(self.workspace.name).resolve() / 'project with spaces'
     self.script = self.root / 'scripts/ci/check-credentials.sh'

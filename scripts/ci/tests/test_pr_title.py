@@ -16,7 +16,7 @@ WORKFLOW = ROOT / '.github/workflows/pr-title.yml'
 
 class PrTitleTests(unittest.TestCase):
   def setUp(self):
-    self.workspace = tempfile.TemporaryDirectory(prefix='base-pr-title-')
+    self.workspace = tempfile.TemporaryDirectory(prefix='repository-pr-title-')
     self.addCleanup(self.workspace.cleanup)
     self.root = Path(self.workspace.name)
     source = WORKFLOW.read_text()

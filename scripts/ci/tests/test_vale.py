@@ -16,7 +16,7 @@ RULES = ROOT / '.github/styles/Google'
 
 class ValeTests(unittest.TestCase):
   def setUp(self):
-    self.workspace = tempfile.TemporaryDirectory(prefix='base-vale-')
+    self.workspace = tempfile.TemporaryDirectory(prefix='repository-vale-')
     self.addCleanup(self.workspace.cleanup)
     self.root = Path(self.workspace.name).resolve() / 'project with spaces'
     self.script = self.root / 'scripts/ci/check-prose.sh'
@@ -95,9 +95,9 @@ exit 6
     shutil.rmtree(self.rules)
     shutil.copytree(RULES, self.rules)
     shutil.copy2(ROOT / '.vale.ini', self.root / '.vale.ini')
-    vocab = self.root / '.github/styles/config/vocabularies/Base'
+    vocab = self.root / '.github/styles/config/vocabularies/Project'
     vocab.mkdir(parents=True)
-    shutil.copy2(ROOT / '.github/styles/config/vocabularies/Base/accept.txt', vocab / 'accept.txt')
+    shutil.copy2(ROOT / '.github/styles/config/vocabularies/Project/accept.txt', vocab / 'accept.txt')
     for name in ['README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'AGENTS.md',
                  'scripts/README.md', '.githooks/README.md', 'docs/README.md']:
       path = self.root / name

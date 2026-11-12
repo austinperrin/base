@@ -2,8 +2,8 @@
 
 [Docs](../README.md) > [Roadmap](README.md) > Milestone 0
 
-* **Status**: In progress
-* **Owner**: Pending assignment; link to the contributors document once introduced.
+* **Status**: Completed
+* **Owner**: Pending assignment; see [Contributing](../../CONTRIBUTING.md).
 * **Scope**: Establish the repository foundation and its standards, documentation,
   decisions, tooling, and enforcement.
 
@@ -13,13 +13,14 @@ and plan subsequent project work from Milestone 1.
 
 ## Current Position
 
-Phases 0–8 are Completed. Phase 6 live controls and available workflow cases are
+Phases 0–9 are Completed. Phase 6 live controls and available workflow cases are
 verified, with maintainer-approved follow-ups recorded in the
 [verification record](../architecture/phase-6-verification.md#accepted-follow-ups).
 Phase 7 implementation PRs #10–#13 are merged and the assembled checkout is
 verified. Phase 8 implementation PRs #15–#19 are merged; its project setup path
-passed the local checks recorded below. Phase 9 is Pending final assembled-repository
-verification.
+passed the local checks recorded below. PRs #20 and #21 completed the Phase 8
+status update and the Phase 9 test-fixture correction. The assembled foundation
+and a representative initialized project passed the Phase 9 checks recorded below.
 
 [ADR-0001](../adr/0001-adopt-google-documentation-style.md) accepts Google
 Developer Documentation Style.
@@ -89,7 +90,7 @@ deliverables; future paths are not links to implemented content.
 | **6. Add automated enforcement** | Completed | Implement checks for approved standards, add their regression coverage, then connect them to CI. Document actual enforcement and required GitHub settings, including a repository settings checklist for review requirements, required status checks, merge behavior, and force-push protections. | `scripts/ci/`, regression tests, `.github/workflows/`, `.github/dependabot.yml`, `.vale.ini`, vocabulary, CI architecture documentation, and an ADR for the quality-checking approach. |
 | **7. Add repository maintenance procedures** | Completed | Define release verification, dependency maintenance, credential-exposure response, and an issue triage procedure based on the Phase 3 conventions. Introduce release notes categories and `.github/release.yml` alongside the release process. Introduce operational scripts and associated tests together. | `docs/runbooks/`, `scripts/ops/`, associated tests, and corresponding architecture updates. |
 | **8. Complete project setup and extension guidance** | Completed | Establish a concise root entry point and task-oriented runbooks for repository initialization and GitHub configuration. Audit and reduce repeated identity, contact, and URL customization. Keep reusable standards and procedures project-neutral, preserve attribution and historical authorship, and distinguish source verification evidence from verification of a new repository. Link to existing standards and ADRs for explanations and deferred choices. Introduce extension or troubleshooting material only for concrete tasks; reconsider the reference guides and application tutorial instead of adopting their structure automatically. | Repository-initialization and GitHub-settings runbooks, updated navigation and root README, scoped portability changes, and the preview-based one-time initialization helper. |
-| **9. Verify the assembled repository** | Pending | Check a clean checkout and a representative initialized project, confirm navigation and automation, and prepare the remaining changes for review and merge. | The resulting committed repository, not the surrounding drafts. Verify the full foundation and its project-initialization path. |
+| **9. Verify the assembled repository** | Completed | Check a clean checkout and a representative initialized project, confirm navigation and automation, and prepare the remaining changes for review and merge. | The resulting committed repository, not the surrounding drafts. Verify the full foundation and its project-initialization path. |
 
 ### Phase Boundaries
 
@@ -102,12 +103,12 @@ deliverables; future paths are not links to implemented content.
 - Application setup and extension guidance belong to Phase 8. The reference
   application tutorial remains subject to review rather than automatic adoption.
 
-## Next Review Group
+## Next Milestone
 
-Begin Phase 9 by verifying the assembled foundation from a clean checkout and a
-representative initialized project. Confirm navigation, the complete local suite,
-hosted automation, and the project setup path against the committed files. Record
-observed results and any cases that still require a live project or maintainer action.
+Use the [roadmap index](README.md#continuing-with-milestone-1) to plan Milestone 1
+for the project's next goal. Keep Proposed ADR outcomes open until the project has
+requirements and a decision maker. Retain the Phase 6 accepted follow-ups as
+maintainer-owned verification work when their events or contributors become available.
 
 ### Phase 8 Review Groups
 
@@ -130,10 +131,11 @@ observed results and any cases that still require a live project or maintainer a
    when there is a concrete recurring task; do not add an application tutorial by
    default.
 5. **Initialization cleanup**: Provide a one-time helper for the source-only
-   material identified by the audit. Preview the exact removals and navigation
-   updates by default; require an explicit apply action. Check the repository
-   root, refuse unexpected or modified removal candidates, and validate the
-   resulting links before completing the operation. Do not select files through
+   material identified by the audit. Preview the Milestone 0 replacement, exact
+   removals, and navigation updates by default; require an explicit apply action.
+   Check the repository root, refuse unexpected or modified removal candidates,
+   and validate the resulting links before completing the operation. Do not select
+   files through
    broad name patterns or a search for the word `template`. Keep authoring
    templates, reusable policies, maintenance tooling, and project work intact.
 
@@ -141,14 +143,16 @@ The intended outcome is a repository that reads as the project's own after the
 initialization runbook, README customization, and reviewed cleanup. Active project
 identity and contacts must not require a recurring search through all standards
 and runbooks. The audit determines which source-specific verification records
-and one-time setup instructions can be removed or replaced, and which foundation
-history should remain. Preserve the Milestone 0 foundation record without claiming
-that the source repository's verification proves the new repository's settings.
+and one-time setup instructions can be removed or replaced. Replace the
+source-specific Milestone 0 history with a concise record of the project's own
+starting practices. The source repository's verification does not prove the new
+repository's settings.
 
 The cleanup helper and its explicit removal list are implemented. It previews
-changes by default and removes source-only files only after an explicit apply
-action and safety checks. Existing architecture references own implementation
-explanations; runbooks own execution steps without duplicating requirements.
+changes by default. It replaces Milestone 0 and removes source-only files only
+after an explicit apply action and safety checks. Existing architecture references
+own implementation explanations; runbooks own execution steps without duplicating
+requirements.
 
 ### Phase 8 Verification
 
@@ -202,13 +206,37 @@ in every repository.
   or release; categories without representative merged PRs remain locally verified.
 - **Final live release readiness**: On 2026-11-10, the helper passed on clean
   merged `main` at `7adbb0d`, including all 96 local tests and the exact-commit
-  [push CI run](https://github.com/austinperrin/base/actions/runs/42828334015).
+  [push CI run](https://github.com/austinperrin/scaffolding/actions/runs/42828334015).
   The candidate `phase-7-readiness-check` was not created as a tag or release.
   ADR-0004 remains Proposed; readiness did not select a versioning scheme.
 - **Integration**: PRs #10–#13 are merged. The clean assembled Phase 7 checkout,
   its hosted CI, live readiness helper, and generated-note configuration are
   verified. Phase 7 was Completed; Phase 8 was Pending for scope review at that
   checkpoint.
+
+## Phase 9 Verification
+
+- **Merged foundation**: PRs #20 and #21 are merged. On 2026-11-10, the clean
+  `main` checkout at `d02ab47` passed the local repository suite: 28 developer
+  tests, 63 CI tests, and 13 operational tests. Five real-tool integration cases
+  skipped locally because their pinned external tools were not installed.
+- **Hosted automation**: The merged tree at `d02ab47` matches the tree of PR #21's
+  tested head commit. Its [hosted run](https://github.com/austinperrin/scaffolding/actions/runs/42947659844)
+  passed the Linux, macOS, and external-check jobs. The Phase 6
+  [verification record](../architecture/phase-6-verification.md) retains the live
+  repository settings and remaining unobserved cases.
+- **Project initialization**: A fresh one-commit project repository made from
+  `d02ab47` passed the configure and cleanup preview and apply paths. The check
+  replaced the README and owner mappings, updated repository links and reporting
+  contacts, enabled the local commit hook, and removed the four source-only files.
+  The resulting project copy passed the full local suite, link, documentation,
+  secret, repository, and whitespace checks. Its Milestone 0 record and reusable
+  policies, ADRs, runbooks, and authoring templates remained available.
+- **Navigation and limits**: The root README's paths to project setup, GitHub
+  configuration, standards, maintenance, decisions, and the roadmap were reviewed;
+  source and project-copy link and documentation checks passed. The project copy
+  was local, so it did not establish live settings or hosted runs for a newly
+  created GitHub repository. Those must be verified when a project is created.
 
 ## Review and Commit Process
 
@@ -227,9 +255,9 @@ them rather than repeating their instructions here.
 
 ## Milestone Completion
 
-Mark Milestone 0 Completed once its required phases have been reviewed, verified,
-and merged into the repository's `main` branch. Proposed project decisions can
-remain open; completing a comparison does not select its outcome.
+Milestone 0 is Completed after its required phases were reviewed, verified, and
+merged into the repository's `main` branch. Proposed project decisions remain
+open; completing a comparison does not select its outcome.
 
 The completed milestone records the foundation for subsequent project work.
 Use the [roadmap index](README.md#continuing-with-milestone-1) to add the next

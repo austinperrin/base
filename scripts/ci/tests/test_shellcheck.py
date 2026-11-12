@@ -15,7 +15,7 @@ BASH = shutil.which('bash')
 
 class ShellCheckTests(unittest.TestCase):
   def setUp(self):
-    self.workspace = tempfile.TemporaryDirectory(prefix='base-shellcheck-')
+    self.workspace = tempfile.TemporaryDirectory(prefix='repository-shellcheck-')
     self.addCleanup(self.workspace.cleanup)
     self.root = Path(self.workspace.name) / 'project with spaces'
     self.script = self.root / 'scripts/ci/check-shell.sh'

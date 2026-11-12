@@ -75,7 +75,7 @@ and review available activity records for unresolved misuse. Record any access
 or visibility limitations explicitly.
 
 For a repository exposure, use the
-[credential-check reference](../architecture/ci-cd.md#gitleaks) to prepare the pinned
+[credential-check reference](../architecture/external-checks.md#gitleaks) to prepare the pinned
 scanner and complete current-branch history, then run:
 
 ```bash
@@ -106,5 +106,5 @@ remaining risks. A successful scanner run does not by itself close the incident.
 
 - [Security policy](../../SECURITY.md) - Immediate handling and private reporting.
 - [ADR-0002: Secret Management](../adr/0002-secret-management.md) - Pending storage and delivery decision.
-- [Repository checks and CI](../architecture/ci-cd.md#gitleaks) - Scanner scope and limitations.
+- [External checks and installation](../architecture/external-checks.md#gitleaks) - Scanner scope and limitations.
 - [Repository ownership](../standards/ownership.md) - Maintainer responsibilities.

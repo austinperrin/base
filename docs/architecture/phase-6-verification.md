@@ -64,6 +64,6 @@ same-repository PR does not establish fork behavior.
 ## Related Documents
 
 - [Repository settings and verification](repository-settings.md) - Canonical setup checklist.
-- [Repository checks and CI](ci-cd.md) - Workflow behavior and detection limits.
+- [CI workflows and enforcement](ci-cd.md) - Hosted workflow behavior and enforcement status.
 - [Git workflow](../standards/git-workflow.md) - Review and merge requirements.
 - [Security policy](../../SECURITY.md) - Reporting channels.

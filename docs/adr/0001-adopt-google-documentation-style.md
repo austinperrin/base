@@ -70,8 +70,9 @@ Review documentation changes against that standard and the linked Google guide.
 
 The [Vale implementation reference](../architecture/external-checks.md#vale) documents local
 configuration, selected versions, blocking severity, and verification. The
-[Phase 6 verification record](../architecture/phase-6-verification.md) documents a
-successful hosted external-check run with the pinned tools.
+hosted external-check job installs the pinned Vale engine and Google rules;
+verify its result in each repository.
+
 Vale cannot guarantee full compliance with Google's guide; editorial review is
 still required for guidance that cannot be checked mechanically.
 

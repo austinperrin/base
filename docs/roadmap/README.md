@@ -22,8 +22,9 @@ use `Not recorded` when a historical value was never recorded.
 
 ### Status and Variance Legend
 
-Use the same status text in this schedule and the milestone page. Inline color
-helps in renderers that support it; the text remains readable without styling.
+Use the same status text in this schedule and any milestone or phase progress
+notes. Inline color helps in renderers that support it; the text remains
+readable without styling.
 
 | Status | Meaning |
 | --- | --- |
@@ -71,6 +72,16 @@ dependencies, and phases, then register its rows in the schedule. Check the
 [ADR index](../adr/README.md) for decisions the work depends on; a Proposed ADR
 does not establish its outcome.
 
+For a milestone with multiple phases, create `milestone-N-short-name/`. Use its
+`README.md` for the milestone outcome, dependencies, phase index, and final
+review. Put each phase plan in a separate `phase-N-short-name.md` in that
+directory, starting from the [phase planning template](phase-template.md).
+Link the milestone row to its `README.md` and each phase row to its phase page.
+Keep owners, estimates, dates, variance, and status in this schedule; milestone
+and phase pages link here for those values. A short milestone with one phase can
+remain a single file. Keep the completed
+[Milestone 0 record](milestone-0-repository-scaffolding.md) at its existing path.
+
 Review active milestones at least weekly. Update the schedule when ownership,
 dates, variance, or status changes. Record progress, blockers, scope changes,
 schedule changes, and completion evidence in the milestone page. When a target
@@ -78,14 +89,14 @@ changes, record the old and new dates and the reason there. Do not assign a
 variance that requires a planned end date when none exists.
 
 Keep detailed requirements in their canonical standards and decisions. Link to
-them from the milestone instead of copying their rules. Split a phase into its
-own page only when it has a separate reader task or maintenance cycle, and
-register that page here. Follow the
+them from the milestone instead of copying their rules. Keep each phase page
+focused on its own work, review, and exit criteria. Follow the
 [documentation standard](../standards/documentation.md) for navigation and page
 scope.
 
 ## Related Documents
 
 - [Milestone planning template](milestone-template.md) - Reusable outcome, phase, and evidence structure.
+- [Phase planning template](phase-template.md) - Focused work, review, and exit criteria for one phase.
 - [Documentation hub](../README.md) - Repository documentation categories.
 - [Architecture Decision Records (ADRs) index](../adr/README.md) - Decisions that inform milestone work.

@@ -2,19 +2,22 @@
 
 [Docs](../README.md) > [Roadmap](README.md) > Milestone Planning Template
 
-Copy this page for each new milestone. Replace the title, breadcrumb, prompts,
-and related links with project-specific information, remove unused example
-phases, and register the new file in the
-[roadmap schedule](README.md#schedule). Keep the page brief enough that the
-owner and next delivery step are easy to find.
+For a milestone with multiple phases, copy this page to
+`milestone-N-short-name/README.md`. Replace the title, breadcrumb, prompts, and
+relative links for its new location. Copy the
+[phase planning template](phase-template.md) once per phase into that directory,
+then register the milestone and phase pages in the
+[roadmap schedule](README.md#schedule). Keep this page focused on the milestone;
+put phase work and evidence in the phase files. For a short, single-phase
+milestone, this page can remain one file with its phase plan included.
+For that case, replace the phase index with the phase template's goal, work,
+review, exit, and evidence sections.
 
 ## Milestone Summary
 
 - **Outcome:** State what will be true when this milestone is complete.
-- **Owner:** Name the person or team accountable for scope and progress.
-- **Status:** Use a [roadmap status](README.md#status-and-variance-legend), starting with <span style="color: #6b7280;">Planned</span>.
-- **Schedule:** Keep estimates, planned and actual dates, variance, and phase
-  status in the [roadmap grid](README.md#schedule).
+- **Owner and schedule:** Record the accountable owner, estimates, dates, variance,
+  and status in the [roadmap schedule](README.md#schedule).
 - **Last review:** Record the date of the latest progress and schedule review.
 - **Dependencies:** Link preceding milestones, required decisions, and external blockers.
 - **Scope:** State the deliverables; link to canonical standards for their rules.
@@ -26,31 +29,15 @@ owner and next delivery step are easy to find.
 - [ ] Phase owners and reviewable work are identified in the roadmap grid.
 - [ ] Verification and exit criteria are defined before work starts.
 
-## Delivery Plan
+## Phase Index
 
-Add a section for each phase and link its heading from the roadmap grid. Keep
-work items small enough for focused pull requests. Link issues or pull requests
-when they exist; avoid prescribing branch names before the work is scoped.
+List and summarize every phase file in this directory. Replace the example row
+with a relative link to each phase page after copying its template. The
+[roadmap schedule](README.md#schedule) owns phase status and timing.
 
-### Phase 1: Name the First Phase
-
-**Goal:** State the result this phase must deliver.
-
-**Prerequisites:** Link decisions or earlier deliverables needed to start.
-
-**Development checklist**
-
-- [ ] Describe the first reviewable change and link its issue or PR when available.
-- [ ] Add other changes required for the phase outcome.
-
-**Review checklist**
-
-- [ ] Run the applicable checks and review the result.
-- [ ] Confirm documentation and decisions match the delivered work.
-
-**Exit criteria**
-
-- [ ] Describe the observable result required to mark this phase complete.
+| Phase | Outcome |
+| :--- | :--- |
+| Phase 1: Name the first phase | State its observable result; link this title to its phase page after creating it. |
 
 ## Progress and Changes
 
@@ -65,7 +52,7 @@ requests. Clear a blocker only after its dependency is resolved.
 - [ ] The reviewed PRs are merged and applicable checks passed.
 - [ ] Standards, ADRs, and documentation reflect the delivered behavior.
 - [ ] Accepted follow-ups have an owner and a tracking destination.
-- [ ] The [roadmap grid](README.md#schedule) records final dates, variance,
+- [ ] The [roadmap schedule](README.md#schedule) records final dates, variance,
   and status.
 
 Link the reviewed PRs, check runs, decisions, or other evidence here. Identify
@@ -74,5 +61,6 @@ the next milestone or project outcome after completion.
 ## Related Documents
 
 - [Roadmap index](README.md) - Milestone status and planning rules.
+- [Phase planning template](phase-template.md) - Work and exit criteria for each phase.
 - [Documentation standards](../standards/documentation.md) - Page ownership and navigation.
 - [Architecture Decision Records (ADRs) index](../adr/README.md) - Required project decisions.

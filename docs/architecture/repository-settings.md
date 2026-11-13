@@ -40,7 +40,7 @@ and verification appropriate to that provider.
   history, redacted output, and the expected checkout commit. Check schedule activation.
 
 Workflow behavior, commands, and limitations belong to the
-[checks reference](ci-cd.md). Local validation alone does not satisfy these items.
+[CI workflows reference](ci-cd.md). Local validation alone does not satisfy these items.
 
 ## Required Pull Request Checks
 
@@ -115,6 +115,6 @@ checklist. Verify the workflows and rules in the target repository.
 ## Related Documents
 
 - [Configure GitHub repository settings](../runbooks/configure-github.md) - Setup sequence and live verification.
-- [Repository checks and CI](ci-cd.md) - Implemented jobs and their limits.
+- [CI workflows and enforcement](ci-cd.md) - Implemented jobs and their limits.
 - [Git workflow](../standards/git-workflow.md) - Contribution and merge policy.
 - [Ownership](../standards/ownership.md) - Maintainer and review-owner responsibilities.

@@ -110,11 +110,14 @@ actionlint; it reports when there are no workflows to validate. The separate
 [prose check](ci/check-prose.sh) applies pinned Vale and Google rules after style
 installation. The separate [credential content check](ci/check-credentials.sh)
 scans current-branch history and staged changes with redacted Gitleaks output.
-Use the [repository checks and CI reference](../docs/architecture/ci-cd.md) for their
-commands, prerequisites, regression tests, supported syntax, and the core CI
-workflow and external-check job. The [tool installer](ci/install-tools.py) prepares
-pinned Linux executables and style rules; see the checks reference for its write
-boundaries and usage. Use the
+The [local checks reference](../docs/architecture/repository-checks.md) describes
+suite commands, supported syntax, and limits. The
+[external checks reference](../docs/architecture/external-checks.md) covers pinned
+tools and their tests. The [CI workflows reference](../docs/architecture/ci-cd.md)
+covers hosted jobs. The [tool installer](ci/install-tools.py) prepares pinned Linux
+executables and style rules; see the
+[verified installation reference](../docs/architecture/external-checks.md#verified-tool-installation)
+for its write boundaries and usage. Use the
 [repository settings checklist](../docs/architecture/repository-settings.md) to
 verify live CI and required checks in each repository.
 

@@ -135,7 +135,7 @@ They do not guarantee full compliance with the guide, technical accuracy, or use
 explanations. Human review remains necessary. Documentation structure and link
 integrity are separate concerns, described below.
 
-The [Vale implementation reference](../architecture/ci-cd.md#vale) owns setup,
+The [Vale implementation reference](../architecture/external-checks.md#vale) owns setup,
 commands, pinned engine and rule versions, vocabulary, scope, and blocking
 severity. Configuration lives in [`.vale.ini`](../../.vale.ini). Enabled errors
 block the local check; warnings and suggestions support editorial review.
@@ -147,7 +147,7 @@ implemented and verified.
 ## Automated Structure Checks
 
 **Status: Local checks and core CI implemented.** The
-[repository checks and CI reference](../architecture/ci-cd.md) documents commands,
+[local repository checks reference](../architecture/repository-checks.md) documents commands,
 coverage, and parsing limits for heading structure, fenced blocks, registration,
 navigation, and local link integrity.
 

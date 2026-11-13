@@ -16,7 +16,7 @@ Assign a maintainer under the [ownership standard](../standards/ownership.md).
 Use a clean checkout and a topic branch for manual updates; review automated
 updates on their proposed branch. Confirm access to upstream release information
 and the repository's checks. Local reproduction requires the prerequisites in
-the [CI reference](../architecture/ci-cd.md#commands-and-prerequisites).
+the [local checks reference](../architecture/repository-checks.md#commands-and-prerequisites).
 
 ## Procedure
 
@@ -52,7 +52,7 @@ components.
 5. For a downloaded tool or rule package, review the upstream artifacts and
    integrity information. Update the related manifest entries, wrapper
    requirements, fixtures, and documented versions together. Use the
-   [verified installation reference](../architecture/ci-cd.md#verified-tool-installation)
+   [verified installation reference](../architecture/external-checks.md#verified-tool-installation)
    to prepare the candidate dependencies outside tracked source paths. Investigate
    a checksum mismatch before proceeding; replacing a reviewed hash merely to
    accept an unexpected download does not verify its source.
@@ -63,7 +63,7 @@ components.
 ### Verify and Review
 
 7. Install the candidate pinned versions and prepare the rule package as described
-   in the CI reference. Run the local suite and each affected external check:
+   in the local checks reference. Run the local suite and each affected external check:
 
    ```bash
    ./scripts/ci/test.sh
@@ -107,6 +107,6 @@ update.
 ## Related Documents
 
 - [Dependency management](../standards/dependencies.md) - Evaluation and update policy.
-- [Repository checks and CI](../architecture/ci-cd.md) - Installation, checks, and coverage limits.
+- [External checks and installation](../architecture/external-checks.md) - Tool installation and coverage limits.
 - [Git workflow](../standards/git-workflow.md) - Review and merge requirements.
 - [Security policy](../../SECURITY.md) - Private reporting and credential exposure.

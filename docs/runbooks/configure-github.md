@@ -115,6 +115,6 @@ security scanner to make a PR mergeable.
 ## Related Documents
 
 - [Repository settings checklist](../architecture/repository-settings.md) - Required controls and evidence.
-- [Repository checks and CI](../architecture/ci-cd.md) - Workflow behavior and limitations.
+- [CI workflows and enforcement](../architecture/ci-cd.md) - Workflow behavior and limitations.
 - [Git workflow](../standards/git-workflow.md) - Branch, PR, and merge policy.
 - [Initialize a project repository](initialize-repository.md) - Identity and reporting-contact setup.

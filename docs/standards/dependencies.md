@@ -126,7 +126,7 @@ when extending its supported ecosystems.
 This configuration does not update the custom tool archive manifest, wrapper
 version requirements, or Vale package URL. Maintainers must review those upstream
 releases and update their related pins, configuration, and regression evidence
-together using the [verified installation reference](../architecture/ci-cd.md#verified-tool-installation).
+together using the [verified installation reference](../architecture/external-checks.md#verified-tool-installation).
 It also does not establish automated vulnerability coverage for every dependency;
 review feature availability and the project's actual ecosystems before making
 that claim. Add application package ecosystems when their manifests are introduced.

@@ -68,9 +68,11 @@ substantially, or if maintaining exceptions becomes more work than another basel
 The editorial guidance is defined in the [documentation standard](../standards/documentation.md).
 Review documentation changes against that standard and the linked Google guide.
 
-The [Vale implementation reference](../architecture/ci-cd.md#vale) documents local
-configuration, selected versions, blocking severity, and verification. A CI job is defined; live
-verification remains pending.
+The [Vale implementation reference](../architecture/external-checks.md#vale) documents local
+configuration, selected versions, blocking severity, and verification. The
+hosted external-check job installs the pinned Vale engine and Google rules;
+verify its result in each repository.
+
 Vale cannot guarantee full compliance with Google's guide; editorial review is
 still required for guidance that cannot be checked mechanically.
 

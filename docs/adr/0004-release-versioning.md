@@ -103,5 +103,5 @@ syntactically valid tag. Once the project decides:
 
 - [Architecture Decision Records (ADRs) index](README.md) - Decision log and statuses.
 - [Release process](../runbooks/release-process.md) - Release verification and publication.
-- [Repository checks and CI](../architecture/ci-cd.md#release-verification) - Helper behavior and limits.
+- [CI workflows and enforcement](../architecture/ci-cd.md#release-verification) - Helper behavior and limits.
 - [Git workflow](../standards/git-workflow.md) - Commit and review conventions.

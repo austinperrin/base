@@ -131,7 +131,7 @@ Follow the [external platform guidance](README.md#external-platform-guidance)
 when introducing platform configuration or repository settings.
 
 The [script reference](../../scripts/README.md) explains local commit-hook
-activation. The [repository checks reference](../architecture/ci-cd.md) describes
+activation. The [CI workflows reference](../architecture/ci-cd.md) describes
 implemented validation and its limits. Use the
 [repository settings checklist](../architecture/repository-settings.md) to enable
 and verify required checks, review rules, and merge controls for the target

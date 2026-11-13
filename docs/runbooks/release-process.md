@@ -124,7 +124,7 @@ reports and credential exposure; do not put sensitive incident details in notes.
 
 ## Related Documents
 
-- [Repository checks and CI](../architecture/ci-cd.md#release-verification) - Release gates and limitations.
+- [CI workflows and enforcement](../architecture/ci-cd.md#release-verification) - Release gates and limitations.
 - [Git workflow](../standards/git-workflow.md) - Change review and merge conventions.
 - [Dependency maintenance](dependency-maintenance.md) - Reviewing dependency changes.
 - [Security policy](../../SECURITY.md) - Reporting and supported-version policy.

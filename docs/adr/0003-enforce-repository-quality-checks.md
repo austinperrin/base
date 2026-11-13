@@ -82,9 +82,9 @@ leaves repository-specific rules dependent on manual review.
 
 ## 6. Implementation and Verification
 
-Implementation is tracked in the [repository checks and CI reference](../architecture/ci-cd.md).
+Implementation is tracked in the [architecture index](../architecture/README.md).
 Introduce each group with regression coverage and document its exact behavior and
-commands there; decision approval does not establish enforcement.
+commands in the owning reference; decision approval does not establish enforcement.
 
 | Group | Required evidence before claiming enforcement |
 | :--- | :--- |
@@ -96,7 +96,7 @@ commands there; decision approval does not establish enforcement.
 
 Follow the [dependency standard](../standards/dependencies.md) when selecting tools
 and actions. Keep implementation status in the [roadmap](../roadmap/README.md) and
-[architecture reference](../architecture/ci-cd.md) rather than in this decision
+[CI workflows reference](../architecture/ci-cd.md) rather than in this decision
 record.
 
 ## Related Documents

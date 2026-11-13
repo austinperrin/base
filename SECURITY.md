@@ -70,7 +70,7 @@ The project's storage and delivery decision is recorded in
 [ADR-0002: Secret Management](docs/adr/0002-secret-management.md).
 Follow the [credential-exposure procedure](docs/runbooks/secret-rotation.md) for
 containment, replacement access, cleanup assessment, and verification.
-The [repository checks reference](docs/architecture/ci-cd.md#gitleaks) documents
+The [Gitleaks reference](docs/architecture/external-checks.md#gitleaks) documents
 credential detection and its limits. Use the
 [roadmap](docs/roadmap/README.md) for implementation and verification progress.
 
